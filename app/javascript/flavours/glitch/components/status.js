@@ -581,7 +581,10 @@ class Status extends ImmutablePureComponent {
     //  backgrounds for collapsed statuses are enabled.
 
     attachments = status.get('media_attachments');
-
+    if (status.get('poll')) {
+      media.push(<PollContainer pollId={status.get('poll')} />);
+      mediaIcons.push('tasks');
+    }
     if (usingPiP) {
       media.push(<PictureInPicturePlaceholder width={this.props.cachedMediaWidth} />);
       mediaIcons.push('video-camera');
@@ -679,11 +682,6 @@ class Status extends ImmutablePureComponent {
         />,
       );
       mediaIcons.push('link');
-    }
-
-    if (status.get('poll')) {
-      media.push(<PollContainer pollId={status.get('poll')} />);
-      mediaIcons.push('tasks');
     }
 
     //  Here we prepare extra data-* attributes for CSS selectors.
