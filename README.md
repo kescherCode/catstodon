@@ -15,5 +15,6 @@ This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.
   - public/browserconfig.xml
   - public/favicon.ico
   - public/mstile-150x150.png
+  
   You might want to revert these to the upstream files manually.
 - TODO: Make more differences
