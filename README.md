@@ -1,14 +1,19 @@
-#  Mastodon Glitch Edition  #
+# Mastodon catcatnya~ edition
 
->   Now with automated deploys!
+## Introduction
 
-[![Build Status](https://img.shields.io/circleci/project/github/glitch-soc/mastodon.svg)][circleci]
-[![Code Climate](https://img.shields.io/codeclimate/maintainability/glitch-soc/mastodon.svg)][code_climate]
+This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.com/glitch-soc/mastodon).
 
-[circleci]: https://circleci.com/gh/glitch-soc/mastodon
-[code_climate]: https://codeclimate.com/github/glitch-soc/mastodon
+- To install, take a look at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/). The instructions and features are the same, except for the differences outlined below.
+- Contributing guidelines are available [here](CONTRIBUTING.md).
 
-So here's the deal: we all work on this code, and anyone who uses that does so absolutely at their own risk. can you dig it?
+## Differences
 
-- You can view documentation for this project at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/).
-- And contributing guidelines are available [here](CONTRIBUTING.md) and [here](https://glitch-soc.github.io/docs/contributing/).
+- The favicon files are adjusted specifically for the catcatnya instance. Specifically, these:
+  - public/android-chrome-192x192.png
+  - public/apple-touch-icon.png
+  - public/browserconfig.xml
+  - public/favicon.ico
+  - public/mstile-150x150.png
+  You might want to revert these to the upstream files manually.
+- TODO: Make more differences
