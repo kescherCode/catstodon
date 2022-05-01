@@ -18,4 +18,4 @@ This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.
   - sounds/boop.mp3
   - sounds/boop.ogg
   
-  You might want to revert these to the upstream files manually.
+  You might want to revert these to the upstream files (or your own versions!) if you decide to use this fork for your own instance.
