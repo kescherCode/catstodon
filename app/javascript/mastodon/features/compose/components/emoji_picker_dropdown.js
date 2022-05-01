@@ -389,9 +389,10 @@ class EmojiPickerDropdown extends React.PureComponent {
         <div ref={this.setTargetRef} className='emoji-button' title={title} aria-label={title} aria-expanded={active} role='button' onClick={this.onToggle} onKeyDown={this.onToggle} tabIndex={0}>
           {button || <img
             className={classNames('emojione', { 'pulse-loading': active && loading })}
-            alt='🙂'
-            src={`${assetHost}/emoji/1f602.svg`}
+            alt='blobCat emoji'
+            src='https://catcatnya.com/custom_emojis/images/000/002/356/static/blobCat.png'
           />}
+          {/* TODO: Fetch :blobCat: From custom_emojis directly */}
         </div>
 
         <Overlay show={active} placement={placement} target={this.findTarget}>
