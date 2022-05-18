@@ -1,4 +1,4 @@
-#  Contributing to Mastodon catcatnya edition  #
+#  Contributing to Catstodon #
 
 Thank you for your interest in contributing to a fork of the `glitch-soc` project!
 Before you do anything here, please check if you can contribute to either the [vanilla Mastodon project](https://github.com/mastodon/mastodon) or [glitch-soc](https://github.com/glitch-soc/mastodon) first.
@@ -9,7 +9,7 @@ If you still decide to contribute here instead, here are some guidelines, and wa
 
 ##  Planning  ##
 
-Right now a lot of the planning for this project takes place... nowhere. Actually, just contact me via Matrix - contact info can be found on [my personal website](https://kescher.at).
+Right now a lot of the planning for this project takes place... in my head. Actually, just contact me via Matrix - contact info can be found on [my personal website](https://kescher.at). You can also contribute via GitHub or kescherGit, if you have an account at either.
 
 ##  Documentation  ##
 

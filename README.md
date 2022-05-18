@@ -1,4 +1,4 @@
-# Mastodon catcatnya~ edition
+# Catstodon
 
 ## Introduction
 
@@ -17,5 +17,5 @@ This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.
   - public/mstile-150x150.png
   - sounds/boop.mp3
   - sounds/boop.ogg
-  
-  You might want to revert these to the upstream files (or your own versions!) if you decide to use this fork for your own instance.
+    You might want to revert these to the upstream files (or your own versions!) if you decide to use this fork for your own instance.
+- The web frontend emoji picker is a blobcat instead of the joy emoji.
