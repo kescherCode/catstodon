@@ -59,9 +59,10 @@ class LinkFooter extends React.PureComponent {
         <p>
           <FormattedMessage
             id='getting_started.open_source_notice'
-            defaultMessage='Glitchsoc is open source software, a friendly fork of {Mastodon}. You can contribute or report issues on GitHub at {github}.'
+            defaultMessage='Catstodon is open source software, a friendly fork of {glitchsoc}, which in turn is a fork of {Mastodon}. You can contribute or report issues on GitHub at {github}.'
             values={{
               github: <span><a href={source_url} rel='noopener noreferrer' target='_blank'>{repository}</a> (v{version})</span>,
+              glitchsoc: <a href='https://github.com/glitch-soc/mastodon' rel='noopener noreferrer' target='_blank'>glitch-soc</a>,
               Mastodon: <a href='https://github.com/tootsuite/mastodon' rel='noopener noreferrer' target='_blank'>Mastodon</a> }}
           />
         </p>

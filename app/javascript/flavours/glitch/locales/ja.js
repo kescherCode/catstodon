@@ -1,7 +1,6 @@
 import inherited from 'mastodon/locales/ja.json';
 
 const messages = {
-  'getting_started.open_source_notice': 'Glitchsocは{Mastodon}によるフリーなオープンソースソフトウェアです。誰でもGitHub（{github}）から開発に參加したり、問題を報告したりできます。',
   'layout.auto': '自動',
   'layout.current_is': 'あなたの現在のレイアウト:',
   'layout.desktop': 'デスクトップ',
@@ -11,7 +10,6 @@ const messages = {
   'getting_started.onboarding': '解説を表示',
   'onboarding.page_one.federation': '{domain}はMastodonのインスタンスです。Mastodonとは、独立したサーバが連携して作るソーシャルネットワークです。これらのサーバーをインスタンスと呼びます。',
   'onboarding.page_one.welcome': '{domain}へようこそ！',
-  'onboarding.page_six.github': '{domain}はGlitchsocを使用しています。Glitchsocは{Mastodon}のフレンドリーな{fork}で、どんなMastodonアプリやインスタンスとも互換性があります。Glitchsocは完全に無料で、オープンソースです。{github}でバグ報告や機能要望あるいは貢獻をすることが可能です。',
   'settings.always_show_spoilers_field': '常にコンテンツワーニング設定を表示する(指定がない場合は通常投稿)',
   'settings.auto_collapse': '自動折りたたみ',
   'settings.auto_collapse_all': 'すべて',

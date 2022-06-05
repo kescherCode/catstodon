@@ -14,7 +14,7 @@ Right now a lot of the planning for this project takes place... in my head. Actu
 ##  Documentation  ##
 
 Unlike glitch-soc, which has [`glitch-soc/docs`](https://github.com/glitch-soc/docs) (online at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/)), this repo only documents things in a README. Sorry.
-Right now, we've mostly focused on the features that make this fork different from upstream, which, may I remind you, is already a fork, in some manner.
+Right now, we've mostly focused on the features that make this fork different from upstream, which, may I remind you, is already a fork.
 
 ##  Frontend Development  ##
 

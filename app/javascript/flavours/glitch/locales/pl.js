@@ -1,7 +1,6 @@
 import inherited from 'mastodon/locales/pl.json';
 
 const messages = {
-  'getting_started.open_source_notice': 'Glitchsoc jest wolnym i otwartoźródłowym forkiem oprogramowania {Mastodon}. Możesz współtworzyć projekt lub zgłaszać błędy na GitHubie pod adresem {github}.',
   'layout.auto': 'Automatyczny',
   'layout.current_is': 'Twój obecny układ to:',
   'layout.desktop': 'Desktopowy',
@@ -11,7 +10,6 @@ const messages = {
   'getting_started.onboarding': 'Rozejrzyj się',
   'onboarding.page_one.federation': '{domain} jest \'instancją\' Mastodona. Mastodon to sieć działających niezależnie serwerów tworzących jedną sieć społecznościową. Te serwery nazywane są instancjami.',
   'onboarding.page_one.welcome': 'Witamy na {domain}!',
-  'onboarding.page_six.github': '{domain} jest oparty na Glitchsoc. Glitchsoc jest {forkiem} {Mastodon}a kompatybilnym z każdym klientem i aplikacją Mastodona. Glitchsoc jest całkowicie wolnym i otwartoźródłowym oprogramowaniem. Możesz zgłaszać błędy i sugestie funkcji oraz współtworzyć projekt na {github}.',
   'settings.auto_collapse': 'Automatyczne zwijanie',
   'settings.auto_collapse_all': 'Wszystko',
   'settings.auto_collapse_lengthy': 'Długie wpisy',
