@@ -2,7 +2,7 @@
 # important settings can be changed from the admin interface.
 
 defaults: &defaults
-  site_title: 'Mastodon Glitch Edition'
+  site_title: 'Catstodon'
   site_short_description: ''
   site_description: ''
   site_extended_description: ''
