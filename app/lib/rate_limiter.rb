@@ -6,12 +6,12 @@ class RateLimiter
   FAMILIES = {
     follows: {
       limit: 400,
-      period: 24.hours.freeze,
+      period: 12.hours.freeze,
     }.freeze,
 
     statuses: {
       limit: 300,
-      period: 3.hours.freeze,
+      period: 1.hours.freeze,
     }.freeze,
 
     reports: {
