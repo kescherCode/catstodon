@@ -9,12 +9,7 @@ This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.
 
 ## Differences
 
-- Some files are adjusted specifically for the catcatnya instance. Specifically, these:
-  - public/android-chrome-192x192.png
-  - public/apple-touch-icon.png
-  - public/browserconfig.xml
-  - public/favicon.ico
-  - public/mstile-150x150.png
+- Some files are adjusted specifically for the CatCatNya~ instance. Specifically, these:
   - sounds/boop.mp3
   - sounds/boop.ogg
   
