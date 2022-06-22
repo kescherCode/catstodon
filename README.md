@@ -15,3 +15,4 @@ This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.
   
   You might want to revert these to the upstream files (or your own versions!) if you decide to use this fork for your own instance.
 - The web frontend emoji picker is a blobcat instead of the joy emoji.
+- Editing posts is enabled in the web frontend (thanks, meave [for the hint](https://toot.site/@meave/108515761669028663)).
