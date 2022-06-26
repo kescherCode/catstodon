@@ -3,7 +3,7 @@
 class Scheduler::IpCleanupScheduler
   include Sidekiq::Worker
 
-  IP_RETENTION_PERIOD = 1.year.freeze
+  IP_RETENTION_PERIOD = ENV.fetch('IP_RETENTION_PERIOD', 1.year).to_i.freeze
 
   sidekiq_options retry: 0
 

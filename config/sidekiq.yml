@@ -46,7 +46,7 @@
     class: Scheduler::UserCleanupScheduler
     queue: scheduler
   ip_cleanup_scheduler:
-    cron: '<%= Random.rand(0..59) %> <%= Random.rand(3..5) %> * * *'
+    every: '1h'
     class: Scheduler::IpCleanupScheduler
     queue: scheduler
   email_scheduler:
