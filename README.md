@@ -18,3 +18,5 @@ This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.
 - Editing posts is enabled in the web frontend (thanks, meave [for the hint](https://toot.site/@meave/108515761669028663)).
 - The period of retention of IP addresses was made configurable.
 - The period of retention of sessions was made configurable.
+- The rate limits for authenticated users have been relaxed a bit.
+- The API endpoint `/api/v1/custom_emojis` is no longer affected by AUTHORIZED_FETCH, allowing anyone to copy custom emojis.
