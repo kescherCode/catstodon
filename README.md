@@ -19,7 +19,8 @@ Contributing guidelines are available [here](CONTRIBUTING.md).
 - Allow higher resolution images. (4096x4096 instead of the previous limit of 1920x1080)
 
 ## Previous differences now merged into glitch-soc
-- Fixed incorrect upload size limit display when adding new a new custom emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763)) 
+- Fixed incorrect upload size limit display when adding new a new custom emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763))
+- Everything merged into vanilla Mastodon
 
 ## Previous differences now merged into vanilla Mastodon
-- The period of retention of IP addresses and sessions was made configurable. ([Pull request](https://github.com/mastodon/mastodon/pull/18757))  
+- The period of retention of IP addresses and sessions was made configurable. ([Pull request](https://github.com/mastodon/mastodon/pull/18757))
