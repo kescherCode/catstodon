@@ -17,6 +17,7 @@ Contributing guidelines are available [here](CONTRIBUTING.md).
 - The rate limits for authenticated users have been relaxed a bit.
 - The API endpoint `/api/v1/custom_emojis` is no longer affected by AUTHORIZED_FETCH, allowing anyone to copy custom emojis.
 - Allow higher resolution images. (4096x4096 instead of the previous limit of 1920x1080)
+- Allow posting polls with only one poll option (if `MIN_POLL_OPTIONS` is set to 1 on your instance).
 
 ## Previous differences now merged into glitch-soc
 - Fixed incorrect upload size limit display when adding new a new custom emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763))
