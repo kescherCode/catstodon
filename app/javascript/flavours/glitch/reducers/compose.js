@@ -126,7 +126,7 @@ const initialState = ImmutableMap({
 });
 
 const initialPoll = ImmutableMap({
-  options: ImmutableList(['', '']),
+  options: ImmutableList(['']),
   expires_in: 24 * 3600,
   multiple: false,
 });
