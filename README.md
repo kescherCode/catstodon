@@ -8,6 +8,10 @@ To install, take a look at [glitch-soc.github.io/docs/](https://glitch-soc.githu
 
 Contributing guidelines are available [here](CONTRIBUTING.md).
 
+Note: [CatCatNya~](https://catcatnya.com) runs on the `develop` branch.
+That branch may, at times, be force-pushed to (mostly for undoing cherry-picking of vanilla commits when upstream adopts them).
+I highly suggest only ever running the `main` branch in production!
+
 ## Differences
 - Some files are adjusted specifically for the CatCatNya~ instance. Specifically, these:
   - sounds/boop.mp3
