@@ -24,12 +24,16 @@ module Mastodon
       '+catstodon'
     end
 
+    def suffix_version
+      '+1.0.0'
+    end
+
     def to_a
       [major, minor, patch].compact
     end
 
     def to_s
-      [to_a.join('.'), flags, suffix].join
+      [to_a.join('.'), flags, suffix, suffix_version].join
     end
 
     def repository
