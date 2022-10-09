@@ -43,7 +43,7 @@ class LinkFooter extends React.PureComponent {
     e.stopPropagation();
 
     this.props.onLogout();
- 
+
     return false;
   }
 
@@ -69,7 +69,7 @@ class LinkFooter extends React.PureComponent {
             values={{
               github: <span><a href={source_url} rel='noopener noreferrer' target='_blank'>{repository}</a> (v{version})</span>,
               glitchsoc: <a href='https://github.com/glitch-soc/mastodon' rel='noopener noreferrer' target='_blank'>glitch-soc</a>,
-              Mastodon: <a href='https://github.com/tootsuite/mastodon' rel='noopener noreferrer' target='_blank'>Mastodon</a> }}
+              Mastodon: <a href='https://github.com/mastodon/mastodon' rel='noopener noreferrer' target='_blank'>Mastodon</a> }}
           />
         </p>
       </div>
