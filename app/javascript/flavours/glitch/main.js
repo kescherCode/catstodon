@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { setupBrowserNotifications } from 'flavours/glitch/actions/notifications';
 import Mastodon, { store } from 'flavours/glitch/containers/mastodon';
-import ready from 'flavours/glitch/util/ready';
+import ready from 'flavours/glitch/ready';
 
-const perf = require('flavours/glitch/util/performance');
+const perf = require('flavours/glitch/performance');
 
 /**
  * @returns {Promise<void>}
@@ -30,7 +30,7 @@ function main() {
     if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       const [{ Workbox }, { me }] = await Promise.all([
         import('workbox-window'),
-        import('mastodon/initial_state'),
+        import('flavours/glitch/initial_state'),
       ]);
 
       const wb = new Workbox('/sw.js');
