@@ -5,27 +5,27 @@ module Mastodon
     module_function
 
     def major
-      4
+      3
     end
 
     def minor
-      0
+      5
     end
 
     def patch
-      0
+      3
     end
 
     def flags
-      'rc1'
+      ''
     end
 
     def suffix
-      '+catstodon'
+      '+cat'
     end
 
     def suffix_version
-      '+1.0.9'
+      '+1.1.0'
     end
 
     def to_a
