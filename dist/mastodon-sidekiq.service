@@ -47,6 +47,11 @@ SystemCallFilter=~@cpu-emulation @debug @keyring @ipc @mount @obsolete @privileg
 SystemCallFilter=@chown
 SystemCallFilter=pipe
 SystemCallFilter=pipe2
+Nice=19
+CPUSchedulingPolicy=idle
+CPUSchedulingPriority=1
+IOSchedulingClass=idle
+IOSchedulingPriority=7
 ReadWritePaths=/home/mastodon/live
 
 [Install]
