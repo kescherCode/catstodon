@@ -18,7 +18,6 @@ I highly suggest only ever running the `main` branch in production!
   - sounds/boop.ogg
 <br>You might want to revert these to the upstream files (or your own versions!) if you decide to use this fork for your own instance.
 - The web frontend emoji picker is a blobcat instead of the joy emoji.
-- Editing posts is enabled in the web frontend (thanks, meave, [for the hint](https://toot.site/@meave/108515761669028663)).
 - The rate limits for authenticated users have been relaxed a bit.
 - The API endpoint `/api/v1/custom_emojis` is no longer affected by AUTHORIZED_FETCH, allowing anyone to copy custom emojis.
 - Allow higher resolution images. (4096x4096 instead of the previous limit of 1920x1080)
