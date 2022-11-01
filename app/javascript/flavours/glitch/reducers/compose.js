@@ -60,6 +60,7 @@ import { me, defaultContentType } from 'flavours/glitch/initial_state';
 import { overwrite } from 'flavours/glitch/utils/js_helpers';
 import { unescapeHTML } from 'flavours/glitch/utils/html';
 import { recoverHashtags } from 'flavours/glitch/utils/hashtag';
+import { pollLimits } from 'flavours/glitch/initial_state';
 
 const totalElefriends = 3;
 
@@ -127,7 +128,7 @@ const initialState = ImmutableMap({
 });
 
 const initialPoll = ImmutableMap({
-  options: ImmutableList(['']),
+  options: ImmutableList(new Array(pollLimits.min_options).fill('')),
   expires_in: 24 * 3600,
   multiple: false,
 });

@@ -7,6 +7,7 @@ import IconButton from 'mastodon/components/icon_button';
 import Icon from 'mastodon/components/icon';
 import AutosuggestInput from 'mastodon/components/autosuggest_input';
 import classNames from 'classnames';
+import { pollLimits } from 'mastodon/initial_state';
 
 const messages = defineMessages({
   option_placeholder: { id: 'compose_form.poll.option_placeholder', defaultMessage: 'Choice {number}' },
@@ -102,7 +103,7 @@ class Option extends React.PureComponent {
         </label>
 
         <div className='poll__cancel'>
-          <IconButton disabled={index < 1} title={intl.formatMessage(messages.remove_option)} icon='times' onClick={this.handleOptionRemove} />
+          <IconButton disabled={index < pollLimits.min_options} title={intl.formatMessage(messages.remove_option)} icon='times' onClick={this.handleOptionRemove} />
         </div>
       </li>
     );

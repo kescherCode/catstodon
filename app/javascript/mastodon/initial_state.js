@@ -129,4 +129,7 @@ export const version = getMeta('version');
 export const translationEnabled = getMeta('translation_enabled');
 export const languages = initialState?.languages;
 
+// CatCatNya~ specific setting for vanilla flavor
+export const pollLimits = (initialState && initialState.poll_limits);
+
 export default initialState;
