@@ -133,6 +133,6 @@ export const languages = initialState?.languages;
 export const maxChars = (initialState && initialState.max_toot_chars) || 500;
 
 // CatCatNya~ specific settings
-export const pollLimits = (initialState && initialState.poll_limits);
+export const pollMinOptions = (initialState && initialState.poll_limits && initialState.poll_limits.min_options) || 2;
 
 export default initialState;

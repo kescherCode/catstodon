@@ -95,7 +95,7 @@ const initialState = ImmutableMap({
 });
 
 const initialPoll = ImmutableMap({
-  options: ImmutableList(new Array(pollLimits.min_options).fill('')),
+  options: ImmutableList(new Array(pollMinOptions).fill('')),
   expires_in: 24 * 3600,
   multiple: false,
 });
