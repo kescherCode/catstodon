@@ -55,4 +55,8 @@ class Api::V1::Trends::StatusesController < Api::BaseController
   def records_continue?
     @statuses.size == limit_param(DEFAULT_STATUSES_LIMIT)
   end
+
+  def require_auth?
+    !Setting.timeline_preview
+  end
 end
