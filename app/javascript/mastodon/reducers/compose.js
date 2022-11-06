@@ -52,7 +52,7 @@ import { STORE_HYDRATE } from '../actions/store';
 import { REDRAFT } from '../actions/statuses';
 import { Map as ImmutableMap, List as ImmutableList, OrderedSet as ImmutableOrderedSet, fromJS } from 'immutable';
 import uuid from '../uuid';
-import { me, pollLimits } from '../initial_state';
+import { me, pollMinOptions } from '../initial_state';
 import { unescapeHTML } from '../utils/html';
 
 const initialState = ImmutableMap({

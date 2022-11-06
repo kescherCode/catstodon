@@ -7,7 +7,7 @@ import IconButton from 'mastodon/components/icon_button';
 import Icon from 'mastodon/components/icon';
 import AutosuggestInput from 'mastodon/components/autosuggest_input';
 import classNames from 'classnames';
-import { pollLimits } from 'mastodon/initial_state';
+import { pollMinOptions } from 'mastodon/initial_state';
 
 const messages = defineMessages({
   option_placeholder: { id: 'compose_form.poll.option_placeholder', defaultMessage: 'Choice {number}' },
