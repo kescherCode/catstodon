@@ -59,9 +59,9 @@ class NavigationPanel extends React.Component {
         )}
 
         {showTrends ? (
-          (signedIn || timelinePreview) ? <ColumnLink transparent to='/explore' icon='hashtag' text={intl.formatMessage(messages.explore)} /> : <></>
+          <ColumnLink transparent to={(signedIn || timelinePreview) ? '/explore' : '/explore/tags'} icon='hashtag' text={intl.formatMessage(messages.explore)} />
         ) : (
-          (signedIn || timelinePreview) ? <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} /> : <></>
+          <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} />
         )}
 
         {(signedIn || timelinePreview) && (
