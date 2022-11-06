@@ -35,7 +35,6 @@ const messages = defineMessages({
   follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
   lists: { id: 'navigation_bar.lists', defaultMessage: 'Lists' },
   keyboard_shortcuts: { id: 'navigation_bar.keyboard_shortcuts', defaultMessage: 'Keyboard shortcuts' },
-  lists: { id: 'navigation_bar.lists', defaultMessage: 'Lists' },
   lists_subheading: { id: 'column_subheading.lists', defaultMessage: 'Lists' },
   misc: { id: 'navigation_bar.misc', defaultMessage: 'Misc' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
