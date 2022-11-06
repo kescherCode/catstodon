@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Trends::StatusesController < Api::BaseController
-  before_action :require_user!, only: [:show], if: :require_auth?
+  before_action :require_user!, only: [:index], if: :require_auth?
   before_action :set_statuses
 
   after_action :insert_pagination_headers
