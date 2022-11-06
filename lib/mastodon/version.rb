@@ -37,7 +37,7 @@ module Mastodon
     end
 
     def repository
-      ENV.fetch('GITHUB_REPOSITORY', 'kescherCode/catstodon')
+      ENV.fetch('GITHUB_REPOSITORY', 'CatCatNya/catstodon')
     end
 
     def source_base_url
