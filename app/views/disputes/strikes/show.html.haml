@@ -59,7 +59,7 @@
                         = media_attachment.file_file_name
                 .strike-card__statuses-list__item__meta
                   %time.formatted{ datetime: status.created_at.iso8601, title: l(status.created_at) }= l(status.created_at)
-                  - if status.application != nil
+                  - unless status.application.nil?
                     ·
                     = status.application.name
               - else
