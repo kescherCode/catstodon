@@ -25,7 +25,7 @@ module Mastodon
     end
 
     def suffix_version
-      '+1.2.2'
+      '+1.2.3'
     end
 
     def to_a
