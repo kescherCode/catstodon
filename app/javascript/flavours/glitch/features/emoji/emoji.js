@@ -19,12 +19,9 @@ const emojiFilename = (filename) => {
   return borderedEmoji.includes(filename) ? (filename + '_border') : filename;
 };
 
-const domParser = new DOMParser();
-
 const emojifyTextNode = (node, customEmojis) => {
+  const parentElement = node.parentElement;
   let str = node.textContent;
-
-  const fragment = new DocumentFragment();
 
   for (;;) {
     let match, i = 0;
@@ -67,16 +64,12 @@ const emojifyTextNode = (node, customEmojis) => {
       }
     }
 
-    fragment.append(document.createTextNode(str.slice(0, i)));
-    if (replacement) {
-      fragment.append(domParser.parseFromString(replacement, 'text/html').documentElement.getElementsByTagName('img')[0]);
-    }
     node.textContent = str.slice(0, i);
+    parentElement.insertAdjacentHTML('beforeend', replacement);
     str = str.slice(rend);
+    node = document.createTextNode(str);
+    parentElement.append(node);
   }
-
-  fragment.append(document.createTextNode(str));
-  node.parentElement.replaceChild(fragment, node);
 };
 
 const emojifyNode = (node, customEmojis) => {
