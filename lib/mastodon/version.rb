@@ -13,7 +13,7 @@ module Mastodon
     end
 
     def patch
-      1
+      2
     end
 
     def flags
@@ -25,7 +25,7 @@ module Mastodon
     end
 
     def suffix_version
-      '+1.0.4'
+      '+1.0.0'
     end
 
     def to_a
