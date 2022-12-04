@@ -17,7 +17,7 @@ module Chewy
         RedisConfiguration.with do |redis|
           redis.pipelined do |pipeline|
             @stash.each do |type, ids|
-              pipeline.sadd("chewy:queue:#{type.name}", ids)
+              pipeline.sadd?("chewy:queue:#{type.name}", ids)
             end
           end
         end

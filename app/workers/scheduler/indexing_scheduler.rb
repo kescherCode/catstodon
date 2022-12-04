@@ -16,7 +16,7 @@ class Scheduler::IndexingScheduler
         type.import!(ids)
 
         redis.pipelined do |pipeline|
-          ids.each { |id| pipeline.srem("chewy:queue:#{type.name}", id) }
+          ids.each { |id| pipeline.srem?("chewy:queue:#{type.name}", id) }
         end
       end
     end

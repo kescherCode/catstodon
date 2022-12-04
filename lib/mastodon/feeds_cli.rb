@@ -54,8 +54,8 @@ module Mastodon
     def clear
       keys = redis.keys('feed:*')
 
-      redis.pipelined do
-        keys.each { |key| redis.del(key) }
+      redis.pipelined do |pipeline|
+        keys.each { |key| pipeline.del(key) }
       end
 
       say('OK', :green)

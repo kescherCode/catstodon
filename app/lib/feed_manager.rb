@@ -322,24 +322,24 @@ class FeedManager
   def clean_feeds!(type, ids)
     reblogged_id_sets = {}
 
-    redis.pipelined do
+    redis.pipelined do |pipeline|
       ids.each do |feed_id|
-        redis.del(key(type, feed_id))
+        pipeline.del(key(type, feed_id))
         reblog_key = key(type, feed_id, 'reblogs')
         # We collect a future for this: we don't block while getting
         # it, but we can iterate over it later.
-        reblogged_id_sets[feed_id] = redis.zrange(reblog_key, 0, -1)
-        redis.del(reblog_key)
+        reblogged_id_sets[feed_id] = pipeline.zrange(reblog_key, 0, -1)
+        pipeline.del(reblog_key)
       end
     end
 
     # Remove all of the reblog tracking keys we just removed the
     # references to.
-    redis.pipelined do
+    redis.pipelined do |pipeline|
       reblogged_id_sets.each do |feed_id, future|
         future.value.each do |reblogged_id|
           reblog_set_key = key(type, feed_id, "reblogs:#{reblogged_id}")
-          redis.del(reblog_set_key)
+          pipeline.del(reblog_set_key)
         end
       end
     end
@@ -519,7 +519,7 @@ class FeedManager
         # REBLOG_FALLOFF most recent statuses, so we note that this
         # is an "extra" reblog, by storing it in reblog_set_key.
         reblog_set_key = key(timeline_type, account_id, "reblogs:#{status.reblog_of_id}")
-        redis.sadd(reblog_set_key, status.id)
+        redis.sadd?(reblog_set_key, status.id)
         return false
       end
     else
@@ -556,7 +556,7 @@ class FeedManager
       # 2. Remove reblog from set of this status's reblogs.
       reblog_set_key = key(timeline_type, account_id, "reblogs:#{status.reblog_of_id}")
 
-      redis.srem(reblog_set_key, status.id)
+      redis.srem?(reblog_set_key, status.id)
       redis.zrem(reblog_key, status.reblog_of_id)
       # 3. Re-insert another reblog or original into the feed if one
       # remains in the set. We could pick a random element, but this

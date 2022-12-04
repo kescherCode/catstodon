@@ -42,6 +42,6 @@ class Vacuum::StatusesVacuum
   end
 
   def remove_from_search_index(status_ids)
-    with_redis { |redis| redis.sadd('chewy:queue:StatusesIndex', status_ids) }
+    with_redis { |redis| redis.sadd?('chewy:queue:StatusesIndex', status_ids) }
   end
 end

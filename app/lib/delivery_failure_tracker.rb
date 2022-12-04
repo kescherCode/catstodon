@@ -10,7 +10,7 @@ class DeliveryFailureTracker
   end
 
   def track_failure!
-    redis.sadd(exhausted_deliveries_key, today)
+    redis.sadd?(exhausted_deliveries_key, today)
     UnavailableDomain.create(domain: @host) if reached_failure_threshold?
   end
 

@@ -60,7 +60,7 @@ class Trends::Base
   end
 
   def record_used_id(id, at_time = Time.now.utc)
-    redis.sadd(used_key(at_time), id)
+    redis.sadd?(used_key(at_time), id)
     redis.expire(used_key(at_time), 1.day.seconds)
   end
 
