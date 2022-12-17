@@ -26,6 +26,7 @@ I highly suggest only ever running the `main` branch in production!
 - RSS feeds have titles again.
   - Account RSS feeds show the CW (if applicable).
   - Tag RSS feeds show the handle (username if local, username@domain if remote) and the CW (if applicable).
+- Emoji reactions on posts, developed by [https://git.bsd.gay/fef/nyastodon]. Currently pending [merge into glitch-soc](https://github.com/glitch-soc/mastodon/pull/1980).
 
 ## Previous differences now merged into glitch-soc
 - Fixed incorrect upload size limit display when adding new a new custom emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763))
