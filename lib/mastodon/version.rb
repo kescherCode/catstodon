@@ -60,5 +60,11 @@ module Mastodon
     def user_agent
       @user_agent ||= "#{HTTP::Request::USER_AGENT} (Mastodon/#{Version}; +http#{Rails.configuration.x.use_https ? 's' : ''}://#{Rails.configuration.x.web_domain}/)"
     end
+
+    # test a thing
+    # asdf
+    # jklö
+    # qwer
+    # uiop
   end
 end
