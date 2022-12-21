@@ -62,9 +62,9 @@ module Mastodon
     end
 
     # test a thing
-    # asdf
-    # jklö
-    # qwer
     # uiop
+    # qwer
+    # jklö
+    # asdf
   end
 end
