@@ -62,9 +62,9 @@ module Mastodon
     end
 
     # test a thing
-    # asdf 1234
-    # jklö 5678
-    # qwer 9012
     # uiop 3456
+    # qwer 9012
+    # jklö 5678
+    # asdf 1234
   end
 end
