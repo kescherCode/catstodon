@@ -4,24 +4,24 @@ fr-QC:
     glitch_only: glitch-soc
     hints:
       defaults:
-        fields: You can have up to %{count} items displayed as a table on your profile
-        setting_default_content_type_html: When writing toots, assume they are written in raw HTML, unless specified otherwise
-        setting_default_content_type_markdown: When writing toots, assume they are using Markdown for rich text formatting, unless specified otherwise
-        setting_default_content_type_plain: When writing toots, assume they are plain text with no special formatting, unless specified otherwise (default Mastodon behavior)
-        setting_default_language: The language of your toots can be detected automatically, but it's not always accurate
-        setting_hide_followers_count: Hide your followers count from everybody, including you. Some applications may display a negative followers count.
-        setting_skin: Reskins the selected Mastodon flavour
+        fields: Vous pouvez avoir jusqu'à %{count} éléments affichés en tant que tableau sur votre profil
+        setting_default_content_type_html: Vos posts sont écrits en HTML brut, sauf indication contraire
+        setting_default_content_type_markdown: Vos posts utilisent Markdown pour un formatage de texte enrichi, sauf indication contraire
+        setting_default_content_type_plain: Vos posts sont écrits en texte brut sans formatage spécial, sauf indication contraire (comportement par défaut de Mastodon)
+        setting_default_language: La langue utilisée pour vos posts peut être automatiquement détectée, cependant cette détection n'est pas toujours fiable
+        setting_hide_followers_count: Cacher votre nombre d'abonné·e·s à tout le monde, y compris vous. Certaines applications peuvent afficher un nombre négatif d'abonné·e·s.
+        setting_skin: Relooke le mode de Mastodon choisi
     labels:
       defaults:
-        setting_default_content_type: Default format for toots
+        setting_default_content_type: Format par défaut pour les posts
         setting_default_content_type_html: HTML
         setting_default_content_type_markdown: Markdown
-        setting_default_content_type_plain: Plain text
-        setting_favourite_modal: Show confirmation dialog before favouriting (applies to Glitch flavour only)
-        setting_hide_followers_count: Hide your followers count
-        setting_skin: Skin
-        setting_system_emoji_font: Use system's default font for emojis (applies to Glitch flavour only)
+        setting_default_content_type_plain: Texte brut
+        setting_favourite_modal: Afficher une fenêtre de confirmation avant de mettre en favori un post (s'applique uniquement au mode Glitch)
+        setting_hide_followers_count: Cacher votre nombre d'abonné·e·s
+        setting_skin: Thème
+        setting_system_emoji_font: Utiliser la police par défaut du système pour les émojis (s'applique uniquement au mode Glitch)
       notification_emails:
-        trending_link: New trending link requires review
-        trending_status: New trending post requires review
-        trending_tag: New trending tag requires review
+        trending_link: Un nouveau lien en tendances nécessite un examen
+        trending_status: Un nouveau post en tendances nécessite un examen
+        trending_tag: Un nouveau tag en tendances nécessite un examen

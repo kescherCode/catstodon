@@ -7,6 +7,12 @@ If you still decide to contribute here instead, here are some guidelines, and wa
 >   (This document is a bit of a work-in-progress, so please bear with us.
 >   If you don't see what you're looking for here, please don't hesitate to reach out!)
 
+## Translations
+
+You can submit glitch-soc-specific translations via [Crowdin](https://crowdin.com/project/glitch-soc). They are periodically merged into the codebase.
+
+[![Crowdin](https://badges.crowdin.net/glitch-soc/localized.svg)](https://crowdin.com/project/glitch-soc)
+
 ##  Planning  ##
 
 Right now a lot of the planning for this project takes place... in my head. Actually, just contact me via Matrix - contact info can be found on [my personal website](https://kescher.at). You can also contribute via GitHub or kescherGit, if you have an account at either.
