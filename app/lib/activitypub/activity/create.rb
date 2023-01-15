@@ -222,8 +222,13 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     return if tag['href'].blank?
 
     account = account_from_uri(tag['href'])
-    account = ActivityPub::FetchRemoteAccountService.new.call(tag['href'], request_id: @options[:request_id]) if account.nil?
-
+    begin
+      return unless account || DeliveryFailureTracker.available?(tag['href'])
+      account = ActivityPub::FetchRemoteAccountService.new.call(tag['href'], request_id: @options[:request_id]) if account.nil?
+    rescue HTTP::ConnectionError => e
+      Rails.logger.info "Fetching account #{tag['href']} failed: #{e}"
+      raise
+    end
     return if account.nil?
 
     @mentions << Mention.new(account: account, silent: false)
