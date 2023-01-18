@@ -57,7 +57,7 @@ import {
   PrivacyPolicy,
 } from './util/async-components';
 import { HotKeys } from 'react-hotkeys';
-import initialState, { me, owner, singleUserMode, showTrends, trendsAsLanding } from '../../initial_state';
+import initialState, { me, owner, singleUserMode, showTrends, trendsAsLanding, timelinePreview } from '../../initial_state';
 import { closeOnboarding, INTRODUCTION_VERSION } from 'flavours/glitch/actions/onboarding';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import { Helmet } from 'react-helmet';
@@ -178,7 +178,7 @@ class SwitchingColumnsArea extends React.PureComponent {
     } else if (singleUserMode && owner && initialState?.accounts[owner]) {
       redirect = <Redirect from='/' to={`/@${initialState.accounts[owner].username}`} exact />;
     } else if (showTrends && trendsAsLanding) {
-      redirect = <Redirect from='/' to='/explore' exact />;
+      redirect = <Redirect from='/' to={signedIn || timelinePreview ? '/explore' : '/explore/tags'} exact />;
     } else {
       redirect = <Redirect from='/' to='/about' exact />;
     }
