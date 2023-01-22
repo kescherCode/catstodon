@@ -9,15 +9,15 @@ module Mastodon
     end
 
     def minor
-      1
-    end
-
-    def patch
       0
     end
 
+    def patch
+      2
+    end
+
     def flags
-      'rc1'
+      ''
     end
 
     def suffix
@@ -25,7 +25,7 @@ module Mastodon
     end
 
     def suffix_version
-      '+1.1.5'
+      '+1.1.6'
     end
 
     def to_a
