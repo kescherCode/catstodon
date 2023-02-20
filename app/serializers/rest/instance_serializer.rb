@@ -101,9 +101,7 @@ class REST::InstanceSerializer < ActiveModel::Serializer
   end
 
   def registrations_message
-    if Setting.closed_registrations_message.present?
-      markdown.render(Setting.closed_registrations_message)
-    end
+    markdown.render(Setting.closed_registrations_message) if Setting.closed_registrations_message.present?
   end
 
   def markdown
