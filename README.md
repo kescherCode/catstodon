@@ -1,13 +1,13 @@
-#  Mastodon Glitch+Urusai Edition  #
+#  Mastodon Glitch, Urusai+Sakurajima Edition
 
-This is the repo for the fork of Mastodon used by [Urusai! Social](https://urusai.social/).
+This is the repo for the fork of Mastodon used by [Sakurajima](https://sakurajima.moe) which is a fork of[Urusai! Social](https://urusai.social/). This repo exists so I don't have to copy and paste the customizations when I update Mastodon.
 
-Added features:
+Added features from [Urusai fork](https://github.com/neatchee/mastodon):
 
 - Flavours/styles from @chikorita157@sakurajima.moe
 - Emoji enhancements
   - Enlarge emoji in post content on mouse-over/tap
-- Collapsed post improvements 
+- Collapsed post improvements
   - show > 1 line for better visual parsing
   - customize height of posts to trigger lengthy toot collapse, etc)
 - Option to merge boosts and favorites into a single notification for the same status
