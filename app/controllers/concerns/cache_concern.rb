@@ -41,12 +41,12 @@ module CacheConcern
         true
       end
 
-      $stderr.puts "fetch_value issue culprit: #{culprit.inspect}\n"
+      Rails.logger.warn "fetch_value issue culprit: #{culprit.inspect}"
 
       cache_key = Rails.cache.send(:normalize_key, culprit, {})
       entry = Rails.cache.send(:read_entry, cache_key)
       raw_marshal = Zlib::Inflate.inflate(entry.instance_variable_get(:@value))
-      $stderr.puts "base64 marshal of culprit: #{Base64.encode64(raw_marshal)}"
+      Rails.logger.warn "base64 marshal of culprit: #{Base64.encode64(raw_marshal)}"
     end
 
     return [] if raw.empty?
