@@ -324,25 +324,25 @@ class FeedManager
 
     redis.pipelined do |pipeline|
       ids.each do |feed_id|
-        pipeline.del(key(type, feed_id))
         reblog_key = key(type, feed_id, 'reblogs')
         # We collect a future for this: we don't block while getting
         # it, but we can iterate over it later.
         reblogged_id_sets[feed_id] = pipeline.zrange(reblog_key, 0, -1)
-        pipeline.del(reblog_key)
+        pipeline.del(key(type, feed_id), reblog_key)
       end
     end
 
     # Remove all of the reblog tracking keys we just removed the
     # references to.
-    redis.pipelined do |pipeline|
-      reblogged_id_sets.each do |feed_id, future|
-        future.value.each do |reblogged_id|
-          reblog_set_key = key(type, feed_id, "reblogs:#{reblogged_id}")
-          pipeline.del(reblog_set_key)
-        end
+    keys_to_delete = reblogged_id_sets.flat_map do |feed_id, future|
+      future.value.map do |reblogged_id|
+        key(type, feed_id, "reblogs:#{reblogged_id}")
       end
     end
+
+    redis.del(keys_to_delete) unless keys_to_delete.empty?
+
+    nil
   end
 
   private

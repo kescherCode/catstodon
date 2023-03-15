@@ -50,7 +50,7 @@ class BatchedRemoveStatusService < BaseService
     @status_id_cutoff = Mastodon::Snowflake.id_at(2.weeks.ago)
     redis.pipelined do |pipeline|
       statuses.each do |status|
-        unpush_from_public_timelines(pipeline, status)
+        unpush_from_public_timelines(status, pipeline)
       end
     end
   end
@@ -73,7 +73,7 @@ class BatchedRemoveStatusService < BaseService
     end
   end
 
-  def unpush_from_public_timelines(pipeline, status)
+  def unpush_from_public_timelines(status, pipeline)
     return unless status.public_visibility? && status.id > @status_id_cutoff
 
     payload = Oj.dump(event: :delete, payload: status.id.to_s)
