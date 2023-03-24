@@ -29,7 +29,7 @@
     .fields-group
       = f.simple_fields_for :invite_request, resource.invite_request || resource.build_invite_request do |invite_request_fields|
         = invite_request_fields.input :text, as: :text, wrapper: :with_block_label, required: Setting.require_invite_text
-        %strong= 'input one of the following for reason to joining: Twitter profile, Tumblr/Cohost or similar, Mastodon Profile (from a non-banned instance, refer to mastodon.art''s blocklist for reference), Blog/Youtube Channel/Art Portfolio ,or media list profile that contains Japanese Media (must at least have 5 entries) (e.g. MyAnimeList, Kitsu, Anilist, Anime-Planet, etc).'
+        %strong= 'Please input one of the following for a reason for joining: a Twitter profile, Tumblr/Cohost or similar, Mastodon Profile (from a non-banned/not suspended instance, refer to mastodon.art blocklist for reference), Blog/Youtube Channel/Art Portfolio, or media list profile that contains Japanese Media (must at least have 5 entries) (e.g., MyAnimeList, Kitsu, Anilist, Anime-Planet, etc.). We will review the profiles or links provided before approving your application. You will receive an e-mail if your account is approved or not.'
 
   = hidden_field_tag :accept, params[:accept]
   = f.input :invite_code, as: :hidden
