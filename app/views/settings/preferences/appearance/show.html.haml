@@ -40,7 +40,7 @@
       = ff.input :'web.crop_images', wrapper: :with_label, label: I18n.t('simple_form.labels.defaults.setting_crop_images')
 
     .fields-group.fields-row__column.fields-row__column-6
-      = f.input :setting_visible_reactions, wrapper: :with_label, input_html: { type: 'number', min: '0', data: { default: '6' } }, hint: false
+      = ff.input :'visible_reactions', wrapper: :with_label, label: I18n.t('simple_form.labels.defaults.setting_visible_reactions'), input_html: { type: 'number', min: '0', data: { default: '6' } }, hint: false
 
     %h4= t 'appearance.discovery'
 
@@ -55,16 +55,16 @@
       = ff.input :'web.favourite_modal', wrapper: :with_label, label: I18n.t('simple_form.labels.defaults.setting_favourite_modal'), glitch_only: true
       = ff.input :'web.delete_modal', wrapper: :with_label, label: I18n.t('simple_form.labels.defaults.setting_delete_modal')
 
-    %h4= t 'appearance.sensitive_content'
+  %h4= t 'appearance.sensitive_content'
 
-    .fields-group
-      = ff.input :'web.display_media', collection: ['default', 'show_all', 'hide_all'],label_method: lambda { |item| t("simple_form.hints.defaults.setting_display_media_#{item}") }, hint: false, as: :radio_buttons, collection_wrapper_tag: 'ul', item_wrapper_tag: 'li', wrapper: :with_floating_label, label: I18n.t('simple_form.labels.defaults.setting_display_media')
+  .fields-group
+    = f.input :setting_display_media, collection: ['default', 'show_all', 'hide_all'], label_method: lambda { |item| t("simple_form.hints.defaults.setting_display_media_#{item}") }, hint: false, as: :radio_buttons, collection_wrapper_tag: 'ul', item_wrapper_tag: 'li', wrapper: :with_floating_label
 
-    .fields-group
-      = ff.input :'web.use_blurhash', wrapper: :with_label, label: I18n.t('simple_form.labels.defaults.setting_use_blurhash'), hint: I18n.t('simple_form.hints.defaults.setting_use_blurhash')
+  .fields-group
+    = f.input :setting_use_blurhash, as: :boolean, wrapper: :with_label
 
-    .fields-group
-      = ff.input :'web.expand_content_warnings', wrapper: :with_label, label: I18n.t('simple_form.labels.defaults.setting_expand_spoilers')
+  .fields-group
+    = f.input :setting_expand_spoilers, as: :boolean, wrapper: :with_label
 
   .actions
     = f.button :button, t('generic.save_changes'), type: :submit
