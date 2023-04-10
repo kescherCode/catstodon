@@ -4,8 +4,8 @@ Thank you for your interest in contributing to a fork of the `glitch-soc` projec
 Before you do anything here, please check if you can contribute to either the [vanilla Mastodon project](https://github.com/mastodon/mastodon) or [glitch-soc](https://github.com/glitch-soc/mastodon) first.
 If you still decide to contribute here instead, here are some guidelines, and ways you can help.
 
->   (This document is a bit of a work-in-progress, so please bear with us.
->   If you don't see what you're looking for here, please don't hesitate to reach out!)
+> (This document is a bit of a work-in-progress, so please bear with us.
+> If you don't see what you're looking for here, please don't hesitate to reach out!)
 
 ## Translations
 
@@ -13,24 +13,24 @@ You can submit glitch-soc-specific translations via [Crowdin](https://crowdin.co
 
 [![Crowdin](https://badges.crowdin.net/glitch-soc/localized.svg)](https://crowdin.com/project/glitch-soc)
 
-##  Planning  ##
+## Planning
 
 Right now a lot of the planning for this project takes place... in my head. Actually, just contact me via Matrix - contact info can be found on [my personal website](https://kescher.at). You can also contribute via GitHub or kescherGit, if you have an account at either.
 
-##  Documentation  ##
+## Documentation
 
 Unlike glitch-soc, which has [`glitch-soc/docs`](https://github.com/glitch-soc/docs) (online at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/)), this repo only documents things in a README. Sorry.
 Right now, we've mostly focused on the features that make this fork different from upstream, which, may I remind you, is already a fork.
 
-##  Frontend Development  ##
+## Frontend Development
 
 Check out [the documentation here](https://glitch-soc.github.io/docs/contributing/frontend/) for more information on this topic. We'll be following that a bit.
 
-##  Backend Development  ##
+## Backend Development
 
 See the guidelines below.
 
- - - -
+---
 
 You should also try to follow the guidelines set out in the original `CONTRIBUTING.md` from `mastodon/mastodon`, reproduced below.
 

@@ -354,7 +354,7 @@ class Status < ApplicationRecord
       visibilities.keys - %w(direct limited)
     end
 
-    def as_direct_timeline(account, limit = 20, max_id = nil, since_id = nil, cache_ids = false)
+    def as_direct_timeline(account, limit = 20, max_id = nil, since_id = nil)
       # direct timeline is mix of direct message from_me and to_me.
       # 2 queries are executed with pagination.
       # constant expression using arel_table is required for partial index
@@ -385,14 +385,9 @@ class Status < ApplicationRecord
         query_to_me = query_to_me.where('mentions.status_id > ?', since_id)
       end
 
-      if cache_ids
-        # returns array of cache_ids object that have id and updated_at
-        (query_from_me.cache_ids.to_a + query_to_me.cache_ids.to_a).uniq(&:id).sort_by(&:id).reverse.take(limit)
-      else
-        # returns ActiveRecord.Relation
-        items = (query_from_me.select(:id).to_a + query_to_me.select(:id).to_a).uniq(&:id).sort_by(&:id).reverse.take(limit)
-        Status.where(id: items.map(&:id))
-      end
+      # returns ActiveRecord.Relation
+      items = (query_from_me.select(:id).to_a + query_to_me.select(:id).to_a).uniq(&:id).sort_by(&:id).reverse.take(limit)
+      Status.where(id: items.map(&:id))
     end
 
     def favourites_map(status_ids, account_id)
@@ -569,9 +564,9 @@ class Status < ApplicationRecord
   end
 
   def set_locality
-    if account.domain.nil? && !attribute_changed?(:local_only)
-      self.local_only = marked_local_only?
-    end
+    return unless account.domain.nil? && !attribute_changed?(:local_only)
+
+    self.local_only = marked_local_only?
   end
 
   def set_conversation

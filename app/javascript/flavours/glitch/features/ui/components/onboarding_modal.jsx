@@ -300,7 +300,7 @@ class OnboardingModal extends React.PureComponent {
                 <div
                   key={`dot-${i}`}
                   role='button'
-                  tabIndex='0'
+                  tabIndex={0}
                   data-index={i}
                   onClick={this.handleDot}
                   className={className}
