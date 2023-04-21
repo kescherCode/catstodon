@@ -1354,7 +1354,7 @@ de:
       title: Neue Reaktion
     reblog:
       body: 'Deinen Beitrag hat %{name} geteilt:'
-      subject: "%{name} hat deinen Beitrag geteilt"
+      subject: "%{name} teilte deinen Beitrag"
       title: Dein Beitrag wurde geteilt
     status:
       subject: "%{name} veröffentlichte gerade einen Beitrag"
