@@ -1052,7 +1052,8 @@ a.status-card.compact:hover {
     border-bottom: 0;
 
     .status__content,
-    .status__action-bar {
+    .status__action-bar,
+    .reactions-bar {
       margin-inline-start: 46px + 10px;
       width: calc(100% - (46px + 10px));
     }

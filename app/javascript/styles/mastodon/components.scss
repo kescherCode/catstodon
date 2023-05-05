@@ -1155,7 +1155,8 @@ body > [data-popper-placement] {
     .video-player,
     .audio-player,
     .attachment-list,
-    .status-card {
+    .status-card,
+    .reactions-bar {
       margin-inline-start: 46px + 10px;
       width: calc(100% - (46px + 10px));
     }
