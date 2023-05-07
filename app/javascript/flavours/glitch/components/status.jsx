@@ -138,6 +138,9 @@ class Status extends ImmutablePureComponent {
     'expanded',
     'unread',
     'pictureInPicture',
+    'previousId',
+    'nextInReplyToId',
+    'rootId',
   ];
 
   updateOnStates = [

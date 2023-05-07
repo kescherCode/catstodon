@@ -447,6 +447,7 @@ export default function compose(state = initialState, action) {
     });
   case COMPOSE_REPLY_CANCEL:
     state = state.setIn(['advanced_options', 'threaded_mode'], false);
+    // eslint-disable-next-line no-fallthrough -- fall-through to `COMPOSE_RESET` is intended
   case COMPOSE_RESET:
     return state.withMutations(map => {
       map.set('in_reply_to', null);
@@ -457,6 +458,7 @@ export default function compose(state = initialState, action) {
       map.set('privacy', state.get('default_privacy'));
       map.set('id', null);
       map.set('poll', null);
+      map.set('language', state.get('default_language'));
       map.update(
         'advanced_options',
         map => map.mergeWith(overwrite, state.get('default_advanced_options')),
