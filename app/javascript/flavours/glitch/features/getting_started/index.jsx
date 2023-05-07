@@ -2,7 +2,7 @@ import React from 'react';
 import Column from 'flavours/glitch/features/ui/components/column';
 import ColumnLink from 'flavours/glitch/features/ui/components/column_link';
 import ColumnSubheading from 'flavours/glitch/features/ui/components/column_subheading';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { openModal } from 'flavours/glitch/actions/modal';
 import PropTypes from 'prop-types';
@@ -75,8 +75,6 @@ const badgeDisplay = (number, limit) => {
     return number;
   }
 };
-
-const NAVIGATION_PANEL_BREAKPOINT = 600 + (285 * 2) + (10 * 2);
 
 class GettingStarted extends ImmutablePureComponent {
 
@@ -188,7 +186,7 @@ class GettingStarted extends ImmutablePureComponent {
           <LinkFooter />
         </div>
 
-        {multiColumn && showTrends && <TrendsContainer />}
+        {(multiColumn && showTrends) && <TrendsContainer />}
 
         <Helmet>
           <title>{intl.formatMessage(messages.menu)}</title>
