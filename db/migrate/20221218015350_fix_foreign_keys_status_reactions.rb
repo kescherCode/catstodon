@@ -2,6 +2,7 @@ class FixForeignKeysStatusReactions < ActiveRecord::Migration[6.1]
   disable_ddl_transaction!
 
   def change
+    # Fixes an oversight in a previous version of the CreateStatusReactions migration
     remove_foreign_key :status_reactions, :accounts
     add_foreign_key :status_reactions, :accounts, on_delete: :cascade, validate: false
     validate_foreign_key :status_reactions, :accounts

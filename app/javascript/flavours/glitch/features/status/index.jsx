@@ -304,11 +304,11 @@ class Status extends ImmutablePureComponent {
     if (signedIn) {
       dispatch(addReaction(statusId, name, url));
     }
-  }
+  };
 
   handleReactionRemove = (statusId, name) => {
     this.props.dispatch(removeReaction(statusId, name));
-  }
+  };
 
   handlePin = (status) => {
     if (status.get('pinned')) {
