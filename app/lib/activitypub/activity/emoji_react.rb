@@ -10,7 +10,7 @@ class ActivityPub::Activity::EmojiReact < ActivityPub::Activity
               @account.reacted?(original_status, name)
 
     custom_emoji = nil
-    if name =~ /^:.*:$/
+    if /^:.*:$/.match?(name)
       process_emoji_tags(@json['tag'])
 
       name.delete! ':'

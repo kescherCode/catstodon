@@ -22,7 +22,7 @@ class ActivityPub::Activity::Like < ActivityPub::Activity
     return false if name.nil?
 
     custom_emoji = nil
-    if name =~ /^:.*:$/
+    if /^:.*:$/.match?(name)
       process_emoji_tags(@json['tag'])
 
       name.delete! ':'
