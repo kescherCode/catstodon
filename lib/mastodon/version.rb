@@ -17,11 +17,11 @@ module Mastodon
     end
 
     def flags
-      ''
+      ENV.fetch('MASTODON_VERSION_FLAGS', '')
     end
 
     def suffix
-      '+cat'
+      "+glitch+cat+#{suffix_version}#{ENV.fetch('MASTODON_VERSION_SUFFIX', '')}"
     end
 
     def suffix_version
@@ -33,7 +33,7 @@ module Mastodon
     end
 
     def to_s
-      [to_a.join('.'), flags, suffix, suffix_version].join
+      [to_a.join('.'), flags, suffix].join
     end
 
     def repository
