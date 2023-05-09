@@ -64,9 +64,9 @@ class Notification < ApplicationRecord
     belongs_to :follow, inverse_of: :notification
     belongs_to :follow_request, inverse_of: :notification
     belongs_to :favourite, inverse_of: :notification
+    belongs_to :status_reaction, inverse_of: :notification
     belongs_to :poll, inverse_of: false
     belongs_to :report, inverse_of: false
-    belongs_to :status_reaction, inverse_of: :notification
   end
 
   validates :type, inclusion: { in: TYPES }
