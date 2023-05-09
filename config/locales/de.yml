@@ -1356,10 +1356,6 @@ de:
       title: Neue Erwähnung
     poll:
       subject: Eine Umfrage von %{name} ist beendet
-    reaction:
-      body: "%{name} hat auf deinen Beitrag reagiert:"
-      subject: "%{name} hat auf deinen Beitrag reagiert"
-      title: Neue Reaktion
     reblog:
       body: 'Deinen Beitrag hat %{name} geteilt:'
       subject: "%{name} teilte deinen Beitrag"
