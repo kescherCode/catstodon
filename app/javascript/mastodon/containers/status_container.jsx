@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Status from '../components/status';
-import { makeGetStatus, makeGetPictureInPicture, makeCustomEmojiMap } from '../selectors';
+import { makeGetStatus, makeGetPictureInPicture } from '../selectors';
 import {
   replyCompose,
   mentionCompose,
@@ -71,7 +71,6 @@ const makeMapStateToProps = () => {
     status: getStatus(state, props),
     nextInReplyToId: props.nextId ? state.getIn(['statuses', props.nextId, 'in_reply_to_id']) : null,
     pictureInPicture: getPictureInPicture(state, props),
-    emojiMap: makeCustomEmojiMap(state),
   });
 
   return mapStateToProps;
