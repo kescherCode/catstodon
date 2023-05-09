@@ -62,7 +62,6 @@
  * @property {boolean} limited_federation_mode
  * @property {string} locale
  * @property {string | null} mascot
- * @property {number} max_reactions
  * @property {string=} me
  * @property {string=} moved_to_account_id
  * @property {string=} owner
@@ -97,6 +96,7 @@
  * @property {object} local_settings
  * @property {number} max_toot_chars
  * @property {number} poll_limits
+ * @property {number} max_reactions
  */
 
 const element = document.getElementById('initial-state');
