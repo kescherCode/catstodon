@@ -21,11 +21,11 @@ module Mastodon
     end
 
     def suffix
-      "+glitch+cat+#{suffix_version}#{ENV.fetch('MASTODON_VERSION_SUFFIX', '')}"
+      "+glitch+cat#{suffix_version}#{ENV.fetch('MASTODON_VERSION_SUFFIX', '')}"
     end
 
     def suffix_version
-      '+1.1.1'
+      '+1.1.2'
     end
 
     def to_a
