@@ -24,7 +24,7 @@ class ActivityPub::Activity::Like < ActivityPub::Activity
 
     if /^:.*:$/.match?(name)
       name.delete! ':'
-      custom_emoji = process_emoji_tags(@json['tag'])
+      custom_emoji = process_emoji_tags(name, @json['tag'])
 
       return false if custom_emoji.nil? # invalid custom emoji, treat it as a regular like
     end
