@@ -10,7 +10,7 @@ class ActivityPub::Activity::EmojiReact < ActivityPub::Activity
 
     if /^:.*:$/.match?(name)
       name.delete! ':'
-      custom_emoji = process_emoji_tags(@json['tag'])
+      custom_emoji = process_emoji_tags(name, @json['tag'])
 
       return if custom_emoji.nil?
     end
