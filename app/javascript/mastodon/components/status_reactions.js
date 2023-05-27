@@ -7,7 +7,7 @@ import TransitionMotion from 'react-motion/lib/TransitionMotion';
 import classNames from 'classnames';
 import React from 'react';
 import unicodeMapping from '../features/emoji/emoji_unicode_mapping_light';
-import AnimatedNumber from './animated_number';
+import { AnimatedNumber } from './animated_number';
 import { assetHost } from '../utils/config';
 
 export default class StatusReactions extends ImmutablePureComponent {
