@@ -81,6 +81,15 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "React",
+        "id": "status.react"
+      }
+    ],
+    "path": "app/javascript/flavours/glitch/components/status_action_bar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Collapse",
         "id": "status.collapse"
       },
@@ -118,6 +127,15 @@
       }
     ],
     "path": "app/javascript/flavours/glitch/components/status_icons.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{name} reacted to your status",
+        "id": "notification.reaction"
+      }
+    ],
+    "path": "app/javascript/flavours/glitch/components/status_prepend.json"
   },
   {
     "descriptors": [
@@ -906,6 +924,24 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Reactions:",
+        "id": "notifications.column_settings.reaction"
+      }
+    ],
+    "path": "app/javascript/flavours/glitch/features/notifications/components/column_settings.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Reactions",
+        "id": "notifications.filter.reactions"
+      }
+    ],
+    "path": "app/javascript/flavours/glitch/features/notifications/components/filter_bar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Mark for deletion",
         "id": "notification.markForDeletion"
       }
@@ -955,6 +991,15 @@
       }
     ],
     "path": "app/javascript/flavours/glitch/features/reblogs/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "React",
+        "id": "status.react"
+      }
+    ],
+    "path": "app/javascript/flavours/glitch/features/status/components/action_bar.json"
   },
   {
     "descriptors": [
@@ -1110,5 +1155,50 @@
       }
     ],
     "path": "app/javascript/flavours/glitch/features/ui/index.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "React",
+        "id": "status.react"
+      }
+    ],
+    "path": "app/javascript/mastodon/components/status_action_bar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Reactions:",
+        "id": "notifications.column_settings.reaction"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/notifications/components/column_settings.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Reactions",
+        "id": "notifications.filter.reactions"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/notifications/components/filter_bar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{name} reacted to your status",
+        "id": "notification.reaction"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/notifications/components/notification.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "React",
+        "id": "status.react"
+      }
+    ],
+    "path": "app/javascript/mastodon/features/status/components/action_bar.json"
   }
 ]
