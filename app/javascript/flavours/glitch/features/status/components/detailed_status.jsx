@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Avatar from 'flavours/glitch/components/avatar';
-import DisplayName from 'flavours/glitch/components/display_name';
+import { Avatar } from 'flavours/glitch/components/avatar';
+import { DisplayName } from 'flavours/glitch/components/display_name';
 import StatusContent from 'flavours/glitch/components/status_content';
 import MediaGallery from 'flavours/glitch/components/media_gallery';
 import AttachmentList from 'flavours/glitch/components/attachment_list';
@@ -16,8 +16,8 @@ import VisibilityIcon from 'flavours/glitch/components/status_visibility_icon';
 import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 import classNames from 'classnames';
 import PollContainer from 'flavours/glitch/containers/poll_container';
-import Icon from 'flavours/glitch/components/icon';
-import AnimatedNumber from 'flavours/glitch/components/animated_number';
+import { Icon } from 'flavours/glitch/components/icon';
+import { AnimatedNumber } from 'flavours/glitch/components/animated_number';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
 import StatusReactions from 'flavours/glitch/components/status_reactions';
@@ -59,9 +59,7 @@ class DetailedStatus extends ImmutablePureComponent {
   handleAccountClick = (e) => {
     if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
       e.preventDefault();
-      let state = { ...this.context.router.history.location.state };
-      state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
-      this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`, state);
+      this.context.router.history.push(`/@${this.props.status.getIn(['account', 'acct'])}`);
     }
 
     e.stopPropagation();
@@ -70,9 +68,7 @@ class DetailedStatus extends ImmutablePureComponent {
   parseClick = (e, destination) => {
     if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
       e.preventDefault();
-      let state = { ...this.context.router.history.location.state };
-      state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
-      this.context.router.history.push(destination, state);
+      this.context.router.history.push(destination);
     }
 
     e.stopPropagation();

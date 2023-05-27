@@ -2,12 +2,12 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
-import IconButton from './icon_button';
+import { IconButton } from './icon_button';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { autoPlayGif, displayMedia, useBlurhash } from 'flavours/glitch/initial_state';
 import { debounce } from 'lodash';
-import Blurhash from 'flavours/glitch/components/blurhash';
+import { Blurhash } from 'flavours/glitch/components/blurhash';
 
 const messages = defineMessages({
   hidden: {
@@ -254,7 +254,7 @@ class MediaGallery extends React.PureComponent {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     if (!is(nextProps.media, this.props.media) && nextProps.visible === undefined) {
       this.setState({ visible: displayMedia !== 'hide_all' && !nextProps.sensitive || displayMedia === 'show_all' });
     } else if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
@@ -286,7 +286,7 @@ class MediaGallery extends React.PureComponent {
   };
 
   handleClick = (index) => {
-    this.props.onOpenMedia(this.props.media, index);
+    this.props.onOpenMedia(this.props.media, index, this.props.lang);
   };
 
   handleRef = (node) => {

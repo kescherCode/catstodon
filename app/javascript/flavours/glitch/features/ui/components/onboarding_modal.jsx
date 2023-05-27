@@ -185,7 +185,7 @@ class OnboardingModal extends React.PureComponent {
     currentIndex: 0,
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { myAccount, admin, domain, intl } = this.props;
     this.pages = [
       <PageOne key='1' acct={myAccount.get('acct')} domain={domain} />,

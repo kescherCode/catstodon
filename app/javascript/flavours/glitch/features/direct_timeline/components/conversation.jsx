@@ -8,8 +8,8 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import DropdownMenuContainer from 'flavours/glitch/containers/dropdown_menu_container';
 import AvatarComposite from 'flavours/glitch/components/avatar_composite';
 import Permalink from 'flavours/glitch/components/permalink';
-import IconButton from 'flavours/glitch/components/icon_button';
-import RelativeTimestamp from 'flavours/glitch/components/relative_timestamp';
+import { IconButton } from 'flavours/glitch/components/icon_button';
+import { RelativeTimestamp } from 'flavours/glitch/components/relative_timestamp';
 import { HotKeys } from 'react-hotkeys';
 import { autoPlayGif } from 'flavours/glitch/initial_state';
 import classNames from 'classnames';
@@ -59,9 +59,7 @@ class Conversation extends ImmutablePureComponent {
         }
         destination = `/statuses/${lastStatus.get('id')}`;
       }
-      let state = { ...router.history.location.state };
-      state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
-      router.history.push(destination, state);
+      router.history.push(destination);
       e.preventDefault();
     }
   };

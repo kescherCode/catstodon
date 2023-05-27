@@ -1,9 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
-import { Icon } from './icon';
-import { AnimatedNumber } from './animated_number';
 
-type Props = {
+import classNames from 'classnames';
+
+import { AnimatedNumber } from './animated_number';
+import { Icon } from './icon';
+
+interface Props {
   className?: string;
   title: string;
   icon: string;
@@ -21,18 +23,17 @@ type Props = {
   animate: boolean;
   overlay: boolean;
   tabIndex: number;
-  label: string;
+  label?: string;
   counter?: number;
   obfuscateCount?: boolean;
   href?: string;
   ariaHidden: boolean;
 }
-type States = {
-  activate: boolean,
-  deactivate: boolean,
+interface States {
+  activate: boolean;
+  deactivate: boolean;
 }
-export default class IconButton extends React.PureComponent<Props, States> {
-
+export class IconButton extends React.PureComponent<Props, States> {
   static defaultProps = {
     size: 18,
     active: false,
@@ -48,7 +49,7 @@ export default class IconButton extends React.PureComponent<Props, States> {
     deactivate: false,
   };
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.animate) return;
 
     if (this.props.active && !nextProps.active) {
@@ -58,7 +59,7 @@ export default class IconButton extends React.PureComponent<Props, States> {
     }
   }
 
-  handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) =>  {
+  handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
 
     if (!this.props.disabled && this.props.onClick != null) {
@@ -84,7 +85,7 @@ export default class IconButton extends React.PureComponent<Props, States> {
     }
   };
 
-  render () {
+  render() {
     // Hack required for some icons which have an overriden size
     let containerSize = '1.28571429em';
     if (this.props.style?.fontSize) {
@@ -120,10 +121,7 @@ export default class IconButton extends React.PureComponent<Props, States> {
       ariaHidden,
     } = this.props;
 
-    const {
-      activate,
-      deactivate,
-    } = this.state;
+    const { activate, deactivate } = this.state;
 
     const classes = classNames(className, 'icon-button', {
       active,
@@ -141,7 +139,12 @@ export default class IconButton extends React.PureComponent<Props, States> {
 
     let contents = (
       <React.Fragment>
-        <Icon id={icon} fixedWidth aria-hidden='true' /> {typeof counter !== 'undefined' && <span className='icon-button__counter'><AnimatedNumber value={counter} obfuscate={obfuscateCount} /></span>}
+        <Icon id={icon} fixedWidth aria-hidden='true' />{' '}
+        {typeof counter !== 'undefined' && (
+          <span className='icon-button__counter'>
+            <AnimatedNumber value={counter} obfuscate={obfuscateCount} />
+          </span>
+        )}
         {this.props.label}
       </React.Fragment>
     );
@@ -174,5 +177,4 @@ export default class IconButton extends React.PureComponent<Props, States> {
       </button>
     );
   }
-
 }
