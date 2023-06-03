@@ -264,7 +264,7 @@ html {
 
   &:hover,
   &:focus {
-    background: lighten($$ui-primary-color, 4%);
+    background: lighten($ui-primary-color, 4%);
   }
 }
 
