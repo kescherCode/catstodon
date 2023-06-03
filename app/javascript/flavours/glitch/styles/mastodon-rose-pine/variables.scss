@@ -5,7 +5,7 @@ $white: #ffffff;
 $classic-base-color: #282c37;
 $classic-primary-color: #286983;
 $classic-secondary-color: #56959f;
-$classic-highlight-color: #907aa9;
+$classic-highlight-color: #d7827e;
 
 // Differences
 $success-green: lighten(#3c754d, 8%);
@@ -15,7 +15,7 @@ $valid-value-color: $success-green !default;
 
 $ui-base-color: #faf4ed !default;
 $ui-base-lighter-color: #faf4ed;
-$ui-primary-color: #eb6f92;
+$ui-primary-color: #b4637a;
 $ui-secondary-color: $classic-base-color !default;
 $ui-highlight-color: $classic-highlight-color !default;
 
