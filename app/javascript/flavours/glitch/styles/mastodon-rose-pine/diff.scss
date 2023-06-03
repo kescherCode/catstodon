@@ -259,11 +259,12 @@ html {
 // Change the background colors of status__content__spoiler-link
 .reply-indicator__content .status__content__spoiler-link,
 .status__content .status__content__spoiler-link {
-  background: $ui-base-color;
+  background: $ui-primary-color;
+  color: #fff;
 
   &:hover,
   &:focus {
-    background: lighten($ui-base-color, 4%);
+    background: lighten($$ui-primary-color, 4%);
   }
 }
 
