@@ -5,6 +5,10 @@ html {
   scrollbar-color: $ui-base-color rgba($ui-base-color, 0.25);
 }
 
+body {
+  background: $ui-base-color;
+}
+
 // Change the colors of button texts
 .button {
   color: $black;
@@ -337,7 +341,7 @@ html {
 .simple_form .button,
 .simple_form button {
   color: $white;
-  border-bottom-color: lighten($ui-base-color, 4%);
+  border-color: lighten($ui-base-color, 4%);
 }
 
 .language-dropdown__dropdown__results__item .language-dropdown__dropdown__results__item__common-name {
