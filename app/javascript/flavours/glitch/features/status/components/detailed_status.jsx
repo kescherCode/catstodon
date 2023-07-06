@@ -1,26 +1,31 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+
+import { injectIntl, FormattedDate } from 'react-intl';
+
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import { AnimatedNumber } from 'flavours/glitch/components/animated_number';
+import AttachmentList from 'flavours/glitch/components/attachment_list';
 import { Avatar } from 'flavours/glitch/components/avatar';
 import { DisplayName } from 'flavours/glitch/components/display_name';
-import StatusContent from 'flavours/glitch/components/status_content';
-import MediaGallery from 'flavours/glitch/components/media_gallery';
-import AttachmentList from 'flavours/glitch/components/attachment_list';
-import { Link } from 'react-router-dom';
-import { injectIntl, FormattedDate } from 'react-intl';
-import Card from './card';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import Video from 'flavours/glitch/features/video';
-import Audio from 'flavours/glitch/features/audio';
-import VisibilityIcon from 'flavours/glitch/components/status_visibility_icon';
-import scheduleIdleTask from '../../ui/util/schedule_idle_task';
-import classNames from 'classnames';
-import PollContainer from 'flavours/glitch/containers/poll_container';
-import { Icon } from 'flavours/glitch/components/icon';
-import { AnimatedNumber } from 'flavours/glitch/components/animated_number';
-import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
+import { Icon } from 'flavours/glitch/components/icon';
+import MediaGallery from 'flavours/glitch/components/media_gallery';
+import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
+import StatusContent from 'flavours/glitch/components/status_content';
 import StatusReactions from 'flavours/glitch/components/status_reactions';
+import VisibilityIcon from 'flavours/glitch/components/status_visibility_icon';
+import PollContainer from 'flavours/glitch/containers/poll_container';
+import Audio from 'flavours/glitch/features/audio';
+import Video from 'flavours/glitch/features/video';
+
+import scheduleIdleTask from '../../ui/util/schedule_idle_task';
+
+import Card from './card';
 
 class DetailedStatus extends ImmutablePureComponent {
 
@@ -154,6 +159,8 @@ class DetailedStatus extends ImmutablePureComponent {
       outerStyle.height = `${this.state.height}px`;
     }
 
+    const language = status.getIn(['translation', 'language']) || status.get('language');
+
     if (pictureInPicture.get('inUse')) {
       media.push(<PictureInPicturePlaceholder />);
       mediaIcons.push('video-camera');
@@ -162,12 +169,13 @@ class DetailedStatus extends ImmutablePureComponent {
         media.push(<AttachmentList media={status.get('media_attachments')} />);
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'audio') {
         const attachment = status.getIn(['media_attachments', 0]);
+        const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
 
         media.push(
           <Audio
             src={attachment.get('url')}
-            alt={attachment.get('description')}
-            lang={status.get('language')}
+            alt={description}
+            lang={language}
             duration={attachment.getIn(['meta', 'original', 'duration'], 0)}
             poster={attachment.get('preview_url') || status.getIn(['account', 'avatar_static'])}
             backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
@@ -183,14 +191,16 @@ class DetailedStatus extends ImmutablePureComponent {
         mediaIcons.push('music');
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const attachment = status.getIn(['media_attachments', 0]);
+        const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
+
         media.push(
           <Video
             preview={attachment.get('preview_url')}
             frameRate={attachment.getIn(['meta', 'original', 'frame_rate'])}
             blurhash={attachment.get('blurhash')}
             src={attachment.get('url')}
-            alt={attachment.get('description')}
-            lang={status.get('language')}
+            alt={description}
+            lang={language}
             inline
             sensitive={status.get('sensitive')}
             letterbox={settings.getIn(['media', 'letterbox'])}
@@ -209,7 +219,7 @@ class DetailedStatus extends ImmutablePureComponent {
             standalone
             sensitive={status.get('sensitive')}
             media={status.get('media_attachments')}
-            lang={status.get('language')}
+            lang={language}
             letterbox={settings.getIn(['media', 'letterbox'])}
             fullwidth={settings.getIn(['media', 'fullwidth'])}
             hidden={!expanded}
@@ -231,10 +241,10 @@ class DetailedStatus extends ImmutablePureComponent {
     }
 
     if (status.get('application')) {
-      applicationLink = <React.Fragment> · <a className='detailed-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener noreferrer'>{status.getIn(['application', 'name'])}</a></React.Fragment>;
+      applicationLink = <> · <a className='detailed-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener noreferrer'>{status.getIn(['application', 'name'])}</a></>;
     }
 
-    const visibilityLink = <React.Fragment> · <VisibilityIcon visibility={status.get('visibility')} /></React.Fragment>;
+    const visibilityLink = <> · <VisibilityIcon visibility={status.get('visibility')} /></>;
 
     if (status.get('visibility') === 'direct') {
       reblogIcon = 'envelope';
@@ -246,27 +256,27 @@ class DetailedStatus extends ImmutablePureComponent {
       reblogLink = null;
     } else if (this.context.router) {
       reblogLink = (
-        <React.Fragment>
-          <React.Fragment> · </React.Fragment>
+        <>
+          {' · '}
           <Link to={`/@${status.getIn(['account', 'acct'])}/${status.get('id')}/reblogs`} className='detailed-status__link'>
             <Icon id={reblogIcon} />
             <span className='detailed-status__reblogs'>
               <AnimatedNumber value={status.get('reblogs_count')} />
             </span>
           </Link>
-        </React.Fragment>
+        </>
       );
     } else {
       reblogLink = (
-        <React.Fragment>
-          <React.Fragment> · </React.Fragment>
+        <>
+          {' · '}
           <a href={`/interact/${status.get('id')}?type=reblog`} className='detailed-status__link' onClick={this.handleModalLink}>
             <Icon id={reblogIcon} />
             <span className='detailed-status__reblogs'>
               <AnimatedNumber value={status.get('reblogs_count')} />
             </span>
           </a>
-        </React.Fragment>
+        </>
       );
     }
 
@@ -292,10 +302,10 @@ class DetailedStatus extends ImmutablePureComponent {
 
     if (status.get('edited_at')) {
       edited = (
-        <React.Fragment>
-          <React.Fragment> · </React.Fragment>
+        <>
+          {' · '}
           <EditedTimestamp statusId={status.get('id')} timestamp={status.get('edited_at')} />
-        </React.Fragment>
+        </>
       );
     }
 

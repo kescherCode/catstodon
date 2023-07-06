@@ -1,7 +1,8 @@
-import { createSelector } from 'reselect';
 import { List as ImmutableList, Map as ImmutableMap } from 'immutable';
-import { toServerSideType } from 'flavours/glitch/utils/filters';
+import { createSelector } from 'reselect';
+
 import { me } from 'flavours/glitch/initial_state';
+import { toServerSideType } from 'flavours/glitch/utils/filters';
 
 const getAccountBase         = (state, id) => state.getIn(['accounts', id], null);
 const getAccountCounters     = (state, id) => state.getIn(['accounts_counters', id], null);
@@ -136,3 +137,7 @@ export const getAccountHidden = createSelector([
 ], (hidden, followingOrRequested, isSelf) => {
   return hidden && !(isSelf || followingOrRequested);
 });
+
+export const getStatusList = createSelector([
+  (state, type) => state.getIn(['status_lists', type, 'items']),
+], (items) => items.toList());

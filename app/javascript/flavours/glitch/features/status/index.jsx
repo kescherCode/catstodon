@@ -1,25 +1,25 @@
-import Immutable from 'immutable';
-import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { defineMessages, injectIntl } from 'react-intl';
+
 import classNames from 'classnames';
+import { Helmet } from 'react-helmet';
+
+import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+
+import { HotKeys } from 'react-hotkeys';
+
+import { initBlockModal } from 'flavours/glitch/actions/blocks';
+import { initBoostModal } from 'flavours/glitch/actions/boosts';
 import {
-  fetchStatus,
-  muteStatus,
-  unmuteStatus,
-  deleteStatus,
-  editStatus,
-  hideStatus,
-  revealStatus,
-  translateStatus,
-  undoStatusTranslation,
-} from 'flavours/glitch/actions/statuses';
-import LoadingIndicator from 'flavours/glitch/components/loading_indicator';
-import DetailedStatus from './components/detailed_status';
-import ActionBar from './components/action_bar';
-import Column from 'flavours/glitch/features/ui/components/column';
+  replyCompose,
+  mentionCompose,
+  directCompose,
+} from 'flavours/glitch/actions/compose';
 import {
   favourite,
   unfavourite,
@@ -32,37 +32,43 @@ import {
   addReaction,
   removeReaction,
 } from 'flavours/glitch/actions/interactions';
-import {
-  replyCompose,
-  mentionCompose,
-  directCompose,
-} from 'flavours/glitch/actions/compose';
 import { changeLocalSetting } from 'flavours/glitch/actions/local_settings';
-import { initMuteModal } from 'flavours/glitch/actions/mutes';
-import { initBlockModal } from 'flavours/glitch/actions/blocks';
-import { initReport } from 'flavours/glitch/actions/reports';
-import { initBoostModal } from 'flavours/glitch/actions/boosts';
-import { makeGetStatus, makeGetPictureInPicture } from 'flavours/glitch/selectors';
-import ScrollContainer from 'flavours/glitch/containers/scroll_container';
-import ColumnHeader from '../../components/column_header';
-import StatusContainer from 'flavours/glitch/containers/status_container';
 import { openModal } from 'flavours/glitch/actions/modal';
-import { defineMessages, injectIntl } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { HotKeys } from 'react-hotkeys';
-import { boostModal, favouriteModal, deleteModal } from 'flavours/glitch/initial_state';
-import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
-import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
-import { textForScreenReader, defaultMediaVisibility } from 'flavours/glitch/components/status';
+import { initMuteModal } from 'flavours/glitch/actions/mutes';
+import { initReport } from 'flavours/glitch/actions/reports';
+import {
+  fetchStatus,
+  muteStatus,
+  unmuteStatus,
+  deleteStatus,
+  editStatus,
+  hideStatus,
+  revealStatus,
+  translateStatus,
+  undoStatusTranslation,
+} from 'flavours/glitch/actions/statuses';
 import { Icon } from 'flavours/glitch/components/icon';
-import { Helmet } from 'react-helmet';
+import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
+import { textForScreenReader, defaultMediaVisibility } from 'flavours/glitch/components/status';
+import ScrollContainer from 'flavours/glitch/containers/scroll_container';
+import StatusContainer from 'flavours/glitch/containers/status_container';
 import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
+import Column from 'flavours/glitch/features/ui/components/column';
+import { boostModal, favouriteModal, deleteModal } from 'flavours/glitch/initial_state';
+import { makeGetStatus, makeGetPictureInPicture } from 'flavours/glitch/selectors';
+import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
+
+import ColumnHeader from '../../components/column_header';
+import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
+
+import ActionBar from './components/action_bar';
+import DetailedStatus from './components/detailed_status';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
   deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
   redraftConfirm: { id: 'confirmations.redraft.confirm', defaultMessage: 'Delete & redraft' },
-  redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? You will lose all replies, boosts and favourites to it.' },
+  redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? Favourites and boosts will be lost, and replies to the original post will be orphaned.' },
   revealAll: { id: 'status.show_more_all', defaultMessage: 'Show more for all' },
   hideAll: { id: 'status.show_less_all', defaultMessage: 'Show less for all' },
   statusTitleWithAttachments: { id: 'status.title.with_attachments', defaultMessage: '{user} posted {attachmentCount, plural, one {an attachment} other {# attachments}}' },
@@ -157,8 +163,9 @@ const makeMapStateToProps = () => {
 };
 
 const truncate = (str, num) => {
-  if (str.length > num) {
-    return str.slice(0, num) + '…';
+  const arr = Array.from(str);
+  if (arr.length > num) {
+    return arr.slice(0, num).join('') + '…';
   } else {
     return str;
   }
@@ -285,14 +292,23 @@ class Status extends ImmutablePureComponent {
         if ((e && e.shiftKey) || !favouriteModal) {
           this.handleModalFavourite(status);
         } else {
-          dispatch(openModal('FAVOURITE', { status, onFavourite: this.handleModalFavourite }));
+          dispatch(openModal({
+            modalType: 'FAVOURITE',
+            modalProps: {
+              status,
+              onFavourite: this.handleModalFavourite,
+            },
+          }));
         }
       }
     } else {
-      dispatch(openModal('INTERACTION', {
-        type: 'favourite',
-        accountId: status.getIn(['account', 'id']),
-        url: status.get('url'),
+      dispatch(openModal({
+        modalType: 'INTERACTION',
+        modalProps: {
+          type: 'favourite',
+          accountId: status.getIn(['account', 'id']),
+          url: status.get('url'),
+        },
       }));
     }
   };
@@ -324,20 +340,26 @@ class Status extends ImmutablePureComponent {
 
     if (signedIn) {
       if (askReplyConfirmation) {
-        dispatch(openModal('CONFIRM', {
-          message: intl.formatMessage(messages.replyMessage),
-          confirm: intl.formatMessage(messages.replyConfirm),
-          onDoNotAsk: () => dispatch(changeLocalSetting(['confirm_before_clearing_draft'], false)),
-          onConfirm: () => dispatch(replyCompose(status, this.context.router.history)),
+        dispatch(openModal({
+          modalType: 'CONFIRM',
+          modalProps: {
+            message: intl.formatMessage(messages.replyMessage),
+            confirm: intl.formatMessage(messages.replyConfirm),
+            onDoNotAsk: () => dispatch(changeLocalSetting(['confirm_before_clearing_draft'], false)),
+            onConfirm: () => dispatch(replyCompose(status, this.context.router.history)),
+          },
         }));
       } else {
         dispatch(replyCompose(status, this.context.router.history));
       }
     } else {
-      dispatch(openModal('INTERACTION', {
-        type: 'reply',
-        accountId: status.getIn(['account', 'id']),
-        url: status.get('url'),
+      dispatch(openModal({
+        modalType: 'INTERACTION',
+        modalProps: {
+          type: 'reply',
+          accountId: status.getIn(['account', 'id']),
+          url: status.get('url'),
+        },
       }));
     }
   };
@@ -365,10 +387,13 @@ class Status extends ImmutablePureComponent {
         dispatch(initBoostModal({ status, onReblog: this.handleModalReblog }));
       }
     } else {
-      dispatch(openModal('INTERACTION', {
-        type: 'reblog',
-        accountId: status.getIn(['account', 'id']),
-        url: status.get('url'),
+      dispatch(openModal({
+        modalType: 'INTERACTION',
+        modalProps: {
+          type: 'reblog',
+          accountId: status.getIn(['account', 'id']),
+          url: status.get('url'),
+        },
       }));
     }
   };
@@ -387,10 +412,13 @@ class Status extends ImmutablePureComponent {
     if (!deleteModal) {
       dispatch(deleteStatus(status.get('id'), history, withRedraft));
     } else {
-      dispatch(openModal('CONFIRM', {
-        message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
-        confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
-        onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
+      dispatch(openModal({
+        modalType: 'CONFIRM',
+        modalProps: {
+          message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
+          confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
+          onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
+        },
       }));
     }
   };
@@ -408,11 +436,17 @@ class Status extends ImmutablePureComponent {
   };
 
   handleOpenMedia = (media, index, lang) => {
-    this.props.dispatch(openModal('MEDIA', { statusId: this.props.status.get('id'), media, index, lang }));
+    this.props.dispatch(openModal({
+      modalType: 'MEDIA',
+      modalProps: { statusId: this.props.status.get('id'), media, index, lang },
+    }));
   };
 
   handleOpenVideo = (media, lang, options) => {
-    this.props.dispatch(openModal('VIDEO', { statusId: this.props.status.get('id'), media, lang, options }));
+    this.props.dispatch(openModal({
+      modalType: 'VIDEO',
+      modalProps: { statusId: this.props.status.get('id'), media, lang, options },
+    }));
   };
 
   handleHotkeyOpenMedia = e => {
@@ -462,7 +496,7 @@ class Status extends ImmutablePureComponent {
     const { dispatch } = this.props;
 
     if (status.get('translation')) {
-      dispatch(undoStatusTranslation(status.get('id')));
+      dispatch(undoStatusTranslation(status.get('id'), status.get('poll')));
     } else {
       dispatch(translateStatus(status.get('id')));
     }
@@ -479,7 +513,10 @@ class Status extends ImmutablePureComponent {
   };
 
   handleEmbed = (status) => {
-    this.props.dispatch(openModal('EMBED', { url: status.get('url') }));
+    this.props.dispatch(openModal({
+      modalType: 'EMBED',
+      modalProps: { url: status.get('url') },
+    }));
   };
 
   handleHotkeyToggleSensitive = () => {
@@ -735,6 +772,7 @@ class Status extends ImmutablePureComponent {
         <Helmet>
           <title>{titleFromStatus(intl, status)}</title>
           <meta name='robots' content={(isLocal && isIndexable) ? 'all' : 'noindex'} />
+          <link rel='canonical' href={status.get('url')} />
         </Helmet>
       </Column>
     );

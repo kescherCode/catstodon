@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_30_155710) do
+ActiveRecord::Schema.define(version: 2023_07_02_151753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,16 +188,16 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.datetime "requested_review_at"
     t.index "(((setweight(to_tsvector('simple'::regconfig, (display_name)::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (username)::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(domain, ''::character varying))::text), 'C'::\"char\")))", name: "search_index", using: :gin
     t.index "lower((username)::text), COALESCE(lower((domain)::text), ''::text)", name: "index_accounts_on_username_and_domain_lower", unique: true
+    t.index ["domain", "id"], name: "index_accounts_on_domain_and_id"
     t.index ["moved_to_account_id"], name: "index_accounts_on_moved_to_account_id", where: "(moved_to_account_id IS NOT NULL)"
     t.index ["uri"], name: "index_accounts_on_uri"
     t.index ["url"], name: "index_accounts_on_url", opclass: :text_pattern_ops, where: "(url IS NOT NULL)"
   end
 
-  create_table "accounts_tags", id: false, force: :cascade do |t|
+  create_table "accounts_tags", primary_key: ["tag_id", "account_id"], force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "tag_id", null: false
     t.index ["account_id", "tag_id"], name: "index_accounts_tags_on_account_id_and_tag_id"
-    t.index ["tag_id", "account_id"], name: "index_accounts_tags_on_tag_id_and_account_id", unique: true
   end
 
   create_table "admin_action_logs", force: :cascade do |t|
@@ -273,6 +273,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "dump_file_size"
+    t.index ["user_id"], name: "index_backups_on_user_id"
   end
 
   create_table "blocks", force: :cascade do |t|
@@ -567,6 +568,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "replies_policy", default: 0, null: false
+    t.boolean "exclusive", default: false, null: false
     t.index ["account_id"], name: "index_lists_on_account_id"
   end
 
@@ -698,6 +700,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.bigint "owner_id"
     t.boolean "confidential", default: true, null: false
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
+    t.index ["superapp"], name: "index_oauth_applications_on_superapp", where: "(superapp = true)"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
@@ -994,11 +997,10 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.index ["uri"], name: "index_statuses_on_uri", unique: true, opclass: :text_pattern_ops, where: "(uri IS NOT NULL)"
   end
 
-  create_table "statuses_tags", id: false, force: :cascade do |t|
+  create_table "statuses_tags", primary_key: ["tag_id", "status_id"], force: :cascade do |t|
     t.bigint "status_id", null: false
     t.bigint "tag_id", null: false
     t.index ["status_id"], name: "index_statuses_tags_on_status_id"
-    t.index ["tag_id", "status_id"], name: "index_statuses_tags_on_tag_id_and_status_id", unique: true
   end
 
   create_table "system_keys", force: :cascade do |t|
@@ -1104,12 +1106,14 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.boolean "skip_sign_in_token"
     t.bigint "role_id"
     t.text "settings"
+    t.string "time_zone"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id", where: "(created_by_application_id IS NOT NULL)"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, opclass: :text_pattern_ops, where: "(reset_password_token IS NOT NULL)"
     t.index ["role_id"], name: "index_users_on_role_id", where: "(role_id IS NOT NULL)"
+    t.index ["unconfirmed_email"], name: "index_users_on_unconfirmed_email", where: "(unconfirmed_email IS NOT NULL)"
   end
 
   create_table "web_push_subscriptions", force: :cascade do |t|
@@ -1152,6 +1156,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
     t.boolean "enabled", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "template"
     t.index ["url"], name: "index_webhooks_on_url", unique: true
   end
 
@@ -1302,6 +1307,7 @@ ActiveRecord::Schema.define(version: 2023_03_30_155710) do
      FROM (domain_allows
        LEFT JOIN domain_counts ON (((domain_counts.domain)::text = (domain_allows.domain)::text)));
   SQL
+  add_index "instances", "reverse(('.'::text || (domain)::text)), domain", name: "index_instances_on_reverse_domain"
   add_index "instances", ["domain"], name: "index_instances_on_domain", unique: true
 
   create_view "user_ips", sql_definition: <<-SQL

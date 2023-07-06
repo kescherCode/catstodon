@@ -1,17 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import StatusListContainer from 'flavours/glitch/features/ui/containers/status_list_container';
+import { PureComponent } from 'react';
+
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+
+import { Helmet } from 'react-helmet';
+
+import { connect } from 'react-redux';
+
+import { addColumn, removeColumn, moveColumn } from 'flavours/glitch/actions/columns';
+import { connectCommunityStream } from 'flavours/glitch/actions/streaming';
+import { expandCommunityTimeline } from 'flavours/glitch/actions/timelines';
 import Column from 'flavours/glitch/components/column';
 import ColumnHeader from 'flavours/glitch/components/column_header';
-import { expandCommunityTimeline } from 'flavours/glitch/actions/timelines';
-import { addColumn, removeColumn, moveColumn } from 'flavours/glitch/actions/columns';
-import ColumnSettingsContainer from './containers/column_settings_container';
-import { connectCommunityStream } from 'flavours/glitch/actions/streaming';
-import { Helmet } from 'react-helmet';
-import { domain } from 'flavours/glitch/initial_state';
 import DismissableBanner from 'flavours/glitch/components/dismissable_banner';
+import StatusListContainer from 'flavours/glitch/features/ui/containers/status_list_container';
+import { domain } from 'flavours/glitch/initial_state';
+
+import ColumnSettingsContainer from './containers/column_settings_container';
 
 const messages = defineMessages({
   title: { id: 'column.community', defaultMessage: 'Local timeline' },
@@ -32,7 +37,7 @@ const mapStateToProps = (state, { columnId }) => {
   };
 };
 
-class CommunityTimeline extends React.PureComponent {
+class CommunityTimeline extends PureComponent {
 
   static defaultProps = {
     onlyMedia: false,
@@ -137,11 +142,8 @@ class CommunityTimeline extends React.PureComponent {
           <ColumnSettingsContainer columnId={columnId} />
         </ColumnHeader>
 
-        <DismissableBanner id='community_timeline'>
-          <FormattedMessage id='dismissable_banner.community_timeline' defaultMessage='These are the most recent public posts from people whose accounts are hosted by {domain}.' values={{ domain }} />
-        </DismissableBanner>
-
         <StatusListContainer
+          prepend={<DismissableBanner id='community_timeline'><FormattedMessage id='dismissable_banner.community_timeline' defaultMessage='These are the most recent public posts from people whose accounts are hosted by {domain}.' values={{ domain }} /></DismissableBanner>}
           trackScroll={!pinned}
           scrollKey={`community_timeline-${columnId}`}
           timelineId={`community${onlyMedia ? ':media' : ''}`}

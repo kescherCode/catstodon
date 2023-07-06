@@ -1,13 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { IconButton } from '../../../components/icon_button';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
+import { PureComponent } from 'react';
+
 import { defineMessages, injectIntl } from 'react-intl';
-import { me, maxReactions } from '../../../initial_state';
+
 import classNames from 'classnames';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { connect } from 'react-redux';
+
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'mastodon/permissions';
+
+import { IconButton } from '../../../components/icon_button';
+import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
+import { me, maxReactions } from '../../../initial_state';
 import EmojiPickerDropdown from '../../compose/containers/emoji_picker_dropdown_container';
 
 const messages = defineMessages({
@@ -35,9 +40,9 @@ const messages = defineMessages({
   unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
   embed: { id: 'status.embed', defaultMessage: 'Embed' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
-  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
+  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this post in the moderation interface' },
   admin_domain: { id: 'status.admin_domain', defaultMessage: 'Open moderation interface for {domain}' },
-  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
+  copy: { id: 'status.copy', defaultMessage: 'Copy link to post' },
   blockDomain: { id: 'account.block_domain', defaultMessage: 'Block domain {domain}' },
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },
   unmute: { id: 'account.unmute', defaultMessage: 'Unmute @{name}' },
@@ -49,7 +54,7 @@ const mapStateToProps = (state, { status }) => ({
   relationship: state.getIn(['relationships', status.getIn(['account', 'id'])]),
 });
 
-class ActionBar extends React.PureComponent {
+class ActionBar extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -171,7 +176,6 @@ class ActionBar extends React.PureComponent {
 
   handleShare = () => {
     navigator.share({
-      text: this.props.status.get('search_index'),
       url: this.props.status.get('url'),
     });
   };
@@ -206,6 +210,11 @@ class ActionBar extends React.PureComponent {
       }
 
       menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
+
+      if ('share' in navigator) {
+        menu.push({ text: intl.formatMessage(messages.share), action: this.handleShare });
+      }
+
       menu.push({ text: intl.formatMessage(messages.embed), action: this.handleEmbed });
       menu.push(null);
     }
@@ -219,8 +228,8 @@ class ActionBar extends React.PureComponent {
       menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
       menu.push(null);
       menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
-      menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick });
-      menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick });
+      menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick, dangerous: true });
+      menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick, dangerous: true });
     } else {
       menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
       menu.push(null);
@@ -228,16 +237,16 @@ class ActionBar extends React.PureComponent {
       if (relationship && relationship.get('muting')) {
         menu.push({ text: intl.formatMessage(messages.unmute, { name: account.get('username') }), action: this.handleMuteClick });
       } else {
-        menu.push({ text: intl.formatMessage(messages.mute, { name: account.get('username') }), action: this.handleMuteClick });
+        menu.push({ text: intl.formatMessage(messages.mute, { name: account.get('username') }), action: this.handleMuteClick, dangerous: true });
       }
 
       if (relationship && relationship.get('blocking')) {
         menu.push({ text: intl.formatMessage(messages.unblock, { name: account.get('username') }), action: this.handleBlockClick });
       } else {
-        menu.push({ text: intl.formatMessage(messages.block, { name: account.get('username') }), action: this.handleBlockClick });
+        menu.push({ text: intl.formatMessage(messages.block, { name: account.get('username') }), action: this.handleBlockClick, dangerous: true });
       }
 
-      menu.push({ text: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport });
+      menu.push({ text: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport, dangerous: true });
 
       if (account.get('acct') !== account.get('username')) {
         const domain = account.get('acct').split('@')[1];
@@ -247,7 +256,7 @@ class ActionBar extends React.PureComponent {
         if (relationship && relationship.get('domain_blocking')) {
           menu.push({ text: intl.formatMessage(messages.unblockDomain, { domain }), action: this.handleUnblockDomain });
         } else {
-          menu.push({ text: intl.formatMessage(messages.blockDomain, { domain }), action: this.handleBlockDomain });
+          menu.push({ text: intl.formatMessage(messages.blockDomain, { domain }), action: this.handleBlockDomain, dangerous: true });
         }
       }
 
@@ -275,10 +284,6 @@ class ActionBar extends React.PureComponent {
       />
     );
 
-    const shareButton = ('share' in navigator) && publicStatus && (
-      <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShare} /></div>
-    );
-
     let replyIcon;
     if (status.get('in_reply_to_id', null) === null) {
       replyIcon = 'reply';
@@ -302,7 +307,7 @@ class ActionBar extends React.PureComponent {
     return (
       <div className='detailed-status__action-bar'>
         <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /></div>
-        <div className='detailed-status__button' ><IconButton className={classNames({ reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon='retweet' onClick={this.handleReblogClick} /></div>
+        <div className='detailed-status__button'><IconButton className={classNames({ reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon='retweet' onClick={this.handleReblogClick} /></div>
         <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
         <div className='detailed-status__button'>
           {
@@ -312,8 +317,6 @@ class ActionBar extends React.PureComponent {
           }
         </div>
         <div className='detailed-status__button'><IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} /></div>
-
-        {shareButton}
 
         <div className='detailed-status__action-bar-dropdown'>
           <DropdownMenuContainer size={18} icon='ellipsis-h' disabled={!signedIn} status={status} items={menu} direction='left' title={intl.formatMessage(messages.more)} />

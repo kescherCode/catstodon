@@ -1,19 +1,19 @@
 import './public-path';
-import ready from '../mastodon/ready';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
+
+import ready from '../mastodon/ready';
 
 ready(() => {
   [].forEach.call(document.querySelectorAll('[data-admin-component]'), element => {
     const componentName  = element.getAttribute('data-admin-component');
-    const { locale, ...componentProps } = JSON.parse(element.getAttribute('data-props'));
+    const componentProps = JSON.parse(element.getAttribute('data-props'));
 
     import('../mastodon/containers/admin_component').then(({ default: AdminComponent }) => {
       return import('../mastodon/components/admin/' + componentName).then(({ default: Component }) => {
         const root = createRoot(element);
 
         root.render (
-          <AdminComponent locale={locale}>
+          <AdminComponent>
             <Component {...componentProps} />
           </AdminComponent>,
         );

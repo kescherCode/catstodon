@@ -1,12 +1,16 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import InnerHeader from 'flavours/glitch/features/account/components/header';
-import ActionBar from 'flavours/glitch/features/account/components/action_bar';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import MemorialNote from './memorial_note';
+
 import { FormattedMessage } from 'react-intl';
+
 import { NavLink } from 'react-router-dom';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import ActionBar from 'flavours/glitch/features/account/components/action_bar';
+import InnerHeader from 'flavours/glitch/features/account/components/header';
+
+import MemorialNote from './memorial_note';
 import MovedNote from './moved_note';
 
 export default class Header extends ImmutablePureComponent {
@@ -149,7 +153,7 @@ export default class Header extends ImmutablePureComponent {
         {!(hideTabs || hidden) && (
           <div className='account__section-headline'>
             <NavLink exact to={`/@${account.get('acct')}`}><FormattedMessage id='account.posts' defaultMessage='Posts' /></NavLink>
-            <NavLink exact to={`/@${account.get('acct')}/with_replies`}><FormattedMessage id='account.posts_with_replies' defaultMessage='Posts with replies' /></NavLink>
+            <NavLink exact to={`/@${account.get('acct')}/with_replies`}><FormattedMessage id='account.posts_with_replies' defaultMessage='Posts and replies' /></NavLink>
             <NavLink exact to={`/@${account.get('acct')}/media`}><FormattedMessage id='account.media' defaultMessage='Media' /></NavLink>
           </div>
         )}

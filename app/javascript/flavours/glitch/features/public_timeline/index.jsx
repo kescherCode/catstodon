@@ -1,16 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import StatusListContainer from 'flavours/glitch/features/ui/containers/status_list_container';
+import { PureComponent } from 'react';
+
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+
+import { Helmet } from 'react-helmet';
+
+import { connect } from 'react-redux';
+
+import { addColumn, removeColumn, moveColumn } from 'flavours/glitch/actions/columns';
+import { connectPublicStream } from 'flavours/glitch/actions/streaming';
+import { expandPublicTimeline } from 'flavours/glitch/actions/timelines';
 import Column from 'flavours/glitch/components/column';
 import ColumnHeader from 'flavours/glitch/components/column_header';
-import { expandPublicTimeline } from 'flavours/glitch/actions/timelines';
-import { addColumn, removeColumn, moveColumn } from 'flavours/glitch/actions/columns';
-import ColumnSettingsContainer from './containers/column_settings_container';
-import { connectPublicStream } from 'flavours/glitch/actions/streaming';
-import { Helmet } from 'react-helmet';
 import DismissableBanner from 'flavours/glitch/components/dismissable_banner';
+import { domain } from 'flavours/glitch/initial_state';
+import StatusListContainer from 'flavours/glitch/features/ui/containers/status_list_container';
+
+import ColumnSettingsContainer from './containers/column_settings_container';
 
 const messages = defineMessages({
   title: { id: 'column.public', defaultMessage: 'Federated timeline' },
@@ -35,7 +41,7 @@ const mapStateToProps = (state, { columnId }) => {
   };
 };
 
-class PublicTimeline extends React.PureComponent {
+class PublicTimeline extends PureComponent {
 
   static defaultProps = {
     onlyMedia: false,
@@ -141,11 +147,8 @@ class PublicTimeline extends React.PureComponent {
           <ColumnSettingsContainer columnId={columnId} />
         </ColumnHeader>
 
-        <DismissableBanner id='public_timeline'>
-          <FormattedMessage id='dismissable_banner.public_timeline' defaultMessage='These are the most recent public posts from people on this and other servers of the decentralized network that this server knows about.' />
-        </DismissableBanner>
-
         <StatusListContainer
+          prepend={<DismissableBanner id='public_timeline'><FormattedMessage id='dismissable_banner.public_timeline' defaultMessage='These are the most recent public posts from people on the social web that people on {domain} follow.' values={{ domain }} /></DismissableBanner>}
           timelineId={`public${onlyRemote ? ':remote' : (allowLocalOnly ? ':allow_local_only' : '')}${onlyMedia ? ':media' : ''}`}
           onLoadMore={this.handleLoadMore}
           trackScroll={!pinned}

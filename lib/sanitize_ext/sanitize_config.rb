@@ -55,6 +55,11 @@ class Sanitize
       end
     end
 
+    TRANSLATE_TRANSFORMER = lambda do |env|
+      node = env[:node]
+      node.remove_attribute('translate') unless node['translate'] == 'no'
+    end
+
     UNSUPPORTED_HREF_TRANSFORMER = lambda do |env|
       return unless env[:node_name] == 'a'
 
@@ -73,8 +78,9 @@ class Sanitize
       elements: %w(p br span a abbr del pre blockquote code b strong u sub sup i em h1 h2 h3 h4 h5 ul ol li),
 
       attributes: {
-        'a' => %w(href rel class title),
-        'span' => %w(class),
+        'a' => %w(href rel class title translate),
+        'abbr' => %w(title),
+        'span' => %w(class translate),
         'blockquote' => %w(cite),
         'ol' => %w(start reversed),
         'li' => %w(value),
@@ -95,30 +101,31 @@ class Sanitize
       transformers: [
         CLASS_WHITELIST_TRANSFORMER,
         IMG_TAG_TRANSFORMER,
+        TRANSLATE_TRANSFORMER,
         UNSUPPORTED_HREF_TRANSFORMER,
       ]
     )
 
-    MASTODON_OEMBED ||= freeze_config merge(
-      RELAXED,
-      elements: RELAXED[:elements] + %w(audio embed iframe source video),
+    MASTODON_OEMBED ||= freeze_config(
+      elements: %w(audio embed iframe source video),
 
-      attributes: merge(
-        RELAXED[:attributes],
+      attributes: {
         'audio' => %w(controls),
         'embed' => %w(height src type width),
         'iframe' => %w(allowfullscreen frameborder height scrolling src width),
         'source' => %w(src type),
         'video' => %w(controls height loop width),
-        'div' => [:data]
-      ),
+      },
 
-      protocols: merge(
-        RELAXED[:protocols],
+      protocols: {
         'embed' => { 'src' => HTTP_PROTOCOLS },
         'iframe' => { 'src' => HTTP_PROTOCOLS },
-        'source' => { 'src' => HTTP_PROTOCOLS }
-      )
+        'source' => { 'src' => HTTP_PROTOCOLS },
+      },
+
+      add_attributes: {
+        'iframe' => { 'sandbox' => 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms' },
+      }
     )
 
     LINK_REL_TRANSFORMER = lambda do |env|
@@ -150,7 +157,7 @@ class Sanitize
     MASTODON_OUTGOING ||= freeze_config MASTODON_STRICT.merge(
       attributes: merge(
         MASTODON_STRICT[:attributes],
-        'a' => %w(href rel class title target)
+        'a' => %w(href rel class title target translate)
       ),
 
       add_attributes: {},
@@ -158,6 +165,7 @@ class Sanitize
       transformers: [
         CLASS_WHITELIST_TRANSFORMER,
         IMG_TAG_TRANSFORMER,
+        TRANSLATE_TRANSFORMER,
         UNSUPPORTED_HREF_TRANSFORMER,
         LINK_REL_TRANSFORMER,
         LINK_TARGET_TRANSFORMER,

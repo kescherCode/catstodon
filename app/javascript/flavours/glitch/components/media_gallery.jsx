@@ -1,13 +1,19 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import { is } from 'immutable';
-import { IconButton } from './icon_button';
+import { PureComponent } from 'react';
+
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+
 import classNames from 'classnames';
-import { autoPlayGif, displayMedia, useBlurhash } from 'flavours/glitch/initial_state';
+
+import { is } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+
 import { debounce } from 'lodash';
+
 import { Blurhash } from 'flavours/glitch/components/blurhash';
+import { autoPlayGif, displayMedia, useBlurhash } from 'flavours/glitch/initial_state';
+
+import { IconButton } from './icon_button';
 
 const messages = defineMessages({
   hidden: {
@@ -32,7 +38,7 @@ const messages = defineMessages({
   },
 });
 
-class Item extends React.PureComponent {
+class Item extends PureComponent {
 
   static propTypes = {
     attachment: ImmutablePropTypes.map.isRequired,
@@ -118,10 +124,12 @@ class Item extends React.PureComponent {
       badges.push(<span key='alt' className='media-gallery__gifv__label'>ALT</span>);
     }
 
+    const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
+
     if (attachment.get('type') === 'unknown') {
       return (
         <div className={classNames('media-gallery__item', { standalone, 'media-gallery__item--tall': height === 100, 'media-gallery__item--wide': width === 100 })} key={attachment.get('id')}>
-          <a className='media-gallery__item-thumbnail' href={attachment.get('remote_url') || attachment.get('url')} style={{ cursor: 'pointer' }} title={attachment.get('description')} lang={lang} target='_blank' rel='noopener noreferrer'>
+          <a className='media-gallery__item-thumbnail' href={attachment.get('remote_url') || attachment.get('url')} style={{ cursor: 'pointer' }} title={description} lang={lang} target='_blank' rel='noopener noreferrer'>
             <Blurhash
               hash={attachment.get('blurhash')}
               className='media-gallery__preview'
@@ -160,8 +168,8 @@ class Item extends React.PureComponent {
             src={previewUrl}
             srcSet={srcSet}
             sizes={sizes}
-            alt={attachment.get('description')}
-            title={attachment.get('description')}
+            alt={description}
+            title={description}
             lang={lang}
             style={{ objectPosition: letterbox ? null : `${x}% ${y}%` }}
             onLoad={this.handleImageLoad}
@@ -177,8 +185,8 @@ class Item extends React.PureComponent {
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
           <video
             className={`media-gallery__item-gifv-thumbnail${letterbox ? ' letterbox' : ''}`}
-            aria-label={attachment.get('description')}
-            title={attachment.get('description')}
+            aria-label={description}
+            title={description}
             lang={lang}
             role='application'
             src={attachment.get('url')}
@@ -217,7 +225,7 @@ class Item extends React.PureComponent {
 
 }
 
-class MediaGallery extends React.PureComponent {
+class MediaGallery extends PureComponent {
 
   static propTypes = {
     sensitive: PropTypes.bool,

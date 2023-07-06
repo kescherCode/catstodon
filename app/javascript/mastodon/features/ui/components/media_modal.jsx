@@ -1,18 +1,23 @@
-import React from 'react';
-import ReactSwipeableViews from 'react-swipeable-views';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import Video from 'mastodon/features/video';
-import classNames from 'classnames';
+
 import { defineMessages, injectIntl } from 'react-intl';
-import { IconButton } from 'mastodon/components/icon_button';
+
+import classNames from 'classnames';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImageLoader from './image_loader';
-import { Icon }  from 'mastodon/components/icon';
-import { GIFV } from 'mastodon/components/gifv';
-import { disableSwiping } from 'mastodon/initial_state';
-import Footer from 'mastodon/features/picture_in_picture/components/footer';
+
+import ReactSwipeableViews from 'react-swipeable-views';
+
 import { getAverageFromBlurhash } from 'mastodon/blurhash';
+import { GIFV } from 'mastodon/components/gifv';
+import { Icon }  from 'mastodon/components/icon';
+import { IconButton } from 'mastodon/components/icon_button';
+import Footer from 'mastodon/features/picture_in_picture/components/footer';
+import Video from 'mastodon/features/video';
+import { disableSwiping } from 'mastodon/initial_state';
+
+import ImageLoader from './image_loader';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
@@ -140,6 +145,7 @@ class MediaModal extends ImmutablePureComponent {
     const content = media.map((image) => {
       const width  = image.getIn(['meta', 'original', 'width']) || null;
       const height = image.getIn(['meta', 'original', 'height']) || null;
+      const description = image.getIn(['translation', 'description']) || image.get('description');
 
       if (image.get('type') === 'image') {
         return (
@@ -148,7 +154,7 @@ class MediaModal extends ImmutablePureComponent {
             src={image.get('url')}
             width={width}
             height={height}
-            alt={image.get('description')}
+            alt={description}
             lang={lang}
             key={image.get('url')}
             onClick={this.toggleNavigation}
@@ -171,7 +177,7 @@ class MediaModal extends ImmutablePureComponent {
             volume={volume || 1}
             onCloseVideo={onClose}
             detailed
-            alt={image.get('description')}
+            alt={description}
             lang={lang}
             key={image.get('url')}
           />
@@ -183,7 +189,7 @@ class MediaModal extends ImmutablePureComponent {
             width={width}
             height={height}
             key={image.get('url')}
-            alt={image.get('description')}
+            alt={description}
             lang={lang}
             onClick={this.toggleNavigation}
           />

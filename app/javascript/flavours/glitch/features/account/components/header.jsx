@@ -1,20 +1,24 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
+
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { autoPlayGif, me, domain } from 'flavours/glitch/initial_state';
-import { preferencesLink, profileLink, accountAdminLink } from 'flavours/glitch/utils/backend_links';
+
 import classNames from 'classnames';
-import { Icon } from 'flavours/glitch/components/icon';
-import { IconButton } from 'flavours/glitch/components/icon_button';
+import { Helmet } from 'react-helmet';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
 import { Avatar } from 'flavours/glitch/components/avatar';
 import Button from 'flavours/glitch/components/button';
+import { Icon } from 'flavours/glitch/components/icon';
+import { IconButton } from 'flavours/glitch/components/icon_button';
 import DropdownMenuContainer from 'flavours/glitch/containers/dropdown_menu_container';
+import { autoPlayGif, me, domain } from 'flavours/glitch/initial_state';
+import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
+import { preferencesLink, profileLink, accountAdminLink } from 'flavours/glitch/utils/backend_links';
+
 import AccountNoteContainer from '../containers/account_note_container';
 import FollowRequestNoteContainer from '../containers/follow_request_note_container';
-import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
-import { Helmet } from 'react-helmet';
 
 const messages = defineMessages({
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
@@ -26,7 +30,7 @@ const messages = defineMessages({
   linkVerifiedOn: { id: 'account.link_verified_on', defaultMessage: 'Ownership of this link was checked on {date}' },
   account_locked: { id: 'account.locked_info', defaultMessage: 'This account privacy status is set to locked. The owner manually reviews who can follow them.' },
   mention: { id: 'account.mention', defaultMessage: 'Mention @{name}' },
-  direct: { id: 'account.direct', defaultMessage: 'Direct message @{name}' },
+  direct: { id: 'account.direct', defaultMessage: 'Privately mention @{name}' },
   unmute: { id: 'account.unmute', defaultMessage: 'Unmute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
@@ -146,7 +150,6 @@ class Header extends ImmutablePureComponent {
     const { account } = this.props;
 
     navigator.share({
-      text: `${titleFromAccount(account)}\n${account.get('note_plain')}`,
       url: account.get('url'),
     }).catch((e) => {
       if (e.name !== 'AbortError') console.error(e);
@@ -269,16 +272,16 @@ class Header extends ImmutablePureComponent {
       if (account.getIn(['relationship', 'muting'])) {
         menu.push({ text: intl.formatMessage(messages.unmute, { name: account.get('username') }), action: this.props.onMute });
       } else {
-        menu.push({ text: intl.formatMessage(messages.mute, { name: account.get('username') }), action: this.props.onMute });
+        menu.push({ text: intl.formatMessage(messages.mute, { name: account.get('username') }), action: this.props.onMute, dangerous: true });
       }
 
       if (account.getIn(['relationship', 'blocking'])) {
         menu.push({ text: intl.formatMessage(messages.unblock, { name: account.get('username') }), action: this.props.onBlock });
       } else {
-        menu.push({ text: intl.formatMessage(messages.block, { name: account.get('username') }), action: this.props.onBlock });
+        menu.push({ text: intl.formatMessage(messages.block, { name: account.get('username') }), action: this.props.onBlock, dangerous: true });
       }
 
-      menu.push({ text: intl.formatMessage(messages.report, { name: account.get('username') }), action: this.props.onReport });
+      menu.push({ text: intl.formatMessage(messages.report, { name: account.get('username') }), action: this.props.onReport, dangerous: true });
     }
 
     if (signedIn && isRemote) {
@@ -287,7 +290,7 @@ class Header extends ImmutablePureComponent {
       if (account.getIn(['relationship', 'domain_blocking'])) {
         menu.push({ text: intl.formatMessage(messages.unblockDomain, { domain: remoteDomain }), action: this.props.onUnblockDomain });
       } else {
-        menu.push({ text: intl.formatMessage(messages.blockDomain, { domain: remoteDomain }), action: this.props.onBlockDomain });
+        menu.push({ text: intl.formatMessage(messages.blockDomain, { domain: remoteDomain }), action: this.props.onBlockDomain, dangerous: true });
       }
     }
 
@@ -311,7 +314,7 @@ class Header extends ImmutablePureComponent {
     let badge;
 
     if (account.get('bot')) {
-      badge = (<div className='account-role bot'><FormattedMessage id='account.badges.bot' defaultMessage='Bot' /></div>);
+      badge = (<div className='account-role bot'><FormattedMessage id='account.badges.bot' defaultMessage='Automated' /></div>);
     } else if (account.get('group')) {
       badge = (<div className='account-role group'><FormattedMessage id='account.badges.group' defaultMessage='Group' /></div>);
     } else {
@@ -345,10 +348,10 @@ class Header extends ImmutablePureComponent {
             {!suspended && (
               <div className='account__header__tabs__buttons'>
                 {!hidden && (
-                  <React.Fragment>
+                  <>
                     {actionBtn}
                     {bellBtn}
-                  </React.Fragment>
+                  </>
                 )}
 
                 <DropdownMenuContainer disabled={menu.length === 0} items={menu} icon='ellipsis-v' size={24} direction='right' />
@@ -395,6 +398,7 @@ class Header extends ImmutablePureComponent {
         <Helmet>
           <title>{titleFromAccount(account)}</title>
           <meta name='robots' content={(isLocal && isIndexable) ? 'all' : 'noindex'} />
+          <link rel='canonical' href={account.get('url')} />
         </Helmet>
       </div>
     );
