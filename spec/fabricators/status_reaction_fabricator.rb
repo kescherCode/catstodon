@@ -4,5 +4,5 @@ Fabricator(:status_reaction) do
   account
   status
   name '👍'
-  custom_emoji
+  custom_emoji nil
 end
