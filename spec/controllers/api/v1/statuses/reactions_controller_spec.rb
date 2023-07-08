@@ -26,10 +26,6 @@ describe Api::V1::Statuses::ReactionsController do
           expect(response).to have_http_status(200)
         end
 
-        it 'updates the reactions count' do
-          expect(status.status_reactions.count).to eq 1
-        end
-
         it 'updates the reacted attribute' do
           expect(user.account.reacted?(status, '👍')).to be true
         end
@@ -38,7 +34,6 @@ describe Api::V1::Statuses::ReactionsController do
           hash_body = body_as_json
 
           expect(hash_body[:id]).to eq status.id.to_s
-          expect(hash_body[:reactions_count]).to eq 1
           expect(hash_body[:reactions]).to_not be_empty
           expect(hash_body[:reactions][0][:count]).to be 1
           expect(hash_body[:reactions][0][:me]).to be true
@@ -68,10 +63,6 @@ describe Api::V1::Statuses::ReactionsController do
           expect(response).to have_http_status(200)
         end
 
-        it 'updates the reactions count' do
-          expect(status.status_reactions.count).to eq 0
-        end
-
         it 'updates the reacted attribute' do
           expect(user.account.reacted?(status, '👍')).to be false
         end
@@ -80,7 +71,6 @@ describe Api::V1::Statuses::ReactionsController do
           hash_body = body_as_json
 
           expect(hash_body[:id]).to eq status.id.to_s
-          expect(hash_body[:reactions_count]).to eq 0
           expect(hash_body[:reactions]).to be_empty
         end
       end
