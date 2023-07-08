@@ -9,6 +9,7 @@ RSpec.describe Notification do
     let(:reblog)       { Fabricate(:status, reblog: status) }
     let(:favourite)    { Fabricate(:favourite, status: status) }
     let(:mention)      { Fabricate(:mention, status: status) }
+    let(:reaction)     { Fabricate(:status_reaction, status: status) }
 
     context 'when Activity is reblog' do
       let(:activity) { reblog }
@@ -29,6 +30,14 @@ RSpec.describe Notification do
 
     context 'when Activity is mention' do
       let(:activity) { mention }
+
+      it 'returns status' do
+        expect(notification.target_status).to eq status
+      end
+    end
+
+    context 'when Activity is react' do
+      let(:activity) { reaction }
 
       it 'returns status' do
         expect(notification.target_status).to eq status
@@ -55,6 +64,11 @@ RSpec.describe Notification do
     it 'returns :follow for a Follow' do
       notification = described_class.new(activity: Follow.new)
       expect(notification.type).to eq :follow
+    end
+
+    it 'returns :reaction for a Reaction' do
+      notification = described_class.new(activity: StatusReaction.new)
+      expect(notification.type).to eq :reaction
     end
   end
 
@@ -86,6 +100,7 @@ RSpec.describe Notification do
       let(:follow_request) { Fabricate(:follow_request) }
       let(:favourite) { Fabricate(:favourite) }
       let(:poll) { Fabricate(:poll) }
+      let(:reaction) { Fabricate(:status_reaction) }
 
       let(:notifications) do
         [
@@ -96,6 +111,7 @@ RSpec.describe Notification do
           Fabricate(:notification, type: :follow_request, activity: follow_request),
           Fabricate(:notification, type: :favourite, activity: favourite),
           Fabricate(:notification, type: :poll, activity: poll),
+          Fabricate(:notification, type: :reaction, activity: reaction),
         ]
       end
 
@@ -138,6 +154,12 @@ RSpec.describe Notification do
           expect(subject[6].association(:poll)).to be_loaded
           expect(subject[6].poll.association(:status)).to be_loaded
         end
+
+        it 'preloads reaction' do
+          expect(subject[7].type).to eq :reaction
+          expect(subject[7].association(:status_reaction)).to be_loaded
+          expect(subject[7].reaction.association(:status)).to be_loaded
+        end
       end
 
       context 'with a cached status' do
@@ -179,6 +201,12 @@ RSpec.describe Notification do
           expect(subject[6].type).to eq :poll
           expect(subject[6].target_status.association(:account)).to be_loaded
           expect(subject[6].target_status).to eq poll.status
+        end
+
+        it 'replaces reaction' do
+          expect(subject[7].type).to eq :reaction
+          expect(subject[7].target_status.association(:account)).to be_loaded
+          expect(subject[7].target_status).to eq reaction.status
         end
       end
     end
