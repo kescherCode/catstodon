@@ -8,7 +8,7 @@ html {
 // Change the colors of button texts
 .button {
   color: $black;
-
+  background: $classic-primary-color !important;
   &.button-alternative-2 {
     color: $black;
   }
