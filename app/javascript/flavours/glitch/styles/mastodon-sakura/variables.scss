@@ -7,6 +7,13 @@ $classic-primary-color: #b15c65;
 $classic-secondary-color: #e8d3d1;
 $classic-highlight-color: #b15c65;
 
+$ui-button-secondary-color: $grey-600 !default;
+$ui-button-secondary-border-color: $grey-600 !default;
+$ui-button-secondary-focus-color: $white !default;
+
+$ui-button-tertiary-color: $classic-primary-color !default;
+$ui-button-tertiary-border-color: $classic-primary-color !default;
+
 // Differences
 $success-green: lighten(#3c754d, 8%);
 
