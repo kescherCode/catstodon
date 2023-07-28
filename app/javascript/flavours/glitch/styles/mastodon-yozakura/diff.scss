@@ -1,10 +1,13 @@
 .compose-form {
+  color: #000 !important;
   .compose-form__modifiers {
+    color: #000 !important;
     .compose-form__upload {
       &-description {
         input {
           &::placeholder {
             opacity: 1;
+            color: #000 !important;
           }
         }
       }
