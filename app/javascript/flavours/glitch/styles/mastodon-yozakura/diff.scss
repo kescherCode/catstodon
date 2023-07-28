@@ -66,6 +66,10 @@
   color: $link-color;
 }
 
+.report-dialog-modal .dialog-option .poll__input {
+  color: $link-color !important;
+}
+
 .status__content a,
 .link-footer a,
 .reply-indicator__content a,
@@ -120,6 +124,10 @@
 .language-dropdown__dropdown__results__item.active {
   background: $ui-highlight-color;
   font-weight: 500;
+}
+
+.report-dialog-modal .dialog-option .poll__input {
+  color: $ui-primary-color;
 }
 
 .link-button:disabled {
