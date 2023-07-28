@@ -24,6 +24,23 @@
   background: $ui-base-lighter-color !important;
 }
 
+.privacy-dropdown.active .privacy-dropdown__value {
+  background: $ui-base-lighter-color !important;
+}
+
+.emoji-mart-bar:first-child {
+  background: $classic-primary-color !important;
+}
+
+.emoji-mart {
+  color: $black !important;
+}
+
+.emoji-mart-search input {
+  border: $ui-base-color !important;
+  background: $ui-base-lighter-color !important;
+}
+
 .account-role, .simple_form .glitch_only, .simple_form .not_recommended, .simple_form .recommended {
   color: $darker-text-color !important;
 }
