@@ -1,9 +1,6 @@
 .compose-form {
-  background: $ui-base-color !important;
   .compose-form__modifiers {
-    background: $ui-base-lighter-color !important;
     .compose-form__upload {
-      background: $ui-base-lighter-color !important;
       &-description {
         input {
           &::placeholder {
@@ -13,6 +10,18 @@
       }
     }
   }
+}
+
+.compose-form .autosuggest-input label .autosuggest-textarea__textarea, .compose-form .autosuggest-textarea label .autosuggest-textarea__textarea {
+  background: $ui-base-lighter-color !important;
+}
+
+.compose-form__buttons-wrapper {
+  background: $ui-base-color !important;
+}
+
+.privacy-dropdown__dropdown {
+  background: $ui-base-lighter-color !important;
 }
 
 .account-role, .simple_form .glitch_only, .simple_form .not_recommended, .simple_form .recommended {
