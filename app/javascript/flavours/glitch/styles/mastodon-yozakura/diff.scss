@@ -12,6 +12,14 @@
   }
 }
 
+.account-role, .simple_form .glitch_only, .simple_form .not_recommended, .simple_form .recommended {
+  color: $darker-text-color !important;
+}
+
+.column-link {
+  color: $link-color !important;
+}
+
 .reply-indicator__content .status__content__spoiler-link,
 .status__content .status__content__spoiler-link {
   color: $darker-text-color !important;
