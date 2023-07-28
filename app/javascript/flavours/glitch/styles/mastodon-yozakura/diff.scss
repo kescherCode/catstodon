@@ -12,8 +12,9 @@
   }
 }
 
-.column-link {
-  color: $link-color;
+.reply-indicator__content .status__content__spoiler-link,
+.status__content .status__content__spoiler-link {
+  color: $darker-text-color !important;
 }
 
 .reply-indicator {
@@ -30,7 +31,6 @@
 .status__content__read-more-button,
 .status__content__translate-button {
   text-decoration: underline;
-  color: $link-color;
 
   &:hover,
   &:focus,
