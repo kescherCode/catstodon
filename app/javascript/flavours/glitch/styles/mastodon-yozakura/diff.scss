@@ -20,7 +20,10 @@
   background: $ui-base-lighter-color !important;
 }
 
-.compose-form__buttons-wrapper {
+.compose-form__buttons-wrapper,
+.compose-form__modifiers,
+.report-dialog-modal__textarea,
+.report-modal__comment .setting-text {
   background: $ui-base-color !important;
 }
 
