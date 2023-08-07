@@ -27,6 +27,10 @@
   background: $ui-base-color !important;
 }
 
+.block-modal__container select, .confirmation-modal__container select, .mute-modal__container select, .report-modal__target select {
+  background: $ui-base-lighter-color !important;
+}
+
 .privacy-dropdown__dropdown {
   background: $ui-base-lighter-color !important;
 }
@@ -50,6 +54,10 @@
 
 .account-role, .simple_form .glitch_only, .simple_form .not_recommended, .simple_form .recommended {
   color: $darker-text-color !important;
+}
+
+.permissions-list__item__text__title {
+  color: $action-button-color !important;
 }
 
 .column-link {
