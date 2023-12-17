@@ -3,16 +3,9 @@ $black: #000000;
 $white: #ffffff;
 
 $classic-base-color: #282c37;
-$classic-primary-color: #b15c65;
-$classic-secondary-color: #e8d3d1;
-$classic-highlight-color: #b15c65;
-
-$ui-button-secondary-color: $classic-secondary-color !default;
-$ui-button-secondary-border-color: $classic-secondary-color !default;
-$ui-button-secondary-focus-color: $white !default;
-
-$ui-button-tertiary-color: $classic-primary-color !default;
-$ui-button-tertiary-border-color: $classic-primary-color !default;
+$classic-primary-color: #B15C65;
+$classic-secondary-color: #E8D3D1;
+$classic-highlight-color: #B15C65;
 
 // Differences
 $success-green: lighten(#3c754d, 8%);
@@ -20,9 +13,9 @@ $success-green: lighten(#3c754d, 8%);
 $base-overlay-background: $white !default;
 $valid-value-color: $success-green !default;
 
-$ui-base-color: #e7b8c2 !default;
-$ui-base-lighter-color: #feeeed;
-$ui-primary-color: #fcf5f7;
+$ui-base-color: #E7B8C2 !default;
+$ui-base-lighter-color: #FEEEED;
+$ui-primary-color: #FCF5F7;
 $ui-secondary-color: $classic-base-color !default;
 $ui-highlight-color: $classic-highlight-color !default;
 
@@ -59,8 +52,7 @@ $ui-button-tertiary-border-color: $blurple-300 !default;
 $ui-button-tertiary-focus-background-color: $blurple-600 !default;
 $ui-button-tertiary-focus-color: $white !default;
 
-$ui-button-destructive-background-color: $red-500 !default;
-$ui-button-destructive-focus-background-color: $red-600 !default;
+$ui-button-destructive-background-color: $red-500 !default; $ui-button-destructive-focus-background-color: $red-600 !default;
 
 // Newly added colors
 $account-background-color: $white !default;
