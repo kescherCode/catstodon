@@ -2,7 +2,7 @@
 
 This is the repo for the fork of Mastodon used by [Sakurajima](https://sakurajima.moe) which is a fork of[Urusai! Social](https://urusai.social/). This repo exists so I don't have to copy and paste the customizations when I update Mastodon.
 
-Added features from [Urusai fork](https://github.com/neatchee/mastodon):
+# Added features from [Urusai fork](https://github.com/neatchee/mastodon):
 
 - Flavours/styles from @chikorita157@sakurajima.moe
 - Emoji enhancements
@@ -18,3 +18,9 @@ So here's the deal: we all work on this code, and anyone who uses that does so a
 
 - You can view documentation for the original glitch-soc project at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/).
 - And contributing guidelines are available [here](CONTRIBUTING.md) and [here](https://glitch-soc.github.io/docs/contributing/).
+
+# Our Additional Changes
+- Add Mastodon Modern Theme by [Freeplay](https://codeberg.org/Freeplay/Mastodon-Modern) with color variants we have already
+- Footer links and login tweaks
+- Holiday Themes Added
+- Mastodon-bird-ui theme by [ronilaukkarinen](https://github.com/ronilaukkarinen/mastodon-bird-ui/blob/master/style.css)
