@@ -5,6 +5,7 @@ body.rtl {
     direction: rtl;
   }
 
+  .announcements__mastodon,
   .drawer__inner__mastodon > img {
     transform: scaleX(-1);
   }

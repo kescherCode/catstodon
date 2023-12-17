@@ -7887,10 +7887,23 @@ noscript {
   display: flex;
   align-items: flex-end;
 
+  &__mastodon {
+    width: 124px;
+    flex: 0 0 auto;
+
+    @media screen and (max-width: 124px + 300px) {
+      display: none;
+    }
+  }
+
   &__container {
-    width: 100%;
+    width: calc(100% - 124px);
     flex: 0 0 auto;
     position: relative;
+
+    @media screen and (max-width: 124px + 300px) {
+      width: 100%;
+    }
   }
 
   &__item {
@@ -7933,6 +7946,10 @@ noscript {
     bottom: 3px;
     inset-inline-end: 0;
   }
+}
+
+.layout-multiple-columns .announcements__mastodon {
+  display: none;
 }
 
 .layout-multiple-columns .announcements__container {
