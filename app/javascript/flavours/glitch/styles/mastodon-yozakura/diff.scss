@@ -12,7 +12,16 @@
   }
 }
 
-.compose-form .autosuggest-input label .autosuggest-textarea__textarea, .compose-form .autosuggest-textarea label .autosuggest-textarea__textarea {
+.account__note
+{
+ color: $darker-text-color !important;
+}
+
+.follow-recommendations-account .icon-button {
+  color: $link-color !important;
+}
+.compose-form .autosuggest-input label .autosuggest-textarea__textarea,
+.compose-form .autosuggest-textarea label .autosuggest-textarea__textarea {
   background: $ui-base-lighter-color !important;
 }
 
@@ -52,7 +61,10 @@
   background: $ui-base-lighter-color !important;
 }
 
-.account-role, .simple_form .glitch_only, .simple_form .not_recommended, .simple_form .recommended {
+.account-role,
+.simple_form .glitch_only,
+.simple_form .not_recommended,
+.simple_form .recommended {
   color: $darker-text-color !important;
 }
 
@@ -73,7 +85,9 @@
   color: $darker-text-color !important;
 }
 
-.text-icon-button:active, .text-icon-button:focus, .text-icon-button:hover {
+.text-icon-button:active,
+.text-icon-button:focus,
+.text-icon-button:hover {
   color: $link-color;
 }
 
