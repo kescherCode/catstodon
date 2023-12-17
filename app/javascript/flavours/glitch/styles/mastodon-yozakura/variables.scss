@@ -17,9 +17,8 @@ $dark-text-color: #eee0dd;
 $secondary-text-color: #eee0dd;
 $highlight-text-color: #eee0dd;
 $action-button-color: #f89887;
-$link-color: #fa9c85;
 
-$inverted-text-color: #eee0dd;
+$inverted-text-color: $black !default;
 $lighter-text-color: darken(#eee0dd, 6%) !default;
 $light-text-color: darken(#eee0dd, 40%) !default;
 
@@ -27,21 +26,21 @@ $light-text-color: darken(#eee0dd, 40%) !default;
 $red-600: #b7253d !default; // Deep Carmine
 $red-500: #df405a !default; // Cerise
 $blurple-600: #b15c65; // Iris
-$blurple-500: #b15c65; // Brand purple
+$blurple-500: #b15c65 // Brand purple
 $blurple-300: #e8d3d1; // Faded Blue
 $grey-600: #feeeed; // Trout
 $grey-100: #fcf5f7; // Topaz
 
-$ui-button-color: #eee0dd !default;
+$ui-button-color: $white !default;
 $ui-button-background-color: $blurple-500 !default;
 $ui-button-focus-background-color: $blurple-600 !default;
 
 $ui-button-secondary-color: $grey-100 !default;
 $ui-button-secondary-border-color: $grey-100 !default;
 $ui-button-secondary-focus-background-color: $grey-600 !default;
-$ui-button-secondary-focus-color: #eee0dd !default;
+$ui-button-secondary-focus-color: $white !default;
 
 $ui-button-tertiary-color: $blurple-300 !default;
 $ui-button-tertiary-border-color: $blurple-300 !default;
 $ui-button-tertiary-focus-background-color: $blurple-600 !default;
-$ui-button-tertiary-focus-color: #eee0dd !default;
+$ui-button-tertiary-focus-color: $white !default;

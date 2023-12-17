@@ -12,73 +12,6 @@
   }
 }
 
-.compose-form .autosuggest-input label .autosuggest-textarea__textarea,
-.compose-form .autosuggest-textarea label .autosuggest-textarea__textarea {
-  background: $ui-base-lighter-color !important;
-}
-
-.spoiler-input input {
-  background: $ui-base-lighter-color !important;
-}
-
-.compose-form__buttons-wrapper,
-.compose-form__modifiers,
-.report-dialog-modal__textarea,
-.report-modal__comment .setting-text {
-  background: $ui-base-color !important;
-}
-
-.privacy-dropdown__dropdown {
-  background: $ui-base-lighter-color !important;
-}
-
-.privacy-dropdown.active .privacy-dropdown__value {
-  background: $ui-base-lighter-color !important;
-}
-
-.emoji-mart-bar:first-child {
-  background: $classic-primary-color !important;
-}
-
-.emoji-mart {
-  color: $black !important;
-}
-
-.emoji-mart-search input {
-  border: $ui-base-color !important;
-  background: $ui-base-lighter-color !important;
-}
-
-.account-role,
-.simple_form .glitch_only,
-.simple_form .not_recommended,
-.simple_form .recommended {
-  color: $darker-text-color !important;
-}
-
-.column-link {
-  color: $link-color;
-}
-
-.reply-indicator__content .status__content__spoiler-link,
-.status__content .status__content__spoiler-link {
-  color: $darker-text-color !important;
-}
-
-.reply-indicator {
-  color: $darker-text-color !important;
-}
-
-.text-icon-button:active,
-.text-icon-button:focus,
-.text-icon-button:hover {
-  color: $link-color;
-}
-
-.report-dialog-modal .dialog-option .poll__input {
-  color: $link-color !important;
-}
-
 .status__content a,
 .link-footer a,
 .reply-indicator__content a,
@@ -133,10 +66,6 @@
 .language-dropdown__dropdown__results__item.active {
   background: $ui-highlight-color;
   font-weight: 500;
-}
-
-.report-dialog-modal .dialog-option .poll__input {
-  color: $ui-primary-color;
 }
 
 .link-button:disabled {
