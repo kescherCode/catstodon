@@ -24,8 +24,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 });
 
-export default @injectIntl
-@connect(null, mapDispatchToProps)
 class LinkFooter extends React.PureComponent {
 
   static contextTypes = {
@@ -73,7 +71,7 @@ class LinkFooter extends React.PureComponent {
           {' '}
           <Link to='/about'><FormattedMessage id='footer.about' defaultMessage='About' /></Link>
           {' · '}
-          <a key='calckey' href='https://sakurajima.social'>Firefish</a>
+          <a key='misskey' href='https://sakurajima.social'>Misskey</a>
           {' · '}
           <a key='forums' href='https://forums.sakurajima.moe'>Forums</a>
           {' · '}
@@ -111,10 +109,12 @@ class LinkFooter extends React.PureComponent {
           {DividingCircle}
           <a href={source_url} rel='noopener noreferrer' target='_blank'><FormattedMessage id='footer.source_code' defaultMessage='View source code' /></a>
           {DividingCircle}
-          v{version}
+          <span className='version'>v{version}</span>
         </p>
       </div>
     );
   }
 
 }
+
+export default injectIntl(connect(null, mapDispatchToProps)(LinkFooter));
