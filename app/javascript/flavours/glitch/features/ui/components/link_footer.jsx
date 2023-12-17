@@ -1,16 +1,12 @@
-import PropTypes from 'prop-types';
-import { PureComponent } from 'react';
-
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-
-import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
-import { openModal } from 'flavours/glitch/actions/modal';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import { domain, version, source_url, statusPageUrl, profile_directory as profileDirectory } from 'flavours/glitch/initial_state';
-import { PERMISSION_INVITE_USERS } from 'flavours/glitch/permissions';
 import { logOut } from 'flavours/glitch/utils/log_out';
+import { openModal } from 'flavours/glitch/actions/modal';
+import { PERMISSION_INVITE_USERS } from 'flavours/glitch/permissions';
 
 const messages = defineMessages({
   logoutMessage: { id: 'confirmations.logout.message', defaultMessage: 'Are you sure you want to log out?' },
@@ -19,26 +15,24 @@ const messages = defineMessages({
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
   onLogout () {
-    dispatch(openModal({
-      modalType: 'CONFIRM',
-      modalProps: {
-        message: intl.formatMessage(messages.logoutMessage),
-        confirm: intl.formatMessage(messages.logoutConfirm),
-        closeWhenConfirm: false,
-        onConfirm: () => logOut(),
-      },
+    dispatch(openModal('CONFIRM', {
+      message: intl.formatMessage(messages.logoutMessage),
+      confirm: intl.formatMessage(messages.logoutConfirm),
+      closeWhenConfirm: false,
+      onConfirm: () => logOut(),
     }));
   },
 });
 
-class LinkFooter extends PureComponent {
+export default @injectIntl
+@connect(null, mapDispatchToProps)
+class LinkFooter extends React.PureComponent {
 
   static contextTypes = {
     identity: PropTypes.object,
   };
 
   static propTypes = {
-    multiColumn: PropTypes.bool,
     onLogout: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   };
@@ -54,7 +48,6 @@ class LinkFooter extends PureComponent {
 
   render () {
     const { signedIn, permissions } = this.context.identity;
-    const { multiColumn } = this.props;
 
     const canInvite = signedIn && ((permissions & PERMISSION_INVITE_USERS) === PERMISSION_INVITE_USERS);
     const canProfileDirectory = profileDirectory;
@@ -64,12 +57,27 @@ class LinkFooter extends PureComponent {
     return (
       <div className='link-footer'>
         <p>
-          New to Mastodon and want an easier transition? Try the <a href='https://elk.urusai.social/'>Alternative UI (Elk)</a> for a more &quot;bird-like&quot; interface!
+            Used to Twitter and Mastodon FE too hard? Try our <a href="https://elk.sakurajima.moe/">Elk Frontend</a>
         </p>
+        <p>
+          <strong>Sakurajima is a donor sponsored instance.</strong> You can support us at:
+            {' '}
+             <a key='paypal' href='https://www.paypal.com/donate/?hosted_button_id=HREN4ATRLZ54S'>Paypal</a>
+            {' · '}
+            <a key='kofi' href='https://ko-fi.com/V7V8GAJR9'>Ko-Fi</a>
+            {' · '}
+            <a key='patreon' href='https://www.patreon.com/sakurajimamastodon'>Patreon</a>
+          </p>
         <p>
           <strong>{domain}</strong>:
           {' '}
-          <Link to='/about' target={multiColumn ? '_blank' : undefined}><FormattedMessage id='footer.about' defaultMessage='About' /></Link>
+          <Link to='/about'><FormattedMessage id='footer.about' defaultMessage='About' /></Link>
+          {' · '}
+          <a key='forums' href='https://forums.sakurajima.moe'>Forums</a>
+          {' · '}
+          <a key='pixelfed' href='https://usuzakuraya.us/'>Pixelfed</a>
+          {' · '}
+          <a key='blog' href='https://blog.sakurajima.moe'>Blog</a>
           {statusPageUrl && (
             <>
               {DividingCircle}
@@ -89,7 +97,7 @@ class LinkFooter extends PureComponent {
             </>
           )}
           {DividingCircle}
-          <Link to='/privacy-policy' target={multiColumn ? '_blank' : undefined}><FormattedMessage id='footer.privacy_policy' defaultMessage='Privacy policy' /></Link>
+          <Link to='/privacy-policy'><FormattedMessage id='footer.privacy_policy' defaultMessage='Privacy policy' /></Link>
         </p>
 
         <p>
@@ -103,12 +111,10 @@ class LinkFooter extends PureComponent {
           {DividingCircle}
           <a href={source_url} rel='noopener noreferrer' target='_blank'><FormattedMessage id='footer.source_code' defaultMessage='View source code' /></a>
           {DividingCircle}
-          <span className='version'>v{version}</span>
+          v{version}
         </p>
       </div>
     );
   }
 
 }
-
-export default injectIntl(connect(null, mapDispatchToProps)(LinkFooter));
