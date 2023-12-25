@@ -24,6 +24,10 @@ html {
   }
 }
 
+#mastodon .hashtag-bar a, #mastodon .hashtag-bar button {
+  color: $classic-highlight-color;
+}
+
 // Change default background colors of columns
 .column > .scrollable,
 .getting-started,
