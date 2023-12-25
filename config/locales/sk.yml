@@ -125,6 +125,8 @@ sk:
       removed_header_msg: Úspešne odstránený obrázok hlavičky %{username}
       resend_confirmation:
         already_confirmed: Tento užívateľ je už potvrdený
+        send: Odošli potvrdzovací odkaz znovu
+        success: Potvrdzovací email úspešne odoslaný!
       reset: Resetuj
       reset_password: Obnov heslo
       resubscribe: Znovu odoberaj
@@ -583,6 +585,7 @@ sk:
       title: Serverové pravidlá
     settings:
       about:
+        manage_rules: Spravuj serverové pravidlá
         title: Ohľadom
       appearance:
         title: Vzhľad
@@ -605,9 +608,16 @@ sk:
           approved: Pre registráciu je nutné povolenie
           none: Nikto sa nemôže registrovať
           open: Ktokoľvek sa môže zaregistrovať
+      title: Nastavenia servera
     site_uploads:
       delete: Vymaž nahratý súbor
       destroyed_msg: Nahratie bolo zo stránky úspešne vymazané!
+    software_updates:
+      documentation_link: Zisti viac
+      title: Dostupné aktualizácie
+      types:
+        major: Hlavné vydanie
+      version: Verzia
     statuses:
       account: Autor
       application: Aplikácia
@@ -1040,6 +1050,7 @@ sk:
     confirm_remove_selected_followers: Si si istý/á, že chceš odstrániť vybraných sledovateľov?
     confirm_remove_selected_follows: Si si istý/á, že chceš odstrániť vybraných sledovaných?
     dormant: Spiace
+    follow_failure: Nemožno nasledovať niektoré z vybraných účtov.
     follow_selected_followers: Následuj označených sledovatelov
     followers: Následovatelia
     following: Následovaní

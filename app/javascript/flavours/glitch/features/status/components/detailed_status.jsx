@@ -12,7 +12,7 @@ import { AnimatedNumber } from 'flavours/glitch/components/animated_number';
 import AttachmentList from 'flavours/glitch/components/attachment_list';
 import EditedTimestamp from 'flavours/glitch/components/edited_timestamp';
 import { getHashtagBarForStatus } from 'flavours/glitch/components/hashtag_bar';
-import { Icon } from 'flavours/glitch/components/icon';
+import { Icon }  from 'flavours/glitch/components/icon';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import StatusReactions from 'flavours/glitch/components/status_reactions';
 import VisibilityIcon from 'flavours/glitch/components/status_visibility_icon';

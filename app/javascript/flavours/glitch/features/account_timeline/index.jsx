@@ -184,7 +184,7 @@ class AccountTimeline extends ImmutablePureComponent {
     const remoteMessage = remote ? <RemoteHint url={remoteUrl} /> : null;
 
     return (
-      <Column bindToDocument={!multiColumn} ref={this.setRef} name='account'>
+      <Column bindToDocument={!multiColumn} ref={this.setRef}>
         <ProfileColumnHeader onClick={this.handleHeaderClick} multiColumn={multiColumn} />
 
         <StatusList

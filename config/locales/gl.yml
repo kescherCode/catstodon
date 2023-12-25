@@ -750,7 +750,7 @@ gl:
         title: Retención do contido
       default_noindex:
         desc_html: Aféctalle a tódalas usuarias que non cambiaron este axuste elas mesmas
-        title: Por omisión exclúe as usuarias do indexado por servidores de busca
+        title: Omitir por defecto ás usuarias do indexado por servidores de busca
       discovery:
         follow_recommendations: Recomendacións de seguimento
         preamble: Destacar contido interesante é importante para axudar a que as novas usuarias se sintan cómodas se non coñecen a ninguén en Mastodon. Xestiona os diferentes xeitos de promocionar contidos.
@@ -1041,6 +1041,14 @@ gl:
       hint_html: Unha cousa máis! Temos que confirmar que es un ser humano (para poder evitar contas de spam!). Resolve o CAPTCHA de aquí embaixo e preme en "Continuar".
       title: Comprobación de seguridade
     confirmations:
+      awaiting_review: O teu correo está verificado! A administración de %{domain} está revisando a túa solicitude. Recibirás outro correo se aproban a túa conta!
+      awaiting_review_title: Estamos revisando a solicitude de rexistro
+      clicking_this_link: premendo nesta ligazón
+      login_link: acceder
+      proceed_to_login_html: Xa podes %{login_link}.
+      redirect_to_app_html: Ímoste redirixir á app <strong>%{app_name}</strong>. Se iso non acontece, proba %{clicking_this_link} ou volve ti manualmente á app.
+      registration_complete: Completouse a creación da conta en %{domain}!
+      welcome_title: Benvida, %{name}!
       wrong_email_hint: Se o enderezo de email non é correcto, podes cambialo nos axustes da conta.
     delete_account: Eliminar conta
     delete_account_html: Se queres eliminar a túa conta, podes <a href="%{path}">facelo aquí</a>. Deberás confirmar a acción.
@@ -1520,7 +1528,7 @@ gl:
       too_many_options: non pode haber máis de %{max} opcións
   preferences:
     other: Outro
-    posting_defaults: Valores por omisión
+    posting_defaults: Valores por defecto
     public_timelines: Cronoloxías públicas
   privacy:
     hint_html: "<strong>Personaliza o xeito no que queres que se atope o teu perfil e publicacións.</strong> Mastodon ten variedade de ferramentas para axudarche a acadar unha audiencia maior. Dedica un minuto a revisalas e confirma que se axustan ao teu caso persoal."
@@ -1690,7 +1698,7 @@ gl:
       private_long: Mostrar só as seguidoras
       public: Público
       public_long: Visible para calquera
-      unlisted: Non listado
+      unlisted: Sen listar
       unlisted_long: Visible para calquera, pero non en cronoloxías públicas
   statuses_cleanup:
     enabled: Borrar automáticamente publicacións antigas
