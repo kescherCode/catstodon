@@ -10,9 +10,11 @@ To install, take a look at [glitch-soc.github.io/docs/](https://glitch-soc.githu
 
 Contributing guidelines are available [here](CONTRIBUTING.md).
 
-Note: [CatCatNya~](https://catcatnya.com) runs on the `develop` branch.
-That branch may, at times, be force-pushed to (mostly for undoing cherry-picking of vanilla commits when upstream adopts them).
-I highly suggest only ever running the `main` branch in production!
+Note: Use the main branch only for forks. `develop` branch may, at times,
+be force-pushed to (mostly for undoing cherry-picking of vanilla commits when upstream adopts them).
+I highly suggest only ever running the `main` branch in production, as is done for [CatCatNya~](https://catcatnya.com)!
+I also highly suggest not rebasing on this if you are maintaining a fork,
+instead, use merge (fast-forward, if possible, with merge commit otherwise).
 
 ## Differences
 
