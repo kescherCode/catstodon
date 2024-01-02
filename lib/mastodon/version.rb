@@ -17,15 +17,19 @@ module Mastodon
     end
 
     def default_prerelease
-      'alpha.0'
+      ''
     end
 
     def prerelease
       ENV['MASTODON_VERSION_PRERELEASE'].presence || default_prerelease
     end
 
+    def catstodon_revision
+      '1.0.0'
+    end
+
     def build_metadata
-      ['glitch+cat', ENV.fetch('MASTODON_VERSION_METADATA', nil)].compact_blank.join('.')
+      ["glitch+cat+#{catstodon_revision}", ENV.fetch('MASTODON_VERSION_METADATA', nil)].compact_blank.join('.')
     end
 
     def to_a
