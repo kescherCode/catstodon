@@ -1,38 +1,39 @@
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { Component, cloneElement, Children } from 'react';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 
 import StackTrace from 'stacktrace-js';
 
-import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
-import ColumnLoading from 'flavours/glitch/features/ui/components/column_loading';
-import BundleContainer from 'flavours/glitch/features/ui/containers/bundle_container';
+import BundleColumnError from '../components/bundle_column_error';
+import ColumnLoading from '../components/column_loading';
+import BundleContainer from '../containers/bundle_container';
 
 // Small wrapper to pass multiColumn to the route components
-export class WrappedSwitch extends React.PureComponent {
+export const WrappedSwitch = ({ multiColumn, children }) => {
+  const  location = useLocation();
 
-  render () {
-    const { multiColumn, children } = this.props;
+  const decklessLocation = multiColumn && location.pathname.startsWith('/deck')
+    ? {...location, pathname: location.pathname.slice(5)}
+    : location;
 
-    return (
-      <Switch>
-        {React.Children.map(children, child => React.cloneElement(child, { multiColumn }))}
-      </Switch>
-    );
-  }
+  return (
+    <Switch location={decklessLocation}>
+      {Children.map(children, child => child ? cloneElement(child, { multiColumn }) : null)}
+    </Switch>
+  );
+};
 
-}
 
 WrappedSwitch.propTypes = {
   multiColumn: PropTypes.bool,
   children: PropTypes.node,
 };
 
-// Small Wraper to extract the params from the route and pass
+// Small Wrapper to extract the params from the route and pass
 // them to the rendered component, together with the content to
 // be rendered inside (the children)
-export class WrappedRoute extends React.Component {
+export class WrappedRoute extends Component {
 
   static propTypes = {
     component: PropTypes.func.isRequired,

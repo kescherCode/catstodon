@@ -1,4 +1,4 @@
-import type { ValueOf } from 'flavours/glitch/types/util';
+import type { ValueOf } from '../types/util';
 
 export const DECIMAL_UNITS = Object.freeze({
   ONE: 1,
@@ -55,7 +55,7 @@ export function toShortNumber(sourceNumber: number): ShortNumber {
  */
 export function pluralReady(
   sourceNumber: number,
-  division: DecimalUnits
+  division: DecimalUnits | null,
 ): number {
   if (division == null || division < DECIMAL_UNITS.HUNDRED) {
     return sourceNumber;

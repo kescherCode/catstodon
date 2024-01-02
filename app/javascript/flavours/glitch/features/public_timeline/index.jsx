@@ -7,14 +7,15 @@ import { Helmet } from 'react-helmet';
 
 import { connect } from 'react-redux';
 
-import { addColumn, removeColumn, moveColumn } from 'flavours/glitch/actions/columns';
-import { connectPublicStream } from 'flavours/glitch/actions/streaming';
-import { expandPublicTimeline } from 'flavours/glitch/actions/timelines';
-import Column from 'flavours/glitch/components/column';
-import ColumnHeader from 'flavours/glitch/components/column_header';
-import DismissableBanner from 'flavours/glitch/components/dismissable_banner';
+import { DismissableBanner } from 'flavours/glitch/components/dismissable_banner';
 import { domain } from 'flavours/glitch/initial_state';
-import StatusListContainer from 'flavours/glitch/features/ui/containers/status_list_container';
+
+import { addColumn, removeColumn, moveColumn } from '../../actions/columns';
+import { connectPublicStream } from '../../actions/streaming';
+import { expandPublicTimeline } from '../../actions/timelines';
+import Column from '../../components/column';
+import ColumnHeader from '../../components/column_header';
+import StatusListContainer from '../ui/containers/status_list_container';
 
 import ColumnSettingsContainer from './containers/column_settings_container';
 
@@ -30,7 +31,7 @@ const mapStateToProps = (state, { columnId }) => {
   const onlyRemote = (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'onlyRemote']) : state.getIn(['settings', 'public', 'other', 'onlyRemote']);
   const allowLocalOnly = (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'allowLocalOnly']) : state.getIn(['settings', 'public', 'other', 'allowLocalOnly']);
   const regex = (columnId && index >= 0) ? columns.get(index).getIn(['params', 'regex', 'body']) : state.getIn(['settings', 'public', 'regex', 'body']);
-  const timelineState = state.getIn(['timelines', `public${onlyMedia ? ':media' : ''}`]);
+  const timelineState = state.getIn(['timelines', `public${onlyRemote ? ':remote' : allowLocalOnly ? ':allow_local_only' : ''}${onlyMedia ? ':media' : ''}`]);
 
   return {
     hasUnread: !!timelineState && timelineState.get('unread') > 0,
@@ -43,13 +44,12 @@ const mapStateToProps = (state, { columnId }) => {
 
 class PublicTimeline extends PureComponent {
 
-  static defaultProps = {
-    onlyMedia: false,
+  static contextTypes = {
+    identity: PropTypes.object,
   };
 
-  static contextTypes = {
-    router: PropTypes.object,
-    identity: PropTypes.object,
+  static defaultProps = {
+    onlyMedia: false,
   };
 
   static propTypes = {
@@ -133,7 +133,7 @@ class PublicTimeline extends PureComponent {
     const pinned = !!columnId;
 
     return (
-      <Column bindToDocument={!multiColumn} ref={this.setRef} name='federated' label={intl.formatMessage(messages.title)}>
+      <Column bindToDocument={!multiColumn} ref={this.setRef} label={intl.formatMessage(messages.title)}>
         <ColumnHeader
           icon='globe'
           active={hasUnread}

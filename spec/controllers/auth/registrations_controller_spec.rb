@@ -6,29 +6,25 @@ RSpec.describe Auth::RegistrationsController do
   render_views
 
   shared_examples 'checks for enabled registrations' do |path|
-    around do |example|
-      registrations_mode = Setting.registrations_mode
-      example.run
-      Setting.registrations_mode = registrations_mode
-    end
-
     it 'redirects if it is in single user mode while it is open for registration' do
       Fabricate(:account)
       Setting.registrations_mode = 'open'
-      expect(Rails.configuration.x).to receive(:single_user_mode).and_return(true)
+      allow(Rails.configuration.x).to receive(:single_user_mode).and_return(true)
 
       get path
 
       expect(response).to redirect_to '/'
+      expect(Rails.configuration.x).to have_received(:single_user_mode)
     end
 
     it 'redirects if it is not open for registration while it is not in single user mode' do
       Setting.registrations_mode = 'none'
-      expect(Rails.configuration.x).to receive(:single_user_mode).and_return(false)
+      allow(Rails.configuration.x).to receive(:single_user_mode).and_return(false)
 
       get path
 
       expect(response).to redirect_to '/'
+      expect(Rails.configuration.x).to have_received(:single_user_mode)
     end
   end
 
@@ -80,12 +76,6 @@ RSpec.describe Auth::RegistrationsController do
     end
 
     context 'with open registrations' do
-      around do |example|
-        registrations_mode = Setting.registrations_mode
-        example.run
-        Setting.registrations_mode = registrations_mode
-      end
-
       it 'returns http success' do
         Setting.registrations_mode = 'open'
         get :new
@@ -118,12 +108,6 @@ RSpec.describe Auth::RegistrationsController do
         post :create, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true' } }
       end
 
-      around do |example|
-        registrations_mode = Setting.registrations_mode
-        example.run
-        Setting.registrations_mode = registrations_mode
-      end
-
       it 'redirects to setup' do
         subject
         expect(response).to redirect_to auth_setup_path
@@ -144,12 +128,6 @@ RSpec.describe Auth::RegistrationsController do
         post :create, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'false' } }
       end
 
-      around do |example|
-        registrations_mode = Setting.registrations_mode
-        example.run
-        Setting.registrations_mode = registrations_mode
-      end
-
       it 'does not create user' do
         subject
         user = User.find_by(email: 'test@example.com')
@@ -162,12 +140,6 @@ RSpec.describe Auth::RegistrationsController do
         Setting.registrations_mode = 'approved'
         request.headers['Accept-Language'] = accept_language
         post :create, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', agreement: 'true' } }
-      end
-
-      around do |example|
-        registrations_mode = Setting.registrations_mode
-        example.run
-        Setting.registrations_mode = registrations_mode
       end
 
       it 'redirects to setup' do
@@ -192,12 +164,6 @@ RSpec.describe Auth::RegistrationsController do
         post :create, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', invite_code: invite.code, agreement: 'true' } }
       end
 
-      around do |example|
-        registrations_mode = Setting.registrations_mode
-        example.run
-        Setting.registrations_mode = registrations_mode
-      end
-
       it 'redirects to setup' do
         subject
         expect(response).to redirect_to auth_setup_path
@@ -220,14 +186,6 @@ RSpec.describe Auth::RegistrationsController do
         request.headers['Accept-Language'] = accept_language
         invite = Fabricate(:invite, user: inviter, max_uses: nil, expires_at: 1.hour.from_now)
         post :create, params: { user: { account_attributes: { username: 'test' }, email: 'test@example.com', password: '12345678', password_confirmation: '12345678', invite_code: invite.code, agreement: 'true' } }
-      end
-
-      around do |example|
-        registrations_mode = Setting.registrations_mode
-        require_invite_text = Setting.require_invite_text
-        example.run
-        Setting.require_invite_text = require_invite_text
-        Setting.registrations_mode = registrations_mode
       end
 
       it 'redirects to setup' do

@@ -11,6 +11,15 @@
   position: relative;
 }
 
+.inline-alert {
+  color: $valid-value-color;
+  font-weight: 400;
+
+  .no-reduce-motion & {
+    transition: opacity 200ms ease;
+  }
+}
+
 .link-button {
   display: block;
   font-size: 15px;
@@ -147,11 +156,6 @@
     display: block;
     width: 100%;
   }
-
-  .layout-multiple-columns &.button--with-bell {
-    font-size: 12px;
-    padding: 0 8px;
-  }
 }
 
 .icon-button {
@@ -286,6 +290,7 @@
   background: transparent;
   cursor: pointer;
   padding: 0 3px;
+  white-space: nowrap;
   outline: 0;
   transition: all 100ms ease-in;
   transition-property: background-color, color;
@@ -400,6 +405,11 @@ body > [data-popper-placement] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &__account {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
   a {
     color: inherit;
@@ -538,14 +548,14 @@ body > [data-popper-placement] {
 
 .dropdown-menu__separator {
   border-bottom: 1px solid var(--dropdown-border-color);
-  margin: 5px 0;
+  margin: 2px 0;
   height: 0;
 }
 
 .dropdown-menu {
   background: var(--dropdown-background-color);
   border: 1px solid var(--dropdown-border-color);
-  padding: 4px;
+  padding: 2px;
   border-radius: 4px;
   box-shadow: var(--dropdown-shadow);
   z-index: 9999;
@@ -569,8 +579,8 @@ body > [data-popper-placement] {
   &__container {
     &__header {
       border-bottom: 1px solid var(--dropdown-border-color);
-      padding: 10px 14px;
-      padding-bottom: 14px;
+      padding: 6px 14px;
+      padding-bottom: 12px;
       margin-bottom: 4px;
       font-size: 13px;
       line-height: 18px;
@@ -610,7 +620,7 @@ body > [data-popper-placement] {
     font: inherit;
     display: block;
     width: 100%;
-    padding: 10px 14px;
+    padding: 6px 14px;
     border: 0;
     margin: 0;
     background: transparent;
@@ -1343,33 +1353,40 @@ button.icon-button.active i.fa-retweet {
   }
 
   &__overlay {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     width: 100%;
     height: 100%;
+    padding: 0;
+    margin: 0;
     border: 0;
+    color: $white;
 
     &__label {
-      display: inline-block;
-      background: rgba($base-overlay-background, 0.5);
-      border-radius: 8px;
-      padding: 8px 12px;
-      color: $primary-text-color;
+      background-color: rgba($black, 0.45);
+      backdrop-filter: blur(10px) saturate(180%) contrast(75%) brightness(70%);
+      border-radius: 6px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-direction: column;
       font-weight: 500;
       font-size: 14px;
     }
 
-    &:hover,
-    &:focus,
-    &:active {
-      .spoiler-button__overlay__label {
-        background: rgba($base-overlay-background, 0.8);
-      }
+    &__action {
+      font-weight: 400;
+      font-size: 13px;
     }
 
-    &:disabled {
+    &:hover,
+    &:focus {
       .spoiler-button__overlay__label {
-        background: rgba($base-overlay-background, 0.5);
+        background-color: rgba($black, 0.9);
       }
     }
   }
@@ -1656,5 +1673,68 @@ noscript {
 
   100% {
     opacity: 1;
+  }
+}
+
+.notification-list {
+  position: fixed;
+  bottom: 2rem;
+  inset-inline-start: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notification-bar {
+  flex: 0 0 auto;
+  position: relative;
+  inset-inline-start: -100%;
+  width: auto;
+  padding: 15px;
+  margin: 0;
+  color: $white;
+  background: rgba($black, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(lighten($classic-base-color, 4%), 0.85);
+  border-radius: 8px;
+  box-shadow:
+    0 10px 15px -3px rgba($base-shadow-color, 0.25),
+    0 4px 6px -4px rgba($base-shadow-color, 0.25);
+  cursor: default;
+  font-size: 15px;
+  line-height: 21px;
+
+  &.notification-bar-active {
+    inset-inline-start: 1rem;
+  }
+
+  .no-reduce-motion & {
+    transition: 0.5s cubic-bezier(0.89, 0.01, 0.5, 1.1);
+    transform: translateZ(0);
+  }
+}
+
+.notification-bar-title {
+  margin-inline-end: 5px;
+}
+
+.notification-bar-title,
+.notification-bar-action {
+  font-weight: 700;
+}
+
+.notification-bar-action {
+  text-transform: uppercase;
+  margin-inline-start: 10px;
+  cursor: pointer;
+  color: $blurple-300;
+  border-radius: 4px;
+  padding: 0 4px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: rgba($ui-base-color, 0.85);
   }
 }

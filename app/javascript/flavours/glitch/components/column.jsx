@@ -12,13 +12,18 @@ export default class Column extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     extraClasses: PropTypes.string,
-    name: PropTypes.string,
     label: PropTypes.string,
     bindToDocument: PropTypes.bool,
   };
 
   scrollTop () {
-    const scrollable = this.props.bindToDocument ? document.scrollingElement : this.node.querySelector('.scrollable');
+    let scrollable = null;
+
+    if (this.props.bindToDocument) {
+      scrollable = document.scrollingElement;
+    } else {
+      scrollable = this.node.querySelector('.scrollable');
+    }
 
     if (!scrollable) {
       return;
@@ -56,10 +61,10 @@ export default class Column extends PureComponent {
   }
 
   render () {
-    const { children, extraClasses, name, label } = this.props;
+    const { label, children, extraClasses } = this.props;
 
     return (
-      <div role='region' aria-label={label} data-column={name} className={`column ${extraClasses || ''}`} ref={this.setRef}>
+      <div role='region' aria-label={label} className={`column ${extraClasses || ''}`} ref={this.setRef}>
         {children}
       </div>
     );

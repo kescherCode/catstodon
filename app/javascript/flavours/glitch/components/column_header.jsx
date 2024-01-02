@@ -5,8 +5,10 @@ import { createPortal } from 'react-dom';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
-import { Icon } from 'flavours/glitch/components/icon';
+import { Icon }  from 'flavours/glitch/components/icon';
+import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 const messages = defineMessages({
   show: { id: 'column_header.show_settings', defaultMessage: 'Show settings' },
@@ -18,7 +20,6 @@ const messages = defineMessages({
 class ColumnHeader extends PureComponent {
 
   static contextTypes = {
-    router: PropTypes.object,
     identity: PropTypes.object,
   };
 
@@ -38,6 +39,7 @@ class ColumnHeader extends PureComponent {
     onClick: PropTypes.func,
     appendContent: PropTypes.node,
     collapseIssues: PropTypes.bool,
+    ...WithRouterPropTypes,
   };
 
   state = {
@@ -63,14 +65,12 @@ class ColumnHeader extends PureComponent {
   };
 
   handleBackClick = () => {
-    const { router } = this.context;
+    const { history } = this.props;
 
-    // Check if there is a previous page in the app to go back to per https://stackoverflow.com/a/70532858/9703201
-    // When upgrading to V6, check `location.key !== 'default'` instead per https://github.com/remix-run/history/blob/main/docs/api-reference.md#location
-    if (router.route.location.key) {
-      router.history.goBack();
+    if (history.location?.state?.fromMastodon) {
+      history.goBack();
     } else {
-      router.history.push('/');
+      history.push('/');
     }
   };
 
@@ -80,14 +80,14 @@ class ColumnHeader extends PureComponent {
 
   handlePin = () => {
     if (!this.props.pinned) {
-      this.context.router.history.replace('/');
+      this.props.history.replace('/');
     }
 
     this.props.onPin();
   };
 
   render () {
-    const { title, icon, active, children, pinned, multiColumn, extraButton, showBackButton, intl: { formatMessage }, placeholder, appendContent, collapseIssues } = this.props;
+    const { title, icon, active, children, pinned, multiColumn, extraButton, showBackButton, intl: { formatMessage }, placeholder, appendContent, collapseIssues, history } = this.props;
     const { collapsed, animating } = this.state;
 
     const wrapperClassName = classNames('column-header__wrapper', {
@@ -130,7 +130,7 @@ class ColumnHeader extends PureComponent {
       pinButton = <button key='pin-button' className='text-btn column-header__setting-btn' onClick={this.handlePin}><Icon id='plus' /> <FormattedMessage id='column_header.pin' defaultMessage='Pin' /></button>;
     }
 
-    if (!pinned && (multiColumn || showBackButton)) {
+    if (!pinned && ((multiColumn && history.location?.state?.fromMastodon) || showBackButton)) {
       backButton = (
         <button onClick={this.handleBackClick} className='column-header__back-button'>
           <Icon id='chevron-left' className='column-back-button__icon' fixedWidth />
@@ -216,4 +216,4 @@ class ColumnHeader extends PureComponent {
 
 }
 
-export default injectIntl(ColumnHeader);
+export default injectIntl(withRouter(ColumnHeader));

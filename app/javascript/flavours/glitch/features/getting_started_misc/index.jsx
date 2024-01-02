@@ -15,11 +15,10 @@ import ColumnSubheading from 'flavours/glitch/features/ui/components/column_subh
 const messages = defineMessages({
   heading: { id: 'column.heading', defaultMessage: 'Misc' },
   subheading: { id: 'column.subheading', defaultMessage: 'Miscellaneous options' },
-  favourites: { id: 'navigation_bar.favourites', defaultMessage: 'Favourites' },
+  favourites: { id: 'navigation_bar.favourites', defaultMessage: 'Favorites' },
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
   domain_blocks: { id: 'navigation_bar.domain_blocks', defaultMessage: 'Blocked domains' },
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
-  show_me_around: { id: 'getting_started.onboarding', defaultMessage: 'Show me around' },
   pins: { id: 'navigation_bar.pins', defaultMessage: 'Pinned posts' },
   keyboard_shortcuts: { id: 'navigation_bar.keyboard_shortcuts', defaultMessage: 'Keyboard shortcuts' },
   featured_users: { id: 'navigation_bar.featured_users', defaultMessage: 'Featured users' },
@@ -28,19 +27,12 @@ const messages = defineMessages({
 class GettingStartedMisc extends ImmutablePureComponent {
 
   static contextTypes = {
-    router: PropTypes.object.isRequired,
     identity: PropTypes.object,
   };
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-  };
-
-  openOnboardingModal = () => {
-    this.props.dispatch(openModal({
-      modalType: 'ONBOARDING',
-    }));
   };
 
   openFeaturedAccountsModal = () => {
@@ -66,7 +58,6 @@ class GettingStartedMisc extends ImmutablePureComponent {
           {signedIn && (<ColumnLink key='blocks' icon='ban' text={intl.formatMessage(messages.blocks)} to='/blocks' />)}
           {signedIn && (<ColumnLink key='domain_blocks' icon='minus-circle' text={intl.formatMessage(messages.domain_blocks)} to='/domain_blocks' />)}
           <ColumnLink key='shortcuts' icon='question' text={intl.formatMessage(messages.keyboard_shortcuts)} to='/keyboard-shortcuts' />
-          {signedIn && (<ColumnLink key='onboarding' icon='hand-o-right' text={intl.formatMessage(messages.show_me_around)} onClick={this.openOnboardingModal} />)}
         </div>
       </Column>
     );

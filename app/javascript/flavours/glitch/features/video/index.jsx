@@ -10,9 +10,10 @@ import { is } from 'immutable';
 import { throttle } from 'lodash';
 
 import { Blurhash } from 'flavours/glitch/components/blurhash';
-import { Icon } from 'flavours/glitch/components/icon';
-import { displayMedia, useBlurhash } from 'flavours/glitch/initial_state';
+import { Icon }  from 'flavours/glitch/components/icon';
+import { playerSettings } from 'flavours/glitch/settings';
 
+import { displayMedia, useBlurhash } from '../../initial_state';
 import { isFullscreen, requestFullscreen, exitFullscreen } from '../ui/util/fullscreen';
 
 const messages = defineMessages({
@@ -220,8 +221,9 @@ class Video extends PureComponent {
     const { x } = getPointerPosition(this.volume, e);
 
     if(!isNaN(x)) {
-      this.setState({ volume: x }, () => {
-        this.video.volume = x;
+      this.setState((state) => ({ volume: x, muted: state.muted && x === 0 }), () => {
+        this._syncVideoToVolumeState(x);
+        this._saveVolumeState(x);
       });
     }
   }, 15);
@@ -359,6 +361,8 @@ class Video extends PureComponent {
     document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true);
 
     window.addEventListener('scroll', this.handleScroll);
+
+    this._syncVideoFromLocalStorage();
   }
 
   componentWillUnmount () {
@@ -428,10 +432,31 @@ class Video extends PureComponent {
   };
 
   toggleMute = () => {
-    const muted = !this.video.muted;
+    const muted = !(this.video.muted || this.state.volume === 0);
 
-    this.setState({ muted }, () => {
-      this.video.muted = muted;
+    this.setState((state) => ({ muted, volume: Math.max(state.volume || 0.5, 0.05) }), () => {
+      this._syncVideoToVolumeState();
+      this._saveVolumeState();
+    });
+  };
+
+  _syncVideoToVolumeState = (volume = null, muted = null) => {
+    if (!this.video) {
+      return;
+    }
+
+    this.video.volume = volume ?? this.state.volume;
+    this.video.muted = muted ?? this.state.muted;
+  };
+
+  _saveVolumeState = (volume = null, muted = null) => {
+    playerSettings.set('volume', volume ?? this.state.volume);
+    playerSettings.set('muted', muted ?? this.state.muted);
+  };
+
+  _syncVideoFromLocalStorage = () => {
+    this.setState({ volume: playerSettings.get('volume') ?? 0.5, muted: playerSettings.get('muted') ?? false }, () => {
+      this._syncVideoToVolumeState();
     });
   };
 
@@ -477,6 +502,7 @@ class Video extends PureComponent {
 
   handleVolumeChange = () => {
     this.setState({ volume: this.video.volume, muted: this.video.muted });
+    this._saveVolumeState(this.video.volume, this.video.muted);
   };
 
   handleOpenVideo = () => {
@@ -508,8 +534,10 @@ class Video extends PureComponent {
 
   render () {
     const { preview, src, inline, onOpenVideo, onCloseVideo, intl, alt, lang, letterbox, fullwidth, detailed, sensitive, editable, blurhash, autoFocus } = this.props;
-    const { currentTime, duration, volume, buffer, dragging, paused, fullscreen, hovered, muted, revealed } = this.state;
+    const { currentTime, duration, volume, buffer, dragging, paused, fullscreen, hovered, revealed } = this.state;
     const progress = Math.min((currentTime / duration) * 100, 100);
+    const muted = this.state.muted || volume === 0;
+
     const playerStyle = {};
 
     if (inline) {
@@ -564,7 +592,6 @@ class Video extends PureComponent {
           aria-label={alt}
           title={alt}
           lang={lang}
-          volume={volume}
           onClick={this.togglePlay}
           onKeyDown={this.handleVideoKeyDown}
           onPlay={this.handlePlay}
@@ -577,7 +604,10 @@ class Video extends PureComponent {
 
         <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed || editable })}>
           <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
-            <span className='spoiler-button__overlay__label'>{warning}</span>
+            <span className='spoiler-button__overlay__label'>
+              {warning}
+              <span className='spoiler-button__overlay__action'><FormattedMessage id='status.media.show' defaultMessage='Click to show' /></span>
+            </span>
           </button>
         </div>
 
@@ -600,12 +630,12 @@ class Video extends PureComponent {
               <button type='button' title={intl.formatMessage(muted ? messages.unmute : messages.mute)} aria-label={intl.formatMessage(muted ? messages.unmute : messages.mute)} className='player-button' onClick={this.toggleMute}><Icon id={muted ? 'volume-off' : 'volume-up'} fixedWidth /></button>
 
               <div className={classNames('video-player__volume', { active: this.state.hovered })} onMouseDown={this.handleVolumeMouseDown} ref={this.setVolumeRef}>
-                <div className='video-player__volume__current' style={{ width: `${volume * 100}%` }} />
+                <div className='video-player__volume__current' style={{ width: `${muted ? 0 : volume * 100}%` }} />
 
                 <span
                   className={classNames('video-player__volume__handle')}
                   tabIndex={0}
-                  style={{ left: `${volume * 100}%` }}
+                  style={{ left: `${muted ? 0 : volume * 100}%` }}
                 />
               </div>
 

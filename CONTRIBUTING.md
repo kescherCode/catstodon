@@ -1,4 +1,4 @@
-#  Contributing to Catstodon #
+# Contributing to Catstodon
 
 Thank you for your interest in contributing to a fork of the `glitch-soc` project!
 Before you do anything here, please check if you can contribute to either the [vanilla Mastodon project](https://github.com/mastodon/mastodon) or [glitch-soc](https://github.com/glitch-soc/mastodon) first.
@@ -48,6 +48,10 @@ You can contribute in the following ways:
 - Improving the documentation
 
 If your contributions are accepted into Mastodon, you can request to be paid through [our OpenCollective](https://opencollective.com/mastodon).
+
+## API Changes and Additions
+
+Please note that any changes or additions made to the API should have an accompanying pull request on [our documentation repository](https://github.com/mastodon/documentation).
 
 ## Bug reports
 

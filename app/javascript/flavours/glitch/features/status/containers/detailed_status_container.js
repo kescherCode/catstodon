@@ -2,14 +2,14 @@ import { defineMessages, injectIntl } from 'react-intl';
 
 import { connect } from 'react-redux';
 
-import { showAlertForError } from 'flavours/glitch/actions/alerts';
-import { initBlockModal } from 'flavours/glitch/actions/blocks';
-import { initBoostModal } from 'flavours/glitch/actions/boosts';
+import { showAlertForError } from '../../../actions/alerts';
+import { initBlockModal } from '../../../actions/blocks';
+import { initBoostModal } from '../../../actions/boosts';
 import {
   replyCompose,
   mentionCompose,
   directCompose,
-} from 'flavours/glitch/actions/compose';
+} from '../../../actions/compose';
 import {
   reblog,
   favourite,
@@ -17,25 +17,24 @@ import {
   unfavourite,
   pin,
   unpin,
-} from 'flavours/glitch/actions/interactions';
-import { openModal } from 'flavours/glitch/actions/modal';
-import { initMuteModal } from 'flavours/glitch/actions/mutes';
-import { initReport } from 'flavours/glitch/actions/reports';
+} from '../../../actions/interactions';
+import { openModal } from '../../../actions/modal';
+import { initMuteModal } from '../../../actions/mutes';
+import { initReport } from '../../../actions/reports';
 import {
   muteStatus,
   unmuteStatus,
   deleteStatus,
-} from 'flavours/glitch/actions/statuses';
-import { boostModal, deleteModal } from 'flavours/glitch/initial_state';
-import { makeGetStatus } from 'flavours/glitch/selectors';
-
+} from '../../../actions/statuses';
+import { boostModal, deleteModal } from '../../../initial_state';
+import { makeGetStatus } from '../../../selectors';
 import DetailedStatus from '../components/detailed_status';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
   deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
   redraftConfirm: { id: 'confirmations.redraft.confirm', defaultMessage: 'Delete & redraft' },
-  redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? Favourites and boosts will be lost, and replies to the original post will be orphaned.' },
+  redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? Favorites and boosts will be lost, and replies to the original post will be orphaned.' },
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
 });
@@ -108,7 +107,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     dispatch(openModal({
       modalType: 'EMBED',
       modalProps: {
-        url: status.get('url'),
+        id: status.get('id'),
         onError: error => dispatch(showAlertForError(error)),
       },
     }));

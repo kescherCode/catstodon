@@ -9,7 +9,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import AutosuggestInput from 'flavours/glitch/components/autosuggest_input';
-import { Icon } from 'flavours/glitch/components/icon';
+import { Icon }  from 'flavours/glitch/components/icon';
 import { IconButton } from 'flavours/glitch/components/icon_button';
 import { pollLimits } from 'flavours/glitch/initial_state';
 
@@ -143,7 +143,7 @@ class PollForm extends ImmutablePureComponent {
           {options.size < pollLimits.max_options && (
             <label className='poll__text editable'>
               <span className={classNames('poll__input')} style={{ opacity: 0 }} />
-              <button className='button button-secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
+              <button className='button button-secondary' onClick={this.handleAddOption} type='button'><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
             </label>
           )}
         </ul>

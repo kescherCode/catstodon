@@ -4,28 +4,28 @@ import { createPortal } from 'react-dom';
 
 import { FormattedMessage } from 'react-intl';
 
-import { Icon } from 'flavours/glitch/components/icon';
+import { withRouter } from 'react-router-dom';
 
+import { Icon }  from 'flavours/glitch/components/icon';
+import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
-export default class ColumnBackButton extends PureComponent {
-
-  static contextTypes = {
-    router: PropTypes.object,
-  };
+export class ColumnBackButton extends PureComponent {
 
   static propTypes = {
     multiColumn: PropTypes.bool,
+    onClick: PropTypes.func,
+    ...WithRouterPropTypes,
   };
 
   handleClick = () => {
-    const { router } = this.context;
+    const { onClick, history } = this.props;
 
-    // Check if there is a previous page in the app to go back to per https://stackoverflow.com/a/70532858/9703201
-    // When upgrading to V6, check `location.key !== 'default'` instead per https://github.com/remix-run/history/blob/main/docs/api-reference.md#location
-    if (router.route.location.key) {
-      router.history.goBack();
+    if (onClick) {
+      onClick();
+    } else if (history.location?.state?.fromMastodon) {
+      history.goBack();
     } else {
-      router.history.push('/');
+      history.push('/');
     }
   };
 
@@ -59,3 +59,5 @@ export default class ColumnBackButton extends PureComponent {
   }
 
 }
+
+export default withRouter(ColumnBackButton);

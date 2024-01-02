@@ -11,7 +11,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
 
 import { Blurhash } from 'flavours/glitch/components/blurhash';
-import { autoPlayGif, displayMedia, useBlurhash } from 'flavours/glitch/initial_state';
+
+import { autoPlayGif, displayMedia, useBlurhash } from '../initial_state';
 
 import { IconButton } from './icon_button';
 
@@ -354,7 +355,10 @@ class MediaGallery extends PureComponent {
     if (uncached) {
       spoilerButton = (
         <button type='button' disabled className='spoiler-button__overlay'>
-          <span className='spoiler-button__overlay__label'><FormattedMessage id='status.uncached_media_warning' defaultMessage='Not available' /></span>
+          <span className='spoiler-button__overlay__label'>
+            <FormattedMessage id='status.uncached_media_warning' defaultMessage='Preview not available' />
+            <span className='spoiler-button__overlay__action'><FormattedMessage id='status.media.open' defaultMessage='Click to open' /></span>
+          </span>
         </button>
       );
     } else if (visible) {
@@ -362,7 +366,10 @@ class MediaGallery extends PureComponent {
     } else {
       spoilerButton = (
         <button type='button' onClick={this.handleOpen} className='spoiler-button__overlay'>
-          <span className='spoiler-button__overlay__label'>{sensitive ? <FormattedMessage id='status.sensitive_warning' defaultMessage='Sensitive content' /> : <FormattedMessage id='status.media_hidden' defaultMessage='Media hidden' />}</span>
+          <span className='spoiler-button__overlay__label'>
+            {sensitive ? <FormattedMessage id='status.sensitive_warning' defaultMessage='Sensitive content' /> : <FormattedMessage id='status.media_hidden' defaultMessage='Media hidden' />}
+            <span className='spoiler-button__overlay__action'><FormattedMessage id='status.media.show' defaultMessage='Click to show' /></span>
+          </span>
         </button>
       );
     }

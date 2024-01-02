@@ -1,14 +1,19 @@
-import ImmutablePureComponent from 'react-immutable-pure-component';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { autoPlayGif, reduceMotion } from '../initial_state';
-import spring from 'react-motion/lib/spring';
-import TransitionMotion from 'react-motion/lib/TransitionMotion';
-import classNames from 'classnames';
 import React from 'react';
-import unicodeMapping from '../features/emoji/emoji_unicode_mapping_light';
-import { AnimatedNumber } from './animated_number';
+
+import classNames from 'classnames';
+
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+
+import TransitionMotion from 'react-motion/lib/TransitionMotion';
+import spring from 'react-motion/lib/spring';
+
+import { unicodeMapping } from '../features/emoji/emoji_unicode_mapping_light';
+import { autoPlayGif, reduceMotion } from '../initial_state';
 import { assetHost } from '../utils/config';
+
+import { AnimatedNumber } from './animated_number';
 
 export default class StatusReactions extends ImmutablePureComponent {
 
@@ -91,11 +96,11 @@ class Reaction extends ImmutablePureComponent {
     } else {
       addReaction(statusId, reaction.get('name'));
     }
-  }
+  };
 
-  handleMouseEnter = () => this.setState({ hovered: true })
+  handleMouseEnter = () => this.setState({ hovered: true });
 
-  handleMouseLeave = () => this.setState({ hovered: false })
+  handleMouseLeave = () => this.setState({ hovered: false });
 
   render() {
     const { reaction } = this.props;

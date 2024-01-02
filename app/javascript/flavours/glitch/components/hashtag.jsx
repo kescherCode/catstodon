@@ -10,7 +10,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { Sparklines, SparklinesCurve } from 'react-sparklines';
 
-import ShortNumber from 'flavours/glitch/components/short_number';
+import { ShortNumber } from 'flavours/glitch/components/short_number';
 import { Skeleton } from 'flavours/glitch/components/skeleton';
 
 import Permalink from './permalink';
@@ -25,11 +25,11 @@ class SilentErrorBoundary extends Component {
     error: false,
   };
 
-  componentDidCatch () {
+  componentDidCatch() {
     this.setState({ error: true });
   }
 
-  render () {
+  render() {
     if (this.state.error) {
       return null;
     }

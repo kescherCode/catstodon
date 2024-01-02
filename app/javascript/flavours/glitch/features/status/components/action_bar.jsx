@@ -4,15 +4,17 @@ import { PureComponent } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-import { IconButton } from 'flavours/glitch/components/icon_button';
-import DropdownMenuContainer from 'flavours/glitch/containers/dropdown_menu_container';
-import { me, maxReactions } from 'flavours/glitch/initial_state';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
 import { accountAdminLink, statusAdminLink } from 'flavours/glitch/utils/backend_links';
+import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
+import { IconButton } from '../../../components/icon_button';
+import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
+import { me, maxReactions } from '../../../initial_state';
 import EmojiPickerDropdown from '../../compose/containers/emoji_picker_dropdown_container';
 
 const messages = defineMessages({
@@ -26,7 +28,7 @@ const messages = defineMessages({
   reblog_private: { id: 'status.reblog_private', defaultMessage: 'Boost with original visibility' },
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
-  favourite: { id: 'status.favourite', defaultMessage: 'Favourite' },
+  favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
   react: { id: 'status.react', defaultMessage: 'React' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
   more: { id: 'status.more', defaultMessage: 'More' },
@@ -49,7 +51,6 @@ const messages = defineMessages({
 class ActionBar extends PureComponent {
 
   static contextTypes = {
-    router: PropTypes.object,
     identity: PropTypes.object,
   };
 
@@ -60,17 +61,18 @@ class ActionBar extends PureComponent {
     onFavourite: PropTypes.func.isRequired,
     onReactionAdd: PropTypes.func.isRequired,
     onBookmark: PropTypes.func.isRequired,
-    onMute: PropTypes.func,
-    onMuteConversation: PropTypes.func,
-    onBlock: PropTypes.func,
     onDelete: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onDirect: PropTypes.func.isRequired,
     onMention: PropTypes.func.isRequired,
+    onMute: PropTypes.func,
+    onBlock: PropTypes.func,
+    onMuteConversation: PropTypes.func,
     onReport: PropTypes.func,
     onPin: PropTypes.func,
     onEmbed: PropTypes.func,
     intl: PropTypes.object.isRequired,
+    ...WithRouterPropTypes,
   };
 
   handleReplyClick = () => {
@@ -87,42 +89,42 @@ class ActionBar extends PureComponent {
 
   handleEmojiPick = data => {
     this.props.onReactionAdd(this.props.status.get('id'), data.native.replace(/:/g, ''), data.imageUrl);
-  }
+  };
 
   handleBookmarkClick = (e) => {
     this.props.onBookmark(this.props.status, e);
   };
 
   handleDeleteClick = () => {
-    this.props.onDelete(this.props.status, this.context.router.history);
+    this.props.onDelete(this.props.status, this.props.history);
   };
 
   handleRedraftClick = () => {
-    this.props.onDelete(this.props.status, this.context.router.history, true);
+    this.props.onDelete(this.props.status, this.props.history, true);
   };
 
   handleEditClick = () => {
-    this.props.onEdit(this.props.status, this.context.router.history);
+    this.props.onEdit(this.props.status, this.props.history);
   };
 
   handleDirectClick = () => {
-    this.props.onDirect(this.props.status.get('account'), this.context.router.history);
+    this.props.onDirect(this.props.status.get('account'), this.props.history);
   };
 
   handleMentionClick = () => {
-    this.props.onMention(this.props.status.get('account'), this.context.router.history);
+    this.props.onMention(this.props.status.get('account'), this.props.history);
   };
 
   handleMuteClick = () => {
     this.props.onMute(this.props.status.get('account'));
   };
 
-  handleConversationMuteClick = () => {
-    this.props.onMuteConversation(this.props.status);
-  };
-
   handleBlockClick = () => {
     this.props.onBlock(this.props.status);
+  };
+
+  handleConversationMuteClick = () => {
+    this.props.onMuteConversation(this.props.status);
   };
 
   handleReport = () => {
@@ -148,7 +150,7 @@ class ActionBar extends PureComponent {
     navigator.clipboard.writeText(url);
   };
 
-  handleNoOp = () => {} // hack for reaction add button
+  handleNoOp = () => {}; // hack for reaction add button
 
   render () {
     const { status, intl } = this.props;
@@ -162,52 +164,55 @@ class ActionBar extends PureComponent {
 
     let menu = [];
 
-    if (publicStatus) {
-      if (isRemote) {
-        menu.push({ text: intl.formatMessage(messages.openOriginalPage), href: status.get('url') });
-      }
-
-      menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
-
-      if ('share' in navigator) {
-        menu.push({ text: intl.formatMessage(messages.share), action: this.handleShare });
-      }
-
-      menu.push({ text: intl.formatMessage(messages.embed), action: this.handleEmbed });
-      menu.push(null);
+    if (publicStatus && isRemote) {
+      menu.push({ text: intl.formatMessage(messages.openOriginalPage), href: status.get('url') });
     }
 
-    if (writtenByMe) {
-      if (pinnableStatus) {
-        menu.push({ text: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin), action: this.handlePinClick });
-        menu.push(null);
-      }
+    menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
 
-      menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
+    if (publicStatus && 'share' in navigator) {
+      menu.push({ text: intl.formatMessage(messages.share), action: this.handleShare });
+    }
+
+    if (publicStatus && (signedIn || !isRemote)) {
+      menu.push({ text: intl.formatMessage(messages.embed), action: this.handleEmbed });
+    }
+
+    if (signedIn) {
       menu.push(null);
-      menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
-      menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick, dangerous: true });
-      menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick, dangerous: true });
-    } else {
-      menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
-      menu.push({ text: intl.formatMessage(messages.direct, { name: status.getIn(['account', 'username']) }), action: this.handleDirectClick });
-      menu.push(null);
-      menu.push({ text: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick, dangerous: true });
-      menu.push({ text: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick, dangerous: true });
-      menu.push({ text: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport, dangerous: true });
-      if (((permissions & PERMISSION_MANAGE_USERS) === PERMISSION_MANAGE_USERS && (accountAdminLink || statusAdminLink)) || (isRemote && (permissions & PERMISSION_MANAGE_FEDERATION) === PERMISSION_MANAGE_FEDERATION)) {
-        menu.push(null);
-        if ((permissions & PERMISSION_MANAGE_USERS) === PERMISSION_MANAGE_USERS) {
-          if (accountAdminLink !== undefined) {
-            menu.push({ text: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }), href: accountAdminLink(status.getIn(['account', 'id'])) });
-          }
-          if (statusAdminLink !== undefined) {
-            menu.push({ text: intl.formatMessage(messages.admin_status), href: statusAdminLink(status.getIn(['account', 'id']), status.get('id')) });
-          }
+
+      if (writtenByMe) {
+        if (pinnableStatus) {
+          menu.push({ text: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin), action: this.handlePinClick });
+          menu.push(null);
         }
-        if (isRemote && (permissions & PERMISSION_MANAGE_FEDERATION) === PERMISSION_MANAGE_FEDERATION) {
-          const domain = status.getIn(['account', 'acct']).split('@')[1];
-          menu.push({ text: intl.formatMessage(messages.admin_domain, { domain: domain }), href: `/admin/instances/${domain}` });
+
+        menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
+        menu.push(null);
+        menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
+        menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick, dangerous: true });
+        menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick, dangerous: true });
+      } else {
+        menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
+        menu.push({ text: intl.formatMessage(messages.direct, { name: status.getIn(['account', 'username']) }), action: this.handleDirectClick });
+        menu.push(null);
+        menu.push({ text: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick, dangerous: true });
+        menu.push({ text: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick, dangerous: true });
+        menu.push({ text: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport, dangerous: true });
+        if (((permissions & PERMISSION_MANAGE_USERS) === PERMISSION_MANAGE_USERS && (accountAdminLink || statusAdminLink)) || (isRemote && (permissions & PERMISSION_MANAGE_FEDERATION) === PERMISSION_MANAGE_FEDERATION)) {
+          menu.push(null);
+          if ((permissions & PERMISSION_MANAGE_USERS) === PERMISSION_MANAGE_USERS) {
+            if (accountAdminLink !== undefined) {
+              menu.push({ text: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }), href: accountAdminLink(status.getIn(['account', 'id'])) });
+            }
+            if (statusAdminLink !== undefined) {
+              menu.push({ text: intl.formatMessage(messages.admin_status), href: statusAdminLink(status.getIn(['account', 'id']), status.get('id')) });
+            }
+          }
+          if (isRemote && (permissions & PERMISSION_MANAGE_FEDERATION) === PERMISSION_MANAGE_FEDERATION) {
+            const domain = status.getIn(['account', 'acct']).split('@')[1];
+            menu.push({ text: intl.formatMessage(messages.admin_domain, { domain: domain }), href: `/admin/instances/${domain}` });
+          }
         }
       }
     }
@@ -259,4 +264,4 @@ class ActionBar extends PureComponent {
 
 }
 
-export default injectIntl(ActionBar);
+export default withRouter(injectIntl(ActionBar));

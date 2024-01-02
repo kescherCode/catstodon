@@ -1,43 +1,5 @@
 // @ts-check
 
-/**
- * @typedef Emoji
- * @property {string} shortcode
- * @property {string} static_url
- * @property {string} url
- */
-
-/**
- * @typedef AccountField
- * @property {string} name
- * @property {string} value
- * @property {string} verified_at
- */
-
-/**
- * @typedef Account
- * @property {string} acct
- * @property {string} avatar
- * @property {string} avatar_static
- * @property {boolean} bot
- * @property {string} created_at
- * @property {boolean=} discoverable
- * @property {string} display_name
- * @property {Emoji[]} emojis
- * @property {AccountField[]} fields
- * @property {number} followers_count
- * @property {number} following_count
- * @property {boolean} group
- * @property {string} header
- * @property {string} header_static
- * @property {string} id
- * @property {string=} last_status_at
- * @property {boolean} locked
- * @property {string} note
- * @property {number} statuses_count
- * @property {string} url
- * @property {string} username
- */
 
 /**
  * @typedef {[code: string, name: string, localName: string]} InitialStateLanguage
@@ -62,6 +24,7 @@
  * @property {boolean} limited_federation_mode
  * @property {string} locale
  * @property {string | null} mascot
+ * @property {number} max_reactions
  * @property {string=} me
  * @property {string=} moved_to_account_id
  * @property {string=} owner
@@ -70,32 +33,52 @@
  * @property {boolean} reduce_motion
  * @property {string} repository
  * @property {boolean} search_enabled
+ * @property {boolean} trends_enabled
  * @property {boolean} single_user_mode
  * @property {string} source_url
  * @property {string} streaming_api_base_url
  * @property {boolean} timeline_preview
  * @property {string} title
- * @property {boolean} trends
+ * @property {boolean} show_trends
  * @property {boolean} trends_as_landing_page
  * @property {boolean} unfollow_modal
  * @property {boolean} use_blurhash
  * @property {boolean=} use_pending_items
  * @property {string} version
  * @property {number} visible_reactions
+ * @property {string} sso_redirect
  * @property {boolean} translation_enabled
  * @property {string} status_page_url
  * @property {boolean} system_emoji_font
  * @property {string} default_content_type
  */
 
+/** @type {string} */
+const initialPath = document.querySelector("head meta[name=initialPath]")?.getAttribute("content") ?? '';
+/** @type {boolean} */
+export const hasMultiColumnPath = initialPath === '/'
+  || initialPath === '/getting-started'
+  || initialPath === '/home'
+  || initialPath.startsWith('/deck');
+
+/**
+ * @typedef PollLimits
+ * @property {number} min_options
+ * @property {number} max_options
+ * @property {number} max_option_chars
+ * @property {number} min_expiration
+ * @property {number} max_expiration
+ */
+
 /**
  * @typedef InitialState
- * @property {Record<string, Account>} accounts
+ * @property {Record<string, import("./api_types/accounts").ApiAccountJSON>} accounts
  * @property {InitialStateLanguage[]} languages
+ * @property {boolean=} critical_updates_pending
  * @property {InitialStateMeta} meta
  * @property {object} local_settings
  * @property {number} max_toot_chars
- * @property {number} poll_limits
+ * @property {PollLimits} poll_limits
  * @property {number} max_reactions
  */
 
@@ -142,7 +125,8 @@ export const reduceMotion = getMeta('reduce_motion');
 export const registrationsOpen = getMeta('registrations_open');
 export const repository = getMeta('repository');
 export const searchEnabled = getMeta('search_enabled');
-export const showTrends = getMeta('trends');
+export const trendsEnabled = getMeta('trends_enabled');
+export const showTrends = getMeta('show_trends');
 export const singleUserMode = getMeta('single_user_mode');
 export const source_url = getMeta('source_url');
 export const timelinePreview = getMeta('timeline_preview');
@@ -154,7 +138,9 @@ export const usePendingItems = getMeta('use_pending_items');
 export const version = getMeta('version');
 export const visibleReactions = getMeta('visible_reactions');
 export const languages = initialState?.languages;
+export const criticalUpdatesPending = initialState?.critical_updates_pending;
 export const statusPageUrl = getMeta('status_page_url');
+export const sso_redirect = getMeta('sso_redirect');
 
 // Glitch-soc-specific settings
 export const maxChars = (initialState && initialState.max_toot_chars) || 500;

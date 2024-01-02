@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -15,6 +16,7 @@ import { openModal } from 'flavours/glitch/actions/modal';
 import { IconButton } from 'flavours/glitch/components/icon_button';
 import { me, boostModal } from 'flavours/glitch/initial_state';
 import { makeGetStatus } from 'flavours/glitch/selectors';
+import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 const messages = defineMessages({
   reply: { id: 'status.reply', defaultMessage: 'Reply' },
@@ -23,7 +25,7 @@ const messages = defineMessages({
   reblog_private: { id: 'status.reblog_private', defaultMessage: 'Boost with original visibility' },
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
-  favourite: { id: 'status.favourite', defaultMessage: 'Favourite' },
+  favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
   open: { id: 'status.open', defaultMessage: 'Expand this status' },
@@ -44,7 +46,6 @@ const makeMapStateToProps = () => {
 class Footer extends ImmutablePureComponent {
 
   static contextTypes = {
-    router: PropTypes.object,
     identity: PropTypes.object,
   };
 
@@ -57,17 +58,17 @@ class Footer extends ImmutablePureComponent {
     showReplyCount: PropTypes.bool,
     withOpenButton: PropTypes.bool,
     onClose: PropTypes.func,
+    ...WithRouterPropTypes,
   };
 
   _performReply = () => {
-    const { dispatch, status, onClose } = this.props;
-    const { router } = this.context;
+    const { dispatch, status, onClose, history } = this.props;
 
     if (onClose) {
       onClose(true);
     }
 
-    dispatch(replyCompose(status, router.history));
+    dispatch(replyCompose(status, history));
   };
 
   handleReplyClick = () => {
@@ -93,7 +94,7 @@ class Footer extends ImmutablePureComponent {
         modalProps: {
           type: 'reply',
           accountId: status.getIn(['account', 'id']),
-          url: status.get('url'),
+          url: status.get('uri'),
         },
       }));
     }
@@ -115,14 +116,14 @@ class Footer extends ImmutablePureComponent {
         modalProps: {
           type: 'favourite',
           accountId: status.getIn(['account', 'id']),
-          url: status.get('url'),
+          url: status.get('uri'),
         },
       }));
     }
   };
 
-  _performReblog = (privacy) => {
-    const { dispatch, status } = this.props;
+  _performReblog = (status, privacy) => {
+    const { dispatch } = this.props;
     dispatch(reblog(status, privacy));
   };
 
@@ -134,7 +135,7 @@ class Footer extends ImmutablePureComponent {
       if (status.get('reblogged')) {
         dispatch(unreblog(status));
       } else if ((e && e.shiftKey) || !boostModal) {
-        this._performReblog();
+        this._performReblog(status);
       } else {
         dispatch(initBoostModal({ status, onReblog: this._performReblog }));
       }
@@ -144,16 +145,14 @@ class Footer extends ImmutablePureComponent {
         modalProps: {
           type: 'reblog',
           accountId: status.getIn(['account', 'id']),
-          url: status.get('url'),
+          url: status.get('uri'),
         },
       }));
     }
   };
 
   handleOpenClick = e => {
-    const { router } = this.context;
-
-    if (e.button !== 0 || !router) {
+    if (e.button !== 0 || !history) {
       return;
     }
 
@@ -163,7 +162,7 @@ class Footer extends ImmutablePureComponent {
       onClose();
     }
 
-    router.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
+    this.props.history.push(`/@${status.getIn(['account', 'acct'])}/${status.get('id')}`);
   };
 
   render () {
@@ -229,4 +228,4 @@ class Footer extends ImmutablePureComponent {
 
 }
 
-export default connect(makeMapStateToProps)(injectIntl(Footer));
+export default  withRouter(connect(makeMapStateToProps)(injectIntl(Footer)));

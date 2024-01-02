@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 import { fetchServer } from 'flavours/glitch/actions/server';
 import { ServerHeroImage } from 'flavours/glitch/components/server_hero_image';
-import ShortNumber from 'flavours/glitch/components/short_number';
+import { ShortNumber } from 'flavours/glitch/components/short_number';
 import { Skeleton } from 'flavours/glitch/components/skeleton';
 import Account from 'flavours/glitch/containers/account_container';
 import { domain } from 'flavours/glitch/initial_state';
@@ -63,7 +63,7 @@ class ServerBanner extends PureComponent {
           <div className='server-banner__meta__column'>
             <h4><FormattedMessage id='server_banner.administered_by' defaultMessage='Administered by:' /></h4>
 
-            <Account id={server.getIn(['contact', 'account', 'id'])} size={36} />
+            <Account id={server.getIn(['contact', 'account', 'id'])} size={36} minimal />
           </div>
 
           <div className='server-banner__meta__column'>

@@ -1,10 +1,15 @@
-import api from '../api';
+import api, { getLinks } from '../api';
 
+import { fetchRelationships } from './accounts';
 import { importFetchedAccounts, importFetchedStatus } from './importer';
 
 export const REBLOG_REQUEST = 'REBLOG_REQUEST';
 export const REBLOG_SUCCESS = 'REBLOG_SUCCESS';
 export const REBLOG_FAIL    = 'REBLOG_FAIL';
+
+export const REBLOGS_EXPAND_REQUEST = 'REBLOGS_EXPAND_REQUEST';
+export const REBLOGS_EXPAND_SUCCESS = 'REBLOGS_EXPAND_SUCCESS';
+export const REBLOGS_EXPAND_FAIL = 'REBLOGS_EXPAND_FAIL';
 
 export const FAVOURITE_REQUEST = 'FAVOURITE_REQUEST';
 export const FAVOURITE_SUCCESS = 'FAVOURITE_SUCCESS';
@@ -25,6 +30,10 @@ export const REBLOGS_FETCH_FAIL    = 'REBLOGS_FETCH_FAIL';
 export const FAVOURITES_FETCH_REQUEST = 'FAVOURITES_FETCH_REQUEST';
 export const FAVOURITES_FETCH_SUCCESS = 'FAVOURITES_FETCH_SUCCESS';
 export const FAVOURITES_FETCH_FAIL    = 'FAVOURITES_FETCH_FAIL';
+
+export const FAVOURITES_EXPAND_REQUEST = 'FAVOURITES_EXPAND_REQUEST';
+export const FAVOURITES_EXPAND_SUCCESS = 'FAVOURITES_EXPAND_SUCCESS';
+export const FAVOURITES_EXPAND_FAIL = 'FAVOURITES_EXPAND_FAIL';
 
 export const PIN_REQUEST = 'PIN_REQUEST';
 export const PIN_SUCCESS = 'PIN_SUCCESS';
@@ -84,6 +93,7 @@ export function reblogRequest(status) {
   return {
     type: REBLOG_REQUEST,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -91,6 +101,7 @@ export function reblogSuccess(status) {
   return {
     type: REBLOG_SUCCESS,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -99,6 +110,7 @@ export function reblogFail(status, error) {
     type: REBLOG_FAIL,
     status: status,
     error: error,
+    skipLoading: true,
   };
 }
 
@@ -106,6 +118,7 @@ export function unreblogRequest(status) {
   return {
     type: UNREBLOG_REQUEST,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -113,6 +126,7 @@ export function unreblogSuccess(status) {
   return {
     type: UNREBLOG_SUCCESS,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -121,6 +135,7 @@ export function unreblogFail(status, error) {
     type: UNREBLOG_FAIL,
     status: status,
     error: error,
+    skipLoading: true,
   };
 }
 
@@ -154,6 +169,7 @@ export function favouriteRequest(status) {
   return {
     type: FAVOURITE_REQUEST,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -161,6 +177,7 @@ export function favouriteSuccess(status) {
   return {
     type: FAVOURITE_SUCCESS,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -169,6 +186,7 @@ export function favouriteFail(status, error) {
     type: FAVOURITE_FAIL,
     status: status,
     error: error,
+    skipLoading: true,
   };
 }
 
@@ -176,6 +194,7 @@ export function unfavouriteRequest(status) {
   return {
     type: UNFAVOURITE_REQUEST,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -183,6 +202,7 @@ export function unfavouriteSuccess(status) {
   return {
     type: UNFAVOURITE_SUCCESS,
     status: status,
+    skipLoading: true,
   };
 }
 
@@ -191,6 +211,7 @@ export function unfavouriteFail(status, error) {
     type: UNFAVOURITE_FAIL,
     status: status,
     error: error,
+    skipLoading: true,
   };
 }
 
@@ -200,7 +221,7 @@ export function bookmark(status) {
 
     api(getState).post(`/api/v1/statuses/${status.get('id')}/bookmark`).then(function (response) {
       dispatch(importFetchedStatus(response.data));
-      dispatch(bookmarkSuccess(status));
+      dispatch(bookmarkSuccess(status, response.data));
     }).catch(function (error) {
       dispatch(bookmarkFail(status, error));
     });
@@ -213,7 +234,7 @@ export function unbookmark(status) {
 
     api(getState).post(`/api/v1/statuses/${status.get('id')}/unbookmark`).then(response => {
       dispatch(importFetchedStatus(response.data));
-      dispatch(unbookmarkSuccess(status));
+      dispatch(unbookmarkSuccess(status, response.data));
     }).catch(error => {
       dispatch(unbookmarkFail(status, error));
     });
@@ -227,10 +248,11 @@ export function bookmarkRequest(status) {
   };
 }
 
-export function bookmarkSuccess(status) {
+export function bookmarkSuccess(status, response) {
   return {
     type: BOOKMARK_SUCCESS,
     status: status,
+    response: response,
   };
 }
 
@@ -249,10 +271,11 @@ export function unbookmarkRequest(status) {
   };
 }
 
-export function unbookmarkSuccess(status) {
+export function unbookmarkSuccess(status, response) {
   return {
     type: UNBOOKMARK_SUCCESS,
     status: status,
+    response: response,
   };
 }
 
@@ -269,8 +292,10 @@ export function fetchReblogs(id) {
     dispatch(fetchReblogsRequest(id));
 
     api(getState).get(`/api/v1/statuses/${id}/reblogged_by`).then(response => {
+      const next = getLinks(response).refs.find(link => link.rel === 'next');
       dispatch(importFetchedAccounts(response.data));
-      dispatch(fetchReblogsSuccess(id, response.data));
+      dispatch(fetchReblogsSuccess(id, response.data, next ? next.uri : null));
+      dispatch(fetchRelationships(response.data.map(item => item.id)));
     }).catch(error => {
       dispatch(fetchReblogsFail(id, error));
     });
@@ -284,17 +309,62 @@ export function fetchReblogsRequest(id) {
   };
 }
 
-export function fetchReblogsSuccess(id, accounts) {
+export function fetchReblogsSuccess(id, accounts, next) {
   return {
     type: REBLOGS_FETCH_SUCCESS,
     id,
     accounts,
+    next,
   };
 }
 
 export function fetchReblogsFail(id, error) {
   return {
     type: REBLOGS_FETCH_FAIL,
+    id,
+    error,
+  };
+}
+
+export function expandReblogs(id) {
+  return (dispatch, getState) => {
+    const url = getState().getIn(['user_lists', 'reblogged_by', id, 'next']);
+    if (url === null) {
+      return;
+    }
+
+    dispatch(expandReblogsRequest(id));
+
+    api(getState).get(url).then(response => {
+      const next = getLinks(response).refs.find(link => link.rel === 'next');
+
+      dispatch(importFetchedAccounts(response.data));
+      dispatch(expandReblogsSuccess(id, response.data, next ? next.uri : null));
+      dispatch(fetchRelationships(response.data.map(item => item.id)));
+    }).catch(error => dispatch(expandReblogsFail(id, error)));
+  };
+}
+
+export function expandReblogsRequest(id) {
+  return {
+    type: REBLOGS_EXPAND_REQUEST,
+    id,
+  };
+}
+
+export function expandReblogsSuccess(id, accounts, next) {
+  return {
+    type: REBLOGS_EXPAND_SUCCESS,
+    id,
+    accounts,
+    next,
+  };
+}
+
+export function expandReblogsFail(id, error) {
+  return {
+    type: REBLOGS_EXPAND_FAIL,
+    id,
     error,
   };
 }
@@ -304,8 +374,10 @@ export function fetchFavourites(id) {
     dispatch(fetchFavouritesRequest(id));
 
     api(getState).get(`/api/v1/statuses/${id}/favourited_by`).then(response => {
+      const next = getLinks(response).refs.find(link => link.rel === 'next');
       dispatch(importFetchedAccounts(response.data));
-      dispatch(fetchFavouritesSuccess(id, response.data));
+      dispatch(fetchFavouritesSuccess(id, response.data, next ? next.uri : null));
+      dispatch(fetchRelationships(response.data.map(item => item.id)));
     }).catch(error => {
       dispatch(fetchFavouritesFail(id, error));
     });
@@ -319,17 +391,62 @@ export function fetchFavouritesRequest(id) {
   };
 }
 
-export function fetchFavouritesSuccess(id, accounts) {
+export function fetchFavouritesSuccess(id, accounts, next) {
   return {
     type: FAVOURITES_FETCH_SUCCESS,
     id,
     accounts,
+    next,
   };
 }
 
 export function fetchFavouritesFail(id, error) {
   return {
     type: FAVOURITES_FETCH_FAIL,
+    id,
+    error,
+  };
+}
+
+export function expandFavourites(id) {
+  return (dispatch, getState) => {
+    const url = getState().getIn(['user_lists', 'favourited_by', id, 'next']);
+    if (url === null) {
+      return;
+    }
+
+    dispatch(expandFavouritesRequest(id));
+
+    api(getState).get(url).then(response => {
+      const next = getLinks(response).refs.find(link => link.rel === 'next');
+
+      dispatch(importFetchedAccounts(response.data));
+      dispatch(expandFavouritesSuccess(id, response.data, next ? next.uri : null));
+      dispatch(fetchRelationships(response.data.map(item => item.id)));
+    }).catch(error => dispatch(expandFavouritesFail(id, error)));
+  };
+}
+
+export function expandFavouritesRequest(id) {
+  return {
+    type: FAVOURITES_EXPAND_REQUEST,
+    id,
+  };
+}
+
+export function expandFavouritesSuccess(id, accounts, next) {
+  return {
+    type: FAVOURITES_EXPAND_SUCCESS,
+    id,
+    accounts,
+    next,
+  };
+}
+
+export function expandFavouritesFail(id, error) {
+  return {
+    type: FAVOURITES_EXPAND_FAIL,
+    id,
     error,
   };
 }
@@ -351,6 +468,7 @@ export function pinRequest(status) {
   return {
     type: PIN_REQUEST,
     status,
+    skipLoading: true,
   };
 }
 
@@ -358,6 +476,7 @@ export function pinSuccess(status) {
   return {
     type: PIN_SUCCESS,
     status,
+    skipLoading: true,
   };
 }
 
@@ -366,6 +485,7 @@ export function pinFail(status, error) {
     type: PIN_FAIL,
     status,
     error,
+    skipLoading: true,
   };
 }
 
@@ -386,6 +506,7 @@ export function unpinRequest(status) {
   return {
     type: UNPIN_REQUEST,
     status,
+    skipLoading: true,
   };
 }
 
@@ -393,6 +514,7 @@ export function unpinSuccess(status) {
   return {
     type: UNPIN_SUCCESS,
     status,
+    skipLoading: true,
   };
 }
 
@@ -401,6 +523,7 @@ export function unpinFail(status, error) {
     type: UNPIN_FAIL,
     status,
     error,
+    skipLoading: true,
   };
 }
 

@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 
 import Base from 'flavours/glitch/components/modal_root';
 import {
-  OnboardingModal,
   MuteModal,
   BlockModal,
   ReportModal,
@@ -40,7 +39,6 @@ import VideoModal from './video_modal';
 
 export const MODAL_COMPONENTS = {
   'MEDIA': () => Promise.resolve({ default: MediaModal }),
-  'ONBOARDING': OnboardingModal,
   'VIDEO': () => Promise.resolve({ default: VideoModal }),
   'AUDIO': () => Promise.resolve({ default: AudioModal }),
   'IMAGE': () => Promise.resolve({ default: ImageModal }),
@@ -105,14 +103,7 @@ export default class ModalRoot extends PureComponent {
 
   handleClose = (ignoreFocus = false) => {
     const { onClose } = this.props;
-    let message = null;
-    try {
-      message = this._modal?.getWrappedInstance?.().getCloseConfirmationMessage?.();
-    } catch (_) {
-      // injectIntl defines `getWrappedInstance` but errors out if `withRef`
-      // isn't set.
-      // This would be much smoother with react-intl 3+ and `forwardRef`.
-    }
+    const message = this._modal?.getCloseConfirmationMessage?.();
     onClose(message, ignoreFocus);
   };
 
@@ -133,7 +124,10 @@ export default class ModalRoot extends PureComponent {
         {visible && (
           <>
             <BundleContainer fetchComponent={MODAL_COMPONENTS[type]} loading={this.renderLoading(type)} error={this.renderError} renderDelay={200}>
-              {(SpecificComponent) => <SpecificComponent {...props} onChangeBackgroundColor={this.setBackgroundColor} onClose={this.handleClose} ref={this.setModalRef} />}
+              {(SpecificComponent) => {
+                const ref = typeof SpecificComponent !== 'function' ? this.setModalRef : undefined;
+                return <SpecificComponent {...props} onChangeBackgroundColor={this.setBackgroundColor} onClose={this.handleClose} ref={ref} />;
+              }}
             </BundleContainer>
 
             <Helmet>
