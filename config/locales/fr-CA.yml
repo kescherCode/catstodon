@@ -1,5 +1,5 @@
 ---
-fr-QC:
+fr-CA:
   about:
     about_mastodon_html: 'Le réseau social de l''avenir : pas de publicité, pas de surveillance institutionnelle, conception éthique et décentralisation ! Gardez le contrôle de vos données avec Mastodon !'
     contact_missing: Non défini
@@ -425,6 +425,7 @@ fr-QC:
       view: Afficher les blocages de domaines
     email_domain_blocks:
       add_new: Ajouter
+      allow_registrations_with_approval: Autoriser les inscriptions avec approbation
       attempts_over_week:
         one: "%{count} tentative au cours de la dernière semaine"
         other: "%{count} tentatives au cours de la dernière semaine"
