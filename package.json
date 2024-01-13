@@ -221,10 +221,5 @@
     "react-router-dom": {
       "optional": true
     }
-  },
-  "lint-staged": {
-    "*": "prettier --ignore-unknown --write",
-    "*.{js,jsx,ts,tsx}": "eslint --fix",
-    "*.{css,scss}": "stylelint --fix"
   }
 }
