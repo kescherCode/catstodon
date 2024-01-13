@@ -228,10 +228,6 @@ class ActionBar extends PureComponent {
       />
     );
 
-    const shareButton = ('share' in navigator) && publicStatus && (
-      <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShare} /></div>
-    );
-
     const reblogPrivate = status.getIn(['account', 'id']) === me && status.get('visibility') === 'private';
 
     let reblogTitle;
@@ -257,7 +253,6 @@ class ActionBar extends PureComponent {
               : reactButton
           }
         </div>
-        {shareButton}
         <div className='detailed-status__button'><IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} /></div>
 
         <div className='detailed-status__action-bar-dropdown'>

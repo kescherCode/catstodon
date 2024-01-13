@@ -3,6 +3,18 @@
 require 'sidekiq_unique_jobs/web'
 require 'sidekiq-scheduler/web'
 
+class RedirectWithVary < ActionDispatch::Routing::PathRedirect
+  def build_response(req)
+    super.tap do |response|
+      response.headers['Vary'] = 'Origin, Accept'
+    end
+  end
+end
+
+def redirect_with_vary(path)
+  RedirectWithVary.new(301, path)
+end
+
 Rails.application.routes.draw do
   # Paths of routes on the web app that to not require to be indexed or
   # have alternative format representations requiring separate controllers
@@ -20,7 +32,7 @@ Rails.application.routes.draw do
     /favourites
     /bookmarks
     /pinned
-    /start
+    /start/(*any)
     /directory
     /explore/(*any)
     /search
@@ -40,7 +52,7 @@ Rails.application.routes.draw do
 
   get 'health', to: 'health#show'
 
-  authenticate :user, lambda { |u| u.role&.can?(:view_devops) } do
+  authenticate :user, ->(user) { user.role&.can?(:view_devops) } do
     mount Sidekiq::Web, at: 'sidekiq', as: :sidekiq
     mount PgHero::Engine, at: 'pghero', as: :pghero
   end
@@ -70,6 +82,8 @@ Rails.application.routes.draw do
     resource :outbox, only: [:show], module: :activitypub
   end
 
+  get '/invite/:invite_code', constraints: ->(req) { req.format == :json }, to: 'api/v1/invites#show'
+
   devise_scope :user do
     get '/invite/:invite_code', to: 'auth/registrations#new', as: :public_invite
 
@@ -91,10 +105,13 @@ Rails.application.routes.draw do
     confirmations: 'auth/confirmations',
   }
 
-  get '/users/:username', to: redirect('/@%{username}'), constraints: lambda { |req| req.format.nil? || req.format.html? }
-  get '/users/:username/following', to: redirect('/@%{username}/following'), constraints: lambda { |req| req.format.nil? || req.format.html? }
-  get '/users/:username/followers', to: redirect('/@%{username}/followers'), constraints: lambda { |req| req.format.nil? || req.format.html? }
-  get '/users/:username/statuses/:id', to: redirect('/@%{username}/%{id}'), constraints: lambda { |req| req.format.nil? || req.format.html? }
+  # rubocop:disable Style/FormatStringToken - those do not go through the usual formatting functions and are not safe to correct
+  get '/users/:username', to: redirect_with_vary('/@%{username}'), constraints: ->(req) { req.format.nil? || req.format.html? }
+  get '/users/:username/following', to: redirect_with_vary('/@%{username}/following'), constraints: ->(req) { req.format.nil? || req.format.html? }
+  get '/users/:username/followers', to: redirect_with_vary('/@%{username}/followers'), constraints: ->(req) { req.format.nil? || req.format.html? }
+  get '/users/:username/statuses/:id', to: redirect_with_vary('/@%{username}/%{id}'), constraints: ->(req) { req.format.nil? || req.format.html? }
+  # rubocop:enable Style/FormatStringToken
+
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
 
   resources :accounts, path: 'users', only: [:show], param: :username do

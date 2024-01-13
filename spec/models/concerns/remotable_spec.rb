@@ -31,7 +31,7 @@ RSpec.describe Remotable do
     end
   end
 
-  let(:attribute_name) { "#{hoge}_remote_url".to_sym }
+  let(:attribute_name) { :"#{hoge}_remote_url" }
   let(:code)           { 200 }
   let(:file)           { 'filename="foo.txt"' }
   let(:foo)            { foo_class.new }
@@ -69,7 +69,9 @@ RSpec.describe Remotable do
 
     context 'with an invalid URL' do
       before do
-        allow(Addressable::URI).to receive_message_chain(:parse, :normalize).with(url).with(no_args).and_raise(Addressable::URI::InvalidURIError)
+        parsed = instance_double(Addressable::URI)
+        allow(parsed).to receive(:normalize).with(no_args).and_raise(Addressable::URI::InvalidURIError)
+        allow(Addressable::URI).to receive(:parse).with(url).and_return(parsed)
       end
 
       it 'makes no request' do
@@ -176,11 +178,11 @@ RSpec.describe Remotable do
 
             allow(foo).to receive(:public_send)
             foo.hoge_remote_url = url
-            expect(foo).to have_received(:public_send).with("download_#{hoge}!", url)
+            expect(foo).to have_received(:public_send).with(:"download_#{hoge}!", url)
 
             allow(foo).to receive(:public_send)
             foo.download_hoge!(url)
-            expect(foo).to have_received(:public_send).with("#{hoge}=", response_with_limit)
+            expect(foo).to have_received(:public_send).with(:"#{hoge}=", response_with_limit)
           end
         end
       end

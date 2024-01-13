@@ -81,7 +81,7 @@ class Status extends ImmutablePureComponent {
     containerId: PropTypes.string,
     id: PropTypes.string,
     status: ImmutablePropTypes.map,
-    account: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.listOf(ImmutablePropTypes.map)]),
+    account: PropTypes.oneOfType([ImmutablePropTypes.record, ImmutablePropTypes.listOf(ImmutablePropTypes.record)]),
     previousId: PropTypes.string,
     nextInReplyToId: PropTypes.string,
     rootId: PropTypes.string,

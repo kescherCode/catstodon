@@ -1,0 +1,26 @@
+.layout-multiple-columns
+  #mastodon
+  .columns-area
+  .status__action-bar
+  :not(i, .status__action-bar-spacer) {
+  max-width: unset !important;
+}
+
+body.app-body.flavour-glitch > #mastodon .notification__message > span,
+.notification__message > span > span,
+.status__prepend > span,
+.status__prepend > span > span {
+  display: unset !important;
+  flex-wrap: unset !important;
+  gap: unset !important;
+}
+
+.status.collapsed .status__content {
+  max-height: unset !important;
+}
+
+.status.collapsed .status__content .status__content__translate-button,
+.status.collapsed .status__content .status-card,
+.status.collapsed .status__content .video-player {
+  display: none;
+}

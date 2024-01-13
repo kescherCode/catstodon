@@ -20,8 +20,7 @@ RSpec.describe Admin::AccountsController do
     it 'filters with parameters' do
       account_filter = instance_double(AccountFilter, results: Account.all)
       allow(AccountFilter).to receive(:new).and_return(account_filter)
-
-      get :index, params: {
+      params = {
         origin: 'local',
         by_domain: 'domain',
         status: 'active',
@@ -31,17 +30,9 @@ RSpec.describe Admin::AccountsController do
         ip: '0.0.0.42',
       }
 
-      expect(AccountFilter).to have_received(:new) do |params|
-        h = params.to_h
+      get :index, params: params
 
-        expect(h[:origin]).to eq 'local'
-        expect(h[:by_domain]).to eq 'domain'
-        expect(h[:status]).to eq 'active'
-        expect(h[:username]).to eq 'username'
-        expect(h[:display_name]).to eq 'display name'
-        expect(h[:email]).to eq 'local-part@domain'
-        expect(h[:ip]).to eq '0.0.0.42'
-      end
+      expect(AccountFilter).to have_received(:new).with(hash_including(params))
     end
 
     it 'paginates accounts' do
@@ -170,12 +161,13 @@ RSpec.describe Admin::AccountsController do
       it 'logs action' do
         expect(subject).to have_http_status 302
 
-        log_item = Admin::ActionLog.last
-
-        expect(log_item).to_not be_nil
-        expect(log_item.action).to eq :approve
-        expect(log_item.account_id).to eq current_user.account_id
-        expect(log_item.target_id).to eq account.user.id
+        expect(latest_admin_action_log)
+          .to be_present
+          .and have_attributes(
+            action: eq(:approve),
+            account_id: eq(current_user.account_id),
+            target_id: eq(account.user.id)
+          )
       end
     end
 
@@ -210,12 +202,13 @@ RSpec.describe Admin::AccountsController do
       it 'logs action' do
         expect(subject).to have_http_status 302
 
-        log_item = Admin::ActionLog.last
-
-        expect(log_item).to_not be_nil
-        expect(log_item.action).to eq :reject
-        expect(log_item.account_id).to eq current_user.account_id
-        expect(log_item.target_id).to eq account.user.id
+        expect(latest_admin_action_log)
+          .to be_present
+          .and have_attributes(
+            action: eq(:reject),
+            account_id: eq(current_user.account_id),
+            target_id: eq(account.user.id)
+          )
       end
     end
 
@@ -236,7 +229,8 @@ RSpec.describe Admin::AccountsController do
     let(:account) { Fabricate(:account, domain: 'example.com') }
 
     before do
-      allow_any_instance_of(ResolveAccountService).to receive(:call)
+      service = instance_double(ResolveAccountService, call: nil)
+      allow(ResolveAccountService).to receive(:new).and_return(service)
     end
 
     context 'when user is admin' do
@@ -434,5 +428,11 @@ RSpec.describe Admin::AccountsController do
         expect(response).to have_http_status 403
       end
     end
+  end
+
+  private
+
+  def latest_admin_action_log
+    Admin::ActionLog.last
   end
 end

@@ -19,7 +19,7 @@ class ReactService < BaseService
     Trends.statuses.register(status)
 
     create_notification(reaction)
-    bump_potential_friendship(account, status)
+    increment_statistics
 
     reaction
   end
@@ -36,11 +36,8 @@ class ReactService < BaseService
     end
   end
 
-  def bump_potential_friendship(account, status)
+  def increment_statistics
     ActivityTracker.increment('activity:interactions')
-    return if account.following?(status.account_id)
-
-    PotentialFriendshipTracker.record(account.id, status.account_id, :reaction)
   end
 
   def build_json(reaction)

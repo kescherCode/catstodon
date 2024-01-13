@@ -12,14 +12,7 @@ RSpec.describe BulkImportService do
     import.update(total_items: import.rows.count)
   end
 
-  describe '#call' do
-    around do |example|
-      Sidekiq::Testing.fake! do
-        example.run
-        Sidekiq::Worker.clear_all
-      end
-    end
-
+  describe '#call', :sidekiq_fake do
     context 'when importing follows' do
       let(:import_type) { 'following' }
       let(:overwrite)   { false }
@@ -278,14 +271,15 @@ RSpec.describe BulkImportService do
       let(:import_type) { 'domain_blocking' }
       let(:overwrite)   { false }
 
-      let!(:rows) do
+      let(:rows) do
         [
           { 'domain' => 'blocked.com' },
           { 'domain' => 'to_block.com' },
-        ].map { |data| import.rows.create!(data: data) }
+        ]
       end
 
       before do
+        rows.each { |data| import.rows.create!(data: data) }
         account.block_domain!('alreadyblocked.com')
         account.block_domain!('blocked.com')
       end
@@ -305,14 +299,15 @@ RSpec.describe BulkImportService do
       let(:import_type) { 'domain_blocking' }
       let(:overwrite)   { true }
 
-      let!(:rows) do
+      let(:rows) do
         [
           { 'domain' => 'blocked.com' },
           { 'domain' => 'to_block.com' },
-        ].map { |data| import.rows.create!(data: data) }
+        ]
       end
 
       before do
+        rows.each { |data| import.rows.create!(data: data) }
         account.block_domain!('alreadyblocked.com')
         account.block_domain!('blocked.com')
       end

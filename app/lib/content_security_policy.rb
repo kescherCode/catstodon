@@ -9,11 +9,15 @@ class ContentSecurityPolicy
     url_from_configured_asset_host || url_from_base_host
   end
 
-  def media_host
-    cdn_host_value || assets_host
+  def media_hosts
+    [assets_host, cdn_host_value].concat(extra_data_hosts).compact
   end
 
   private
+
+  def extra_data_hosts
+    ENV.fetch('EXTRA_DATA_HOSTS', '').split('|')
+  end
 
   def url_from_configured_asset_host
     Rails.configuration.action_controller.asset_host
