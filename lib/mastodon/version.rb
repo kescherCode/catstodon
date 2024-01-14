@@ -25,7 +25,7 @@ module Mastodon
     end
 
     def catstodon_revision
-      '1.0.7'
+      '1.0.8'
     end
 
     def build_metadata
