@@ -10,6 +10,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 
 import { ReactComponent as BookmarkIcon } from '@material-symbols/svg-600/outlined/bookmark-fill.svg';
 import { ReactComponent as BookmarkBorderIcon } from '@material-symbols/svg-600/outlined/bookmark.svg';
+import { ReactComponent as HeartPlusIcon } from '@material-symbols/svg-600/outlined/heart_plus.svg';
 import { ReactComponent as MoreHorizIcon } from '@material-symbols/svg-600/outlined/more_horiz.svg';
 import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
 import { ReactComponent as ReplyIcon } from '@material-symbols/svg-600/outlined/reply.svg';
@@ -336,7 +337,8 @@ class StatusActionBar extends ImmutablePureComponent {
         onClick={this.handleNoOp} // EmojiPickerDropdown handles that
         title={intl.formatMessage(messages.react)}
         disabled={!canReact}
-        icon='plus'
+        icon='heart-plus'
+        iconComponent={HeartPlusIcon}
       />
     );
 
