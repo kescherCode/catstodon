@@ -4,9 +4,7 @@ class ActivityPub::Activity::EmojiReact < ActivityPub::Activity
   def perform
     original_status = status_from_uri(object_uri)
     name = @json['content']
-    return if original_status.nil? ||
-              !original_status.account.local? ||
-              delete_arrived_first?(@json['id'])
+    return if original_status.nil? || delete_arrived_first?(@json['id'])
 
     if /^:.*:$/.match?(name)
       name.delete! ':'

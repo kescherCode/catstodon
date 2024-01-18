@@ -29,7 +29,8 @@ instead, use merge (fast-forward, if possible, with merge commit otherwise).
 - Allow posting polls with only one poll option (if `MIN_POLL_OPTIONS` is set to 1 on your instance).
 - Added oatstodon flavour (taken from [types.pl fork](https://github.com/ralsei/types.pl), by [@oat@hellsite.site](https://hellsite.site/@oat))
 - Emoji reactions on statuses (with both Unicode and custom emojis, same as for announcements), a feature originally developed for [Nyastodon](https://git.bsd.gay/fef/nyastodon).
-  Ended up as a Catstodon-maintained patch after its initial two Pull Requests to glitch-soc, and is now pending [its third attempt of merging into glitch-soc](https://github.com/glitch-soc/mastodon/pull/2221).
+  Ended up as a Catstodon-maintained patch after its initial two Pull Requests to glitch-soc, but was handed over to [Essem's fork, Chuckya](https://github.com/TheEssem/mastodon) and is now pending [its fourth attempt of merging into glitch-soc](https://github.com/glitch-soc/mastodon/pull/2462).
+- Lifts the "only federate local favourites" restriction on favourites/likes and emoji reactions.
 
 ## Previous differences now merged into glitch-soc
 
