@@ -1413,8 +1413,7 @@ body > [data-popper-placement] {
   .icon {
     width: 15px;
     height: 15px;
-    position: relative;
-    top: 0.145em;
+    vertical-align: middle;
   }
 }
 
@@ -5563,6 +5562,10 @@ a.status-card {
     padding-inline-end: 10px;
   }
 
+  .icon {
+    vertical-align: middle;
+  }
+
   .button {
     flex: 0 0 auto;
   }
@@ -6113,6 +6116,7 @@ a.status-card {
   gap: 2px;
 }
 
+.media-gallery__alt__label,
 .media-gallery__gifv__label {
   display: flex;
   align-items: center;
@@ -6189,6 +6193,7 @@ a.status-card {
 
     .icon {
       color: $dark-text-color;
+      vertical-align: middle;
     }
   }
 }
@@ -7433,6 +7438,13 @@ noscript {
 
           span {
             user-select: all;
+          }
+
+          .icon-lock {
+            height: 16px;
+            width: 16px;
+            position: relative;
+            top: 3px;
           }
         }
       }
