@@ -67,8 +67,90 @@ RSpec.describe Notification do
     end
 
     it 'returns :reaction for a Reaction' do
-      notification = Notification.new(activity: StatusReaction.new)
+      notification = described_class.new(activity: StatusReaction.new)
       expect(notification.type).to eq :reaction
+    end
+  end
+
+  describe 'Setting account from activity_type' do
+    context 'when activity_type is a Status' do
+      it 'sets the notification from_account correctly' do
+        status = Fabricate(:status)
+
+        notification = Fabricate.build(:notification, activity_type: 'Status', activity: status)
+
+        expect(notification.from_account).to eq(status.account)
+      end
+    end
+
+    context 'when activity_type is a Follow' do
+      it 'sets the notification from_account correctly' do
+        follow = Fabricate(:follow)
+
+        notification = Fabricate.build(:notification, activity_type: 'Follow', activity: follow)
+
+        expect(notification.from_account).to eq(follow.account)
+      end
+    end
+
+    context 'when activity_type is a Favourite' do
+      it 'sets the notification from_account correctly' do
+        favourite = Fabricate(:favourite)
+
+        notification = Fabricate.build(:notification, activity_type: 'Favourite', activity: favourite)
+
+        expect(notification.from_account).to eq(favourite.account)
+      end
+    end
+
+    context 'when activity_type is a FollowRequest' do
+      it 'sets the notification from_account correctly' do
+        follow_request = Fabricate(:follow_request)
+
+        notification = Fabricate.build(:notification, activity_type: 'FollowRequest', activity: follow_request)
+
+        expect(notification.from_account).to eq(follow_request.account)
+      end
+    end
+
+    context 'when activity_type is a Poll' do
+      it 'sets the notification from_account correctly' do
+        poll = Fabricate(:poll)
+
+        notification = Fabricate.build(:notification, activity_type: 'Poll', activity: poll)
+
+        expect(notification.from_account).to eq(poll.account)
+      end
+    end
+
+    context 'when activity_type is a Report' do
+      it 'sets the notification from_account correctly' do
+        report = Fabricate(:report)
+
+        notification = Fabricate.build(:notification, activity_type: 'Report', activity: report)
+
+        expect(notification.from_account).to eq(report.account)
+      end
+    end
+
+    context 'when activity_type is a Mention' do
+      it 'sets the notification from_account correctly' do
+        mention = Fabricate(:mention)
+
+        notification = Fabricate.build(:notification, activity_type: 'Mention', activity: mention)
+
+        expect(notification.from_account).to eq(mention.status.account)
+      end
+    end
+
+    context 'when activity_type is an Account' do
+      it 'sets the notification from_account correctly' do
+        account = Fabricate(:account)
+
+        notification = Fabricate.build(:notification, activity_type: 'Account', account: account)
+
+        expect(notification.account).to eq(account)
+      end
     end
   end
 
@@ -210,7 +292,6 @@ RSpec.describe Notification do
           expect(subject[7].target_status).to eq reaction.status
         end
       end
-      # rubocop:enable RSpec/MultipleExpectations
     end
   end
 end
