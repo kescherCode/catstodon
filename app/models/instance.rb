@@ -13,16 +13,17 @@ class Instance < ApplicationRecord
 
   attr_accessor :failure_days
 
-  has_many :accounts, foreign_key: :domain, primary_key: :domain, inverse_of: false
-
   with_options foreign_key: :domain, primary_key: :domain, inverse_of: false do
     belongs_to :domain_block
     belongs_to :domain_allow
-    belongs_to :unavailable_domain # skipcq: RB-RL1031
+    belongs_to :unavailable_domain
+
+    has_many :accounts, dependent: nil
   end
 
   scope :searchable, -> { where.not(domain: DomainBlock.select(:domain)) }
   scope :matches_domain, ->(value) { where(arel_table[:domain].matches("%#{value}%")) }
+  scope :domain_starts_with, ->(value) { where(arel_table[:domain].matches("#{sanitize_sql_like(value)}%", false, true)) }
   scope :by_domain_and_subdomains, ->(domain) { where("reverse('.' || domain) LIKE reverse(?)", "%.#{domain}") }
 
   def self.refresh
