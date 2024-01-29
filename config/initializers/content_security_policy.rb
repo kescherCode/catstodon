@@ -34,7 +34,7 @@ if Rails.env.production?
     p.script_src      :self, assets_host, "'wasm-unsafe-eval'","use.typekit.net"
     p.font_src        :self, assets_host, "use.typekit.net"
     p.img_src         :self, :data, :blob, *data_hosts, "p.typekit.net"
-    p.style_src       :self, assets_host, "use.typekit.net", "p.typekit.net"
+    p.style_src       :self, assets_host, "use.typekit.net", "p.typekit.net", "34.si"
     p.media_src       :self, :data, *data_hosts
     p.frame_src       :self, :https
     p.child_src       :self, :blob, assets_host
