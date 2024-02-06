@@ -5,7 +5,7 @@ class InitialStateSerializer < ActiveModel::Serializer
 
   attributes :meta, :compose, :accounts,
              :media_attachments, :settings,
-             :max_toot_chars, :poll_limits,
+             :max_toot_chars, :max_feed_hashtags, :poll_limits,
              :languages, :max_reactions
 
   attribute :critical_updates_pending, if: -> { object&.role&.can?(:view_devops) && SoftwareUpdate.check_enabled? }
@@ -15,6 +15,10 @@ class InitialStateSerializer < ActiveModel::Serializer
 
   def max_toot_chars
     StatusLengthValidator::MAX_CHARS
+  end
+
+  def max_feed_hashtags
+    TagFeed::LIMIT_PER_MODE
   end
 
   def max_reactions
@@ -34,8 +38,8 @@ class InitialStateSerializer < ActiveModel::Serializer
   def meta
     store = default_meta_store
 
-    if object.current_account
-      store[:me]                = object.current_account.id.to_s
+    if object_account
+      store[:me]                = object_account.id.to_s
       store[:unfollow_modal]    = object_account_user.setting_unfollow_modal
       store[:boost_modal]       = object_account_user.setting_boost_modal
       store[:favourite_modal]   = object_account_user.setting_favourite_modal
@@ -133,6 +137,10 @@ class InitialStateSerializer < ActiveModel::Serializer
       trends_enabled: Setting.trends,
       version: instance_presenter.version,
     }
+  end
+
+  def object_account
+    object.current_account
   end
 
   def object_account_user
