@@ -17,12 +17,12 @@ class InitialStateSerializer < ActiveModel::Serializer
     StatusLengthValidator::MAX_CHARS
   end
 
-  def max_feed_hashtags
-    TagFeed::LIMIT_PER_MODE
-  end
-
   def max_reactions
     StatusReactionValidator::LIMIT
+  end
+
+  def max_feed_hashtags
+    TagFeed::LIMIT_PER_MODE
   end
 
   def poll_limits
