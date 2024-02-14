@@ -137,6 +137,14 @@ export default function statuses(state = initialState, action) {
     return state.setIn([action.status.get('id'), 'reblogged'], true);
   case REBLOG_FAIL:
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'reblogged'], false);
+  case REACTION_UPDATE:
+    return updateReactionCount(state, action.reaction);
+  case REACTION_ADD_REQUEST:
+  case REACTION_REMOVE_FAIL:
+    return addReaction(state, action.id, action.name, action.url);
+  case REACTION_REMOVE_REQUEST:
+  case REACTION_ADD_FAIL:
+    return removeReaction(state, action.id, action.name);
   case UNREBLOG_REQUEST:
     return state.setIn([action.status.get('id'), 'reblogged'], false);
   case UNREBLOG_FAIL:

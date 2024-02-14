@@ -12,10 +12,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { connect } from 'react-redux';
 
-import { ReactComponent as VisibilityIcon } from '@material-symbols/svg-600/outlined/visibility.svg';
-import { ReactComponent as VisibilityOffIcon } from '@material-symbols/svg-600/outlined/visibility_off.svg';
 import { HotKeys } from 'react-hotkeys';
 
+import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
+import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
 import { Icon }  from 'mastodon/components/icon';
 import { LoadingIndicator } from 'mastodon/components/loading_indicator';
 import ScrollContainer from 'mastodon/containers/scroll_container';
@@ -46,8 +46,6 @@ import {
   unreblog,
   pin,
   unpin,
-  addReaction,
-  removeReaction,
 } from '../../actions/interactions';
 import { openModal } from '../../actions/modal';
 import { initMuteModal } from '../../actions/mutes';
@@ -265,19 +263,6 @@ class Status extends ImmutablePureComponent {
         },
       }));
     }
-  };
-
-  handleReactionAdd = (statusId, name, url) => {
-    const { dispatch } = this.props;
-    const { signedIn } = this.context.identity;
-
-    if (signedIn) {
-      dispatch(addReaction(statusId, name, url));
-    }
-  };
-
-  handleReactionRemove = (statusId, name) => {
-    this.props.dispatch(removeReaction(statusId, name));
   };
 
   handlePin = (status) => {
@@ -720,15 +705,12 @@ class Status extends ImmutablePureComponent {
                   status={status}
                   onOpenVideo={this.handleOpenVideo}
                   onOpenMedia={this.handleOpenMedia}
-                  onReactionAdd={this.handleReactionAdd}
-                  onReactionRemove={this.handleReactionRemove}
                   onToggleHidden={this.handleToggleHidden}
                   onTranslate={this.handleTranslate}
                   domain={domain}
                   showMedia={this.state.showMedia}
                   onToggleMediaVisibility={this.handleToggleMediaVisibility}
                   pictureInPicture={pictureInPicture}
-                  emojiMap={this.props.emojiMap}
                 />
 
                 <ActionBar
@@ -736,7 +718,6 @@ class Status extends ImmutablePureComponent {
                   status={status}
                   onReply={this.handleReplyClick}
                   onFavourite={this.handleFavouriteClick}
-                  onReactionAdd={this.handleReactionAdd}
                   onReblog={this.handleReblogClick}
                   onBookmark={this.handleBookmarkClick}
                   onDelete={this.handleDeleteClick}

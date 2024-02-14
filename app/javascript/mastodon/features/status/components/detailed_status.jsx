@@ -8,16 +8,14 @@ import { Link, withRouter } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import { ReactComponent as AlternateEmailIcon } from '@material-symbols/svg-600/outlined/alternate_email.svg';
-import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
-import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/star-fill.svg';
-
+import AlternateEmailIcon from '@/material-icons/400-24px/alternate_email.svg?react';
+import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
+import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import { AnimatedNumber } from 'mastodon/components/animated_number';
 import EditedTimestamp from 'mastodon/components/edited_timestamp';
 import { getHashtagBarForStatus } from 'mastodon/components/hashtag_bar';
 import { Icon }  from 'mastodon/components/icon';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
-import StatusReactions from 'mastodon/components/status_reactions';
 import { VisibilityIcon } from 'mastodon/components/visibility_icon';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
@@ -32,10 +30,6 @@ import Video from '../../video';
 import Card from './card';
 
 class DetailedStatus extends ImmutablePureComponent {
-
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
 
   static propTypes = {
     status: ImmutablePropTypes.map,
@@ -53,8 +47,6 @@ class DetailedStatus extends ImmutablePureComponent {
       available: PropTypes.bool,
     }),
     onToggleMediaVisibility: PropTypes.func,
-    onReactionAdd: PropTypes.func.isRequired,
-    onReactionRemove: PropTypes.func.isRequired,
     ...WithRouterPropTypes,
   };
 
@@ -315,14 +307,6 @@ class DetailedStatus extends ImmutablePureComponent {
 
           {media}
 
-          <StatusReactions
-            statusId={status.get('id')}
-            reactions={status.get('reactions')}
-            addReaction={this.props.onReactionAdd}
-            removeReaction={this.props.onReactionRemove}
-            canReact={this.context.identity.signedIn}
-          />
-          
           {expanded && hashtagBar}
 
           <div className='detailed-status__meta'>

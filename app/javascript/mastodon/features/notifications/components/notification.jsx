@@ -8,16 +8,16 @@ import { Link, withRouter } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 
-import { ReactComponent as EditIcon } from '@material-symbols/svg-600/outlined/edit.svg';
-import { ReactComponent as FlagIcon } from '@material-symbols/svg-600/outlined/flag-fill.svg';
-import { ReactComponent as HomeIcon } from '@material-symbols/svg-600/outlined/home-fill.svg';
-import { ReactComponent as InsertChartIcon } from '@material-symbols/svg-600/outlined/insert_chart.svg';
-import { ReactComponent as PersonIcon } from '@material-symbols/svg-600/outlined/person-fill.svg';
-import { ReactComponent as PersonAddIcon } from '@material-symbols/svg-600/outlined/person_add-fill.svg';
-import { ReactComponent as RepeatIcon } from '@material-symbols/svg-600/outlined/repeat.svg';
-import { ReactComponent as StarIcon } from '@material-symbols/svg-600/outlined/star-fill.svg';
 import { HotKeys } from 'react-hotkeys';
 
+import EditIcon from '@/material-icons/400-24px/edit.svg?react';
+import FlagIcon from '@/material-icons/400-24px/flag-fill.svg?react';
+import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
+import InsertChartIcon from '@/material-icons/400-24px/insert_chart.svg?react';
+import PersonIcon from '@/material-icons/400-24px/person-fill.svg?react';
+import PersonAddIcon from '@/material-icons/400-24px/person_add-fill.svg?react';
+import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
+import StarIcon from '@/material-icons/400-24px/star-fill.svg?react';
 import { Icon }  from 'mastodon/components/icon';
 import AccountContainer from 'mastodon/containers/account_container';
 import StatusContainer from 'mastodon/containers/status_container';
@@ -30,7 +30,6 @@ import Report from './report';
 
 const messages = defineMessages({
   favourite: { id: 'notification.favourite', defaultMessage: '{name} favorited your status' },
-  reaction: { id: 'notification.reaction', defaultMessage: '{name} reacted to your status' },
   follow: { id: 'notification.follow', defaultMessage: '{name} followed you' },
   ownPoll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
   poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },
@@ -208,38 +207,6 @@ class Notification extends ImmutablePureComponent {
             muted
             withDismiss
             hidden={!!this.props.hidden}
-            getScrollPosition={this.props.getScrollPosition}
-            updateScrollBottom={this.props.updateScrollBottom}
-            cachedMediaWidth={this.props.cachedMediaWidth}
-            cacheMediaWidth={this.props.cacheMediaWidth}
-          />
-        </div>
-      </HotKeys>
-    );
-  }
-
-  renderReaction (notification, link) {
-    const { intl, unread } = this.props;
-
-    return (
-      <HotKeys handlers={this.getHandlers()}>
-        <div className={classNames('notification notification-reaction focusable', { unread })} tabIndex='0' aria-label={notificationForScreenReader(intl, intl.formatMessage(messages.reaction, { name: notification.getIn(['account', 'acct']) }), notification.get('created_at'))}>
-          <div className='notification__message'>
-            <div className='notification__favourite-icon-wrapper'>
-              <Icon id='plus' fixedWidth />
-            </div>
-
-            <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.reaction' defaultMessage='{name} reacted to your status' values={{ name: link }} />
-            </span>
-          </div>
-
-          <StatusContainer
-            id={notification.get('status')}
-            account={notification.get('account')}
-            muted
-            withDismiss
-            hidden={this.props.hidden}
             getScrollPosition={this.props.getScrollPosition}
             updateScrollBottom={this.props.updateScrollBottom}
             cachedMediaWidth={this.props.cachedMediaWidth}
@@ -454,8 +421,6 @@ class Notification extends ImmutablePureComponent {
       return this.renderMention(notification);
     case 'favourite':
       return this.renderFavourite(notification, link);
-    case 'reaction':
-      return this.renderReaction(notification, link);
     case 'reblog':
       return this.renderReblog(notification, link);
     case 'status':

@@ -26,12 +26,13 @@ class StatusCacheHydrator
 
   def hydrate_non_reblog_payload(empty_payload, account_id)
     empty_payload.tap do |payload|
-      payload[:favourited] = Favourite.where(account_id: account_id, status_id: @status.id).exists?
-      payload[:reblogged]  = Status.where(account_id: account_id, reblog_of_id: @status.id).exists?
-      payload[:muted]      = ConversationMute.where(account_id: account_id, conversation_id: @status.conversation_id).exists?
-      payload[:bookmarked] = Bookmark.where(account_id: account_id, status_id: @status.id).exists?
-      payload[:pinned]     = StatusPin.where(account_id: account_id, status_id: @status.id).exists? if @status.account_id == account_id
+      payload[:favourited] = Favourite.exists?(account_id: account_id, status_id: @status.id)
+      payload[:reblogged]  = Status.exists?(account_id: account_id, reblog_of_id: @status.id)
+      payload[:muted]      = ConversationMute.exists?(account_id: account_id, conversation_id: @status.conversation_id)
+      payload[:bookmarked] = Bookmark.exists?(account_id: account_id, status_id: @status.id)
+      payload[:pinned]     = StatusPin.exists?(account_id: account_id, status_id: @status.id) if @status.account_id == account_id
       payload[:filtered]   = mapped_applied_custom_filter(account_id, @status)
+      payload[:reactions]  = serialized_reactions(account_id)
 
       if payload[:poll]
         payload[:poll][:voted] = @status.account_id == account_id
@@ -51,12 +52,13 @@ class StatusCacheHydrator
       # used to create the status, we need to hydrate it here too
       payload[:reblog][:application] = payload_reblog_application if payload[:reblog][:application].nil? && @status.reblog.account_id == account_id
 
-      payload[:reblog][:favourited] = Favourite.where(account_id: account_id, status_id: @status.reblog_of_id).exists?
-      payload[:reblog][:reblogged]  = Status.where(account_id: account_id, reblog_of_id: @status.reblog_of_id).exists?
-      payload[:reblog][:muted]      = ConversationMute.where(account_id: account_id, conversation_id: @status.reblog.conversation_id).exists?
-      payload[:reblog][:bookmarked] = Bookmark.where(account_id: account_id, status_id: @status.reblog_of_id).exists?
-      payload[:reblog][:pinned]     = StatusPin.where(account_id: account_id, status_id: @status.reblog_of_id).exists? if @status.reblog.account_id == account_id
+      payload[:reblog][:favourited] = Favourite.exists?(account_id: account_id, status_id: @status.reblog_of_id)
+      payload[:reblog][:reblogged]  = Status.exists?(account_id: account_id, reblog_of_id: @status.reblog_of_id)
+      payload[:reblog][:muted]      = ConversationMute.exists?(account_id: account_id, conversation_id: @status.reblog.conversation_id)
+      payload[:reblog][:bookmarked] = Bookmark.exists?(account_id: account_id, status_id: @status.reblog_of_id)
+      payload[:reblog][:pinned]     = StatusPin.exists?(account_id: account_id, status_id: @status.reblog_of_id) if @status.reblog.account_id == account_id
       payload[:reblog][:filtered]   = payload[:filtered]
+      payload[:reblog][:reactions]  = serialized_reactions(account_id)
 
       if payload[:reblog][:poll]
         if @status.reblog.account_id == account_id
@@ -71,6 +73,7 @@ class StatusCacheHydrator
 
       payload[:favourited] = payload[:reblog][:favourited]
       payload[:reblogged]  = payload[:reblog][:reblogged]
+      payload[:reactions]  = payload[:reblog][:reactions]
     end
   end
 
@@ -84,6 +87,16 @@ class StatusCacheHydrator
     ActiveModelSerializers::SerializableResource.new(
       filter,
       serializer: REST::FilterResultSerializer
+    ).as_json
+  end
+
+  def serialized_reactions(account_id)
+    reactions = @status.reactions(account_id)
+    ActiveModelSerializers::SerializableResource.new(
+      reactions,
+      each_serializer: REST::ReactionSerializer,
+      scope: account_id, # terrible
+      scope_name: :current_user
     ).as_json
   end
 
