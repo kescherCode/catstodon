@@ -1168,6 +1168,10 @@ body > [data-popper-placement] {
   .notification__message {
     margin: -10px 0 10px;
   }
+
+  .reactions-bar--empty {
+    display: none;
+  }
 }
 
 .status__relative-time {
@@ -3457,7 +3461,8 @@ a.status-card.compact:hover {
     border-bottom: 0;
 
     .status__content,
-    .status__action-bar {
+    .status__action-bar,
+    .reactions-bar {
       margin-inline-start: 46px + 10px;
       width: calc(100% - (46px + 10px));
     }
@@ -4210,6 +4215,10 @@ a.status-card.compact:hover {
 .detailed-status__button {
   flex: 1 1 auto;
   text-align: center;
+}
+
+.detailed-status__button .emoji-button {
+  padding: 0;
 }
 
 .column-settings__outer {
@@ -5237,6 +5246,10 @@ a.status-card.compact:hover {
   align-items: center;
   display: flex;
   margin-top: 8px;
+
+  & > .emoji-picker-dropdown > .emoji-button {
+    padding: 0;
+  }
 }
 
 .status__action-bar-button {
