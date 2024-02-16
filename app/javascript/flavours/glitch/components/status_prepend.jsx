@@ -131,7 +131,7 @@ export default class StatusPrepend extends PureComponent {
       iconComponent = StarIcon;
       break;
     case 'reaction':
-      iconId = 'add-reaction';
+      iconId = 'add_reaction';
       iconComponent = AddReactionIcon;
       break;
     case 'featured':

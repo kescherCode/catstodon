@@ -89,7 +89,7 @@ class FilterBar extends PureComponent {
           onClick={this.onClick('reaction')}
           title={intl.formatMessage(tooltips.reactions)}
         >
-          <Icon id='add-reaction' icon={AddReactionIcon} />
+          <Icon id='add_reaction' icon={AddReactionIcon} />
         </button>
         <button
           className={selectedFilter === 'reblog' ? 'active' : ''}

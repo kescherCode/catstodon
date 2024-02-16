@@ -244,11 +244,11 @@ class ActionBar extends PureComponent {
     const canReact = signedIn && status.get('reactions').filter(r => r.get('count') > 0 && r.get('me')).size < maxReactions;
     const reactButton = (
       <IconButton
-        className='add-reaction'
+        className='add-reaction-icon'
         onClick={this.handleNoOp} // EmojiPickerDropdown handles that
         title={intl.formatMessage(messages.react)}
         disabled={!canReact}
-        icon='add-reaction'
+        icon='add_reaction'
         iconComponent={AddReactionIcon}
       />
     );

@@ -51,16 +51,6 @@ export const UNBOOKMARK_REQUEST = 'UNBOOKMARKED_REQUEST';
 export const UNBOOKMARK_SUCCESS = 'UNBOOKMARKED_SUCCESS';
 export const UNBOOKMARK_FAIL    = 'UNBOOKMARKED_FAIL';
 
-export const REACTION_UPDATE = 'REACTION_UPDATE';
-
-export const REACTION_ADD_REQUEST = 'REACTION_ADD_REQUEST';
-export const REACTION_ADD_SUCCESS = 'REACTION_ADD_SUCCESS';
-export const REACTION_ADD_FAIL    = 'REACTION_ADD_FAIL';
-
-export const REACTION_REMOVE_REQUEST = 'REACTION_REMOVE_REQUEST';
-export const REACTION_REMOVE_SUCCESS = 'REACTION_REMOVE_SUCCESS';
-export const REACTION_REMOVE_FAIL    = 'REACTION_REMOVE_FAIL';
-
 export function reblog(status, visibility) {
   return function (dispatch, getState) {
     dispatch(reblogRequest(status));
@@ -524,91 +514,5 @@ export function unpinFail(status, error) {
     status,
     error,
     skipLoading: true,
-  };
-}
-
-export function addReaction(statusId, name, url) {
-  return (dispatch, getState) => {
-    const status = getState().get('statuses').get(statusId);
-    let alreadyAdded = false;
-    if (status) {
-      const reaction = status.get('reactions').find(x => x.get('name') === name);
-      if (reaction && reaction.get('me')) {
-        alreadyAdded = true;
-      }
-    }
-    if (!alreadyAdded) {
-      dispatch(addReactionRequest(statusId, name, url));
-    }
-
-    api(getState).post(`/api/v1/statuses/${statusId}/react/${encodeURIComponent(name)}`).then(() => {
-      dispatch(addReactionSuccess(statusId, name));
-    }).catch(err => {
-      if (!alreadyAdded) {
-        dispatch(addReactionFail(statusId, name, err));
-      }
-    });
-  };
-}
-
-export function addReactionRequest(statusId, name, url) {
-  return {
-    type: REACTION_ADD_REQUEST,
-    id: statusId,
-    name,
-    url,
-  };
-}
-
-export function addReactionSuccess(statusId, name) {
-  return {
-    type: REACTION_ADD_SUCCESS,
-    id: statusId,
-    name,
-  };
-}
-
-export function addReactionFail(statusId, name, error) {
-  return {
-    type: REACTION_ADD_FAIL,
-    id: statusId,
-    name,
-    error,
-  };
-}
-
-export function removeReaction(statusId, name) {
-  return (dispatch, getState) => {
-    dispatch(removeReactionRequest(statusId, name));
-
-    api(getState).post(`/api/v1/statuses/${statusId}/unreact/${encodeURIComponent(name)}`).then(() => {
-      dispatch(removeReactionSuccess(statusId, name));
-    }).catch(err => {
-      dispatch(removeReactionFail(statusId, name, err));
-    });
-  };
-}
-
-export function removeReactionRequest(statusId, name) {
-  return {
-    type: REACTION_REMOVE_REQUEST,
-    id: statusId,
-    name,
-  };
-}
-
-export function removeReactionSuccess(statusId, name) {
-  return {
-    type: REACTION_REMOVE_SUCCESS,
-    id: statusId,
-    name,
-  };
-}
-
-export function removeReactionFail(statusId, name) {
-  return {
-    type: REACTION_REMOVE_FAIL,
-    id: statusId,
-    name,
   };
 }

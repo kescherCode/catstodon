@@ -30,8 +30,6 @@ import {
   unbookmark,
   pin,
   unpin,
-  addReaction,
-  removeReaction,
 } from '../actions/interactions';
 import { openModal } from '../actions/modal';
 import { initMuteModal } from '../actions/mutes';
@@ -135,14 +133,6 @@ const mapDispatchToProps = (dispatch, { intl, contextType }) => ({
     } else {
       dispatch(pin(status));
     }
-  },
-
-  onReactionAdd (statusId, name, url) {
-    dispatch(addReaction(statusId, name, url));
-  },
-
-  onReactionRemove (statusId, name) {
-    dispatch(removeReaction(statusId, name));
   },
 
   onEmbed (status) {

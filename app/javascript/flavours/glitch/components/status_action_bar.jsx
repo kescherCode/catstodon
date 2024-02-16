@@ -338,7 +338,7 @@ class StatusActionBar extends ImmutablePureComponent {
         onClick={this.handleNoOp} // EmojiPickerDropdown handles that
         title={intl.formatMessage(messages.react)}
         disabled={!canReact}
-        icon='add-reaction'
+        icon='add_reaction'
         iconComponent={AddReactionIcon}
       />
     );
