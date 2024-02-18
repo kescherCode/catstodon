@@ -46,6 +46,7 @@ class Form::AdminSettings
     captcha_enabled
     authorized_fetch
     reject_pattern
+    reject_blurhash
   ).freeze
 
   INTEGER_KEYS = %i(

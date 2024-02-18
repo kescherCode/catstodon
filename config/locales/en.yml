@@ -778,6 +778,9 @@ en:
           approved: Approval required for sign up
           none: Nobody can sign up
           open: Anyone can sign up
+      reject_blurhash:
+        desc_html: Set a blurhashes to inspect Create Activity media attachments, and refuse Activity if you match
+        title: Reject blurhash
       reject_pattern:
         desc_html: Set a regular expression pattern to inspect Create Activity content, and refuse Activity if you match
         title: Reject Pattern
