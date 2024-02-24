@@ -3,7 +3,6 @@
 ## Introduction
 
 This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.com/glitch-soc/mastodon), with changes made to suit [CatCatNya~](https://catcatnya.com).
-The aforementioned instance is running the `develop` branch.
 I intend to contribute some useful differences back to [glitch-soc](https://github.com/glitch-soc/mastodon) and [vanilla Mastodon](https://github.com/mastodon/mastodon).
 
 To install, take a look at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/). The instructions and features are the same, except for the differences outlined below.
