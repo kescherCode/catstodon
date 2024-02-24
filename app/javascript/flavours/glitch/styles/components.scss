@@ -8727,6 +8727,8 @@ noscript {
   }
 
   &--empty {
+    margin-top: 0;
+
     .emoji-button {
       padding: 0;
     }
