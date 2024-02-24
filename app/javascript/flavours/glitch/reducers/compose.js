@@ -357,10 +357,13 @@ const updateSuggestionTags = (state, token) => {
 };
 
 const updatePoll = (state, index, value) => state.updateIn(['poll', 'options'], options => {
-  const tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
+  let tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
 
   if (tmp.size === 0) {
-    return tmp.push('').push('');
+    const minOptions = pollLimits.min_options ?? 2;
+    for (let i = 0; i < minOptions; i++) {
+      tmp = tmp.push('');
+    }
   } else if (tmp.size < pollLimits.max_options) {
     return tmp.push('');
   }

@@ -51,7 +51,7 @@ import {
 import { REDRAFT } from '../actions/statuses';
 import { STORE_HYDRATE } from '../actions/store';
 import { TIMELINE_DELETE } from '../actions/timelines';
-import { me, pollMinOptions } from '../initial_state';
+import { me, pollLimits } from '../initial_state';
 import { unescapeHTML } from '../utils/html';
 import { uuid } from '../uuid';
 
@@ -95,7 +95,7 @@ const initialState = ImmutableMap({
 });
 
 const initialPoll = ImmutableMap({
-  options: ImmutableList(new Array(pollMinOptions).fill('')),
+  options: ImmutableList(new Array(pollLimits.min_options ?? 2).fill('')),
   expires_in: 24 * 3600,
   multiple: false,
 });
@@ -281,11 +281,14 @@ const updateSuggestionTags = (state, token) => {
 };
 
 const updatePoll = (state, index, value) => state.updateIn(['poll', 'options'], options => {
-  const tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
+  let tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
 
   if (tmp.size === 0) {
-    return tmp.push('').push('');
-  } else if (tmp.size < 4) {
+    const minOptions = pollLimits.min_options ?? 2;
+    for (let i = 0; i < minOptions; i++) {
+      tmp = tmp.push('');
+    }
+  } else if (tmp.size < pollLimits.max_options) {
     return tmp.push('');
   }
 
