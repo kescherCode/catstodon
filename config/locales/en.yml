@@ -779,10 +779,10 @@ en:
           none: Nobody can sign up
           open: Anyone can sign up
       reject_blurhash:
-        desc_html: Set a blurhashes to inspect Create Activity media attachments, and refuse Activity if you match
+        desc_html: Blurhashes to compare against Create activities' media attachments. Matching activities will be rejected. Separated by newline.
         title: Reject blurhash
       reject_pattern:
-        desc_html: Set a regular expression pattern to inspect Create Activity content, and refuse Activity if you match
+        desc_html: Regular expression pattern to match against Create activities. Matching activities will be rejected. Must be a single pattern.
         title: Reject Pattern
       security:
         authorized_fetch: Require authentication from federated servers
