@@ -60,7 +60,6 @@
  * @property {InitialStateLanguage[]} languages
  * @property {boolean=} critical_updates_pending
  * @property {InitialStateMeta} meta
- * @property {number} max_toot_chars
  * @property {PollLimits} poll_limits
  */
 
@@ -121,7 +120,6 @@ export const statusPageUrl = getMeta('status_page_url');
 export const sso_redirect = getMeta('sso_redirect');
 
 // Glitch-soc-specific settings
-export const maxChars = (initialState && initialState.max_toot_chars) || 500;
 export const pollLimits = (initialState && initialState.poll_limits);
 
 export default initialState;

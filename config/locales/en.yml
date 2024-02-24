@@ -771,6 +771,7 @@ en:
         preamble: Other settings, including customizing behavior
         title: Other settings
       registrations:
+        moderation_recommandation: Please make sure you have an adequate and reactive moderation team before you open registrations to everyone!
         preamble: Control who can create an account on your server.
         title: Registrations
       registrations_mode:
@@ -778,6 +779,7 @@ en:
           approved: Approval required for sign up
           none: Nobody can sign up
           open: Anyone can sign up
+        warning_hint: We recommend using “Approval required for sign up” unless you are confident your moderation team can handle spam and malicious registrations in a timely fashion.
       reject_blurhash:
         desc_html: Blurhashes to compare against Create activities' media attachments. Matching activities will be rejected. Separated by newline.
         title: Reject blurhash
