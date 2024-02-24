@@ -3,9 +3,9 @@ import { PureComponent } from 'react';
 
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 
-import AddReactionIcon from '@/material-icons/400-24px/add_reaction.svg?react';
 import HomeIcon from '@/material-icons/400-24px/home-fill.svg?react';
 import InsertChartIcon from '@/material-icons/400-24px/insert_chart.svg?react';
+import MoodIcon from '@/material-icons/400-24px/mood.svg?react';
 import PersonAddIcon from '@/material-icons/400-24px/person_add.svg?react';
 import RepeatIcon from '@/material-icons/400-24px/repeat.svg?react';
 import ReplyAllIcon from '@/material-icons/400-24px/reply_all.svg?react';
@@ -89,7 +89,7 @@ class FilterBar extends PureComponent {
           onClick={this.onClick('reaction')}
           title={intl.formatMessage(tooltips.reactions)}
         >
-          <Icon id='add_reaction' icon={AddReactionIcon} />
+          <Icon id='mood' icon={MoodIcon} />
         </button>
         <button
           className={selectedFilter === 'reblog' ? 'active' : ''}
