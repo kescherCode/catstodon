@@ -2,6 +2,11 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.0.8] - 2024-02-29
+
+- Update translations from glitch-soc
+- glitch-soc now uses openURL function from upstream
+
 ## [v4.3.0-alpha.3+glitch+cat+1.0.7] - 2024-02-28
 
 - Merged glitch-soc changes (incl. comments on admin/instances page)
