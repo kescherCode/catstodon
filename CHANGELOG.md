@@ -2,6 +2,10 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.0.9] - 2024-03-03
+
+- Glitch-soc changes again (this time, among other stuff, the search bar icon position is fixed)
+
 ## [v4.3.0-alpha.3+glitch+cat+1.0.8] - 2024-02-29
 
 - Update translations from glitch-soc
