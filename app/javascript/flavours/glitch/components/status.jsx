@@ -20,6 +20,7 @@ import Card from '../features/status/components/card';
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
+import { SensitiveMediaContext } from '../features/ui/util/sensitive_media_context';
 import { displayMedia, visibleReactions } from '../initial_state';
 
 import AttachmentList from './attachment_list';
@@ -73,9 +74,7 @@ export const defaultMediaVisibility = (status, settings) => {
 
 class Status extends ImmutablePureComponent {
 
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
+  static contextType = SensitiveMediaContext;
 
   static propTypes = {
     containerId: PropTypes.string,
@@ -132,8 +131,7 @@ class Status extends ImmutablePureComponent {
     isCollapsed: false,
     autoCollapsed: false,
     isExpanded: undefined,
-    showMedia: undefined,
-    statusId: undefined,
+    showMedia: defaultMediaVisibility(this.props.status, this.props.settings) && !(this.context?.hideMediaByDefault),
     revealBehindCW: undefined,
     showCard: false,
     forceFilter: undefined,
@@ -215,12 +213,6 @@ class Status extends ImmutablePureComponent {
 
     if (prevState.isExpanded === undefined && update.isExpanded === undefined) {
       update.isExpanded = autoUnfoldCW(nextProps.settings, nextProps.status);
-      updated = true;
-    }
-
-    if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
-      update.showMedia = defaultMediaVisibility(nextProps.status, nextProps.settings);
-      update.statusId = nextProps.status.get('id');
       updated = true;
     }
 
@@ -318,6 +310,18 @@ class Status extends ImmutablePureComponent {
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (snapshot !== null && this.props.updateScrollBottom && this.node.offsetTop < snapshot.top) {
       this.props.updateScrollBottom(snapshot.height - snapshot.top);
+    }
+
+    // This will potentially cause a wasteful redraw, but in most cases `Status` components are used
+    // with a `key` directly depending on their `id`, preventing re-use of the component across
+    // different IDs.
+    // But just in case this does change, reset the state on status change.
+
+    if (this.props.status?.get('id') !== prevProps.status?.get('id')) {
+      this.setState({
+        showMedia: defaultMediaVisibility(this.props.status, this.props.settings) && !(this.context?.hideMediaByDefault),
+        forceFilter: undefined,
+      });
     }
   }
 

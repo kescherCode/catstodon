@@ -280,7 +280,7 @@ const updateSuggestionTags = (state, token) => {
   });
 };
 
-const updatePoll = (state, index, value) => state.updateIn(['poll', 'options'], options => {
+const updatePoll = (state, index, value, maxOptions) => state.updateIn(['poll', 'options'], options => {
   let tmp = options.set(index, value).filterNot(x => x.trim().length === 0);
 
   if (tmp.size === 0) {
@@ -288,7 +288,7 @@ const updatePoll = (state, index, value) => state.updateIn(['poll', 'options'], 
     for (let i = 0; i < minOptions; i++) {
       tmp = tmp.push('');
     }
-  } else if (tmp.size < pollLimits.max_options) {
+  } else if (tmp.size < maxOptions) {
     return tmp.push('');
   }
 
@@ -532,7 +532,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_POLL_REMOVE:
     return state.set('poll', null);
   case COMPOSE_POLL_OPTION_CHANGE:
-    return updatePoll(state, action.index, action.title);
+    return updatePoll(state, action.index, action.title, action.maxOptions);
   case COMPOSE_POLL_SETTINGS_CHANGE:
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
   case COMPOSE_LANGUAGE_CHANGE:
