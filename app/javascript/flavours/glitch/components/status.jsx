@@ -20,6 +20,7 @@ import Card from '../features/status/components/card';
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
+import { IdentityConsumer } from '../features/ui/util/identity_consumer';
 import { SensitiveMediaContext } from '../features/ui/util/sensitive_media_context';
 import { displayMedia, visibleReactions } from '../initial_state';
 
@@ -845,14 +846,18 @@ class Status extends ImmutablePureComponent {
               {...statusContentProps}
             />
 
-            <StatusReactions
-              statusId={status.get('id')}
-              reactions={status.get('reactions')}
-              numVisible={visibleReactions}
-              addReaction={this.props.onReactionAdd}
-              removeReaction={this.props.onReactionRemove}
-              canReact={this.context.identity.signedIn}
-            />
+            <IdentityConsumer>
+              {identity => (
+                <StatusReactions
+                  statusId={status.get('id')}
+                  reactions={status.get('reactions')}
+                  numVisible={visibleReactions}
+                  addReaction={this.props.onReactionAdd}
+                  removeReaction={this.props.onReactionRemove}
+                  canReact={identity.signedIn}
+                />
+              )}
+            </IdentityConsumer>
 
             {(!isCollapsed || !(muted || !settings.getIn(['collapsed', 'show_action_bar']))) && (
               <StatusActionBar
