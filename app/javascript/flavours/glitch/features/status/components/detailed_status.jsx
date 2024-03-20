@@ -337,7 +337,7 @@ class DetailedStatus extends ImmutablePureComponent {
 
             <div className='detailed-status__meta__line'>
               {reblogLink}
-              ·
+              {reblogLink && <>·</>}
               {favouriteLink}
             </div>
           </div>

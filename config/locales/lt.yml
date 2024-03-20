@@ -466,6 +466,9 @@ lt:
       destroyed_msg: Skundo žinutė sekmingai ištrinta!
     reports:
       action_taken_by: Veiksmo ėmėsi
+      already_suspended_badges:
+        local: Jau sustabdytas šiame serveryje
+        remote: Jau sustabdytas jų serveryje
       are_you_sure: Ar esi įsitikinęs (-usi)?
       assign_to_self: Paskirti man
       assigned: Paskirtas moderatorius
@@ -755,7 +758,6 @@ lt:
     featured_tags: Rodomi saitažodžiai(#)
     import: Importuoti
     migrate: Paskyros migracija
-    notifications: Pranešimai
     preferences: Preferencijos
     two_factor_authentication: Dviejų veiksnių autentikacija
   statuses:
@@ -851,7 +853,6 @@ lt:
       follows_subtitle: Sek gerai žinomas paskyras.
       follows_title: Ką sekti
       follows_view_more: Peržiūrėti daugiau sekamų žmonių
-      hashtags_recent_count: "%{people} žmonių per pastarąsias %{days} dienas"
       hashtags_subtitle: Naršyk, kas tendencinga per pastarąsias 2 dienas.
       hashtags_title: Tendencijos saitažodžiai
       hashtags_view_more: Peržiūrėti daugiau tendencingų saitažodžių

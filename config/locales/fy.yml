@@ -1647,7 +1647,6 @@ fy:
     import: Ymportearje
     import_and_export: Ymportearje en eksportearje
     migrate: Accountmigraasje
-    notifications: Meldingen
     preferences: Ynstellingen
     profile: Profyl
     relationships: Folgers en folgjenden
@@ -1692,8 +1691,6 @@ fy:
         other: "%{count} stimmen"
       vote: Stimme
     show_more: Mear toane
-    show_newer: Nijere toane
-    show_older: Aldere toane
     show_thread: Petear toane
     title: '%{name}: "%{quote}"'
     visibilities:
@@ -1848,7 +1845,6 @@ fy:
       follow_action: Folgje
       follows_title: Wa te folgjen
       follows_view_more: Mear minsken om te folgjen besjen
-      hashtags_recent_count: "%{people} minsken yn de ôfrûne %{days} dagen"
       hashtags_subtitle: Wat der yn de ôfrûne 2 dagen bard is ferkenne
       hashtags_title: Populêre hashtags
       hashtags_view_more: Mear populêre hashtags besjen

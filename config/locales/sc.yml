@@ -985,7 +985,6 @@ sc:
     import: Importatzione
     import_and_export: Importatzione e esportatzione
     migrate: Tràmuda de contu
-    notifications: Notìficas
     preferences: Preferèntzias
     profile: Profilu
     relationships: Gente chi sighis e sighiduras
@@ -1025,8 +1024,6 @@ sc:
         other: "%{count} votos"
       vote: Vota
     show_more: Ammustra·nde prus
-    show_newer: Ammustra is prus noos
-    show_older: Ammustra is prus betzos
     show_thread: Ammustra su tema
     title: '%{name}: "%{quote}"'
     visibilities:

@@ -1594,7 +1594,6 @@ my:
     import: ထည့်သွင်းခြင်း
     import_and_export: ထည့်သွင်းခြင်းနှင့် ထုတ်ယူခြင်း
     migrate: အကောင့်ပြောင်းရွှေ့ခြင်း
-    notifications: အသိပေးချက်များ
     preferences: သတ်မှတ်ချက်များ
     profile: ပရိုဖိုင်
     relationships: စောင့်ကြည့်သူများနှင့် စောင့်ကြည့်စာရင်း
@@ -1633,8 +1632,6 @@ my:
         other: မဲအရေအတွက် %{count} မဲ
       vote: မဲပေးမည်
     show_more: ပိုမိုပြရန်
-    show_newer: ပို့စ်အသစ်များပြရန်
-    show_older: ပို့စ်အဟောင်းများပြရန်
     show_thread: Thread ကို ပြပါ
     title: '%{name}: "%{quote}"'
     visibilities:

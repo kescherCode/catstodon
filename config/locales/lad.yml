@@ -597,6 +597,9 @@ lad:
       actions_description_html: Dechide kualas mizuras tomar para rezolver esta denunsia. Si tomas una aksion punitiva kontra el kuento denunsiada, se le embiara a dicho kuento un avizo por posta elektronika, ekseptado kuando se eskoja la kategoria <strong>Spam</strong>.
       actions_description_remote_html: Dechide ke fazer para rezolver este raporto. Esto solo va afektar komo <strong>tu</strong> sirvidor komunike kon este kuento remoto i ke faze kon su kontenido.
       add_to_report: Adjusta mas al raporto
+      already_suspended_badges:
+        local: Ya suspendido en este sirvidor
+        remote: Ya suspendido en sus sirvidor
       are_you_sure: Estas siguro?
       assign_to_self: Asinyamela a mi
       assigned: Moderador asinyado
@@ -1652,7 +1655,6 @@ lad:
     import: Importo
     import_and_export: Importo i eksporto
     migrate: Migrasyon de kuento
-    notifications: Avizos
     preferences: Preferensyas
     profile: Profil publiko
     relationships: Segidos i suivantes
@@ -1697,8 +1699,6 @@ lad:
         other: "%{count} votos"
       vote: Vota
     show_more: Amostra mas
-    show_newer: Amostra mas muevos
-    show_older: Amostra mas viejos
     show_thread: Amostra diskusyon
     title: '%{name}: "%{quote}"'
     visibilities:
@@ -1857,11 +1857,11 @@ lad:
       feature_creativity_title: Kreativita sin paralelas
       feature_moderation_title: La moderasyon komo deveria ser
       follow_action: Sige
+      follow_step: El buto de Mastodon es segir a djente interesante.
       follow_title: Personaliza tu linya prinsipala
       follows_subtitle: Sige kuentos konesidos
       follows_title: A ken segir
       follows_view_more: Ve mas personas para segir
-      hashtags_recent_count: "%{people} personas en los ultimos %{days} diyas"
       hashtags_subtitle: Eksplora los trendes de los ultimos 2 diyas
       hashtags_title: Etiketas en trend
       hashtags_view_more: Ve mas etiketas en trend

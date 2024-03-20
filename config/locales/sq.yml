@@ -596,6 +596,9 @@ sq:
       actions_description_html: Vendosni cili veprim të kryhet për të zgjidhur këtë raportim. Nëse ndërmerrni një veprim ndëshkues kundër llogarisë së raportuar, atyre do t’u dërgohet një njoftim me email, hiq rastin kur përzgjidhet kategoria <strong>I padëshiruar</strong>.
       actions_description_remote_html: Vendosni cili veprim të ndërmerret për zgjidhjen e këtij raportimi. Kjo do të prekë vetëm mënyrën se si shërbyesi <strong>juaj</strong> komunikon me këtë llogari të largët dhe se si e trajtojnë lëndën e saj.
       add_to_report: Shtoni më tepër te raportimi
+      already_suspended_badges:
+        local: Tashmë i pezulluar në këtë shërbyes
+        remote: Tashmë i pezulluar në shërbyesin e vet
       are_you_sure: A jeni i sigurt?
       assign_to_self: Caktojani vetes
       assigned: Iu caktua moderator
@@ -1648,7 +1651,7 @@ sq:
     import: Importo
     import_and_export: Importim dhe eksportim
     migrate: Migrim llogarie
-    notifications: Njoftime
+    notifications: Njoftime me email
     preferences: Parapëlqime
     profile: Profil
     relationships: Ndjekje dhe ndjekës
@@ -1693,8 +1696,6 @@ sq:
         other: "%{count} vota"
       vote: Votë
     show_more: Shfaq më tepër
-    show_newer: Shfaq më të reja
-    show_older: Shfaq më të vjetra
     show_thread: Shfaq rrjedhën
     title: '%{name}: "%{quote}"'
     visibilities:
@@ -1863,7 +1864,9 @@ sq:
       follows_subtitle: Ndiqni llogari të mirënjohura
       follows_title: Cilët të ndiqen
       follows_view_more: Shihni më tepër vetë për ndjekje
-      hashtags_recent_count: "%{people} vetë në %{days} ditët e shkuara"
+      hashtags_recent_count:
+        one: "%{people} person në 2 ditët e shkuara"
+        other: "%{people} vetë në 2 ditët e shkuara"
       hashtags_subtitle: Eksploroni ç’është në modëë që prej 2 ditëve të fundit
       hashtags_title: Hashtag-ë në modë
       hashtags_view_more: Shihni më tepër hashtagë në modë

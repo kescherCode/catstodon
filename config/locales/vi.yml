@@ -1626,7 +1626,6 @@ vi:
     import: Nhập dữ liệu
     import_and_export: Dữ liệu
     migrate: Chuyển tài khoản sang máy chủ khác
-    notifications: Thông báo
     preferences: Chung
     profile: Hồ sơ
     relationships: Quan hệ
@@ -1665,8 +1664,6 @@ vi:
         other: "%{count} người bình chọn"
       vote: Bình chọn
     show_more: Đọc thêm
-    show_newer: Mới hơn
-    show_older: Cũ hơn
     show_thread: Nội dung gốc
     title: '%{name}: "%{quote}"'
     visibilities:
@@ -1835,7 +1832,8 @@ vi:
       follows_subtitle: Theo dõi những người thú vị
       follows_title: Gợi ý theo dõi
       follows_view_more: Xem thêm những người khác
-      hashtags_recent_count: "%{people} người dùng trong %{days} ngày qua"
+      hashtags_recent_count:
+        other: "%{people} người dùng trong 2 ngày qua"
       hashtags_subtitle: Khám phá xu hướng 2 ngày qua
       hashtags_title: Hashtag xu hướng
       hashtags_view_more: Xem thêm hashtag xu hướng

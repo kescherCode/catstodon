@@ -335,6 +335,7 @@ class EmojiPickerDropdown extends PureComponent {
   state = {
     active: false,
     loading: false,
+    placement: 'bottom',
   };
 
   setRef = (c) => {
@@ -386,9 +387,13 @@ class EmojiPickerDropdown extends PureComponent {
     return this.target;
   };
 
+  handleOverlayEnter = (state) => {
+    this.setState({ placement: state.placement });
+  };
+
   render () {
     const { intl, onPickEmoji, onSkinTone, skinTone, frequentlyUsedEmojis, title, icon, disabled } = this.props;
-    const { active, loading } = this.state;
+    const { active, loading, placement } = this.state;
 
     return (
       <div className='emoji-picker-dropdown' onKeyDown={this.handleKeyDown} ref={this.setTargetRef}>
@@ -401,7 +406,7 @@ class EmojiPickerDropdown extends PureComponent {
           onClick={this.onToggle}
         />
 
-        <Overlay show={active} placement={'bottom'} flip target={this.findTarget} popperConfig={{ strategy: 'fixed' }}>
+        <Overlay show={active} placement={placement} flip target={this.findTarget} popperConfig={{ strategy: 'fixed', onFirstUpdate: this.handleOverlayEnter }}>
           {({ props, placement })=> (
             <div {...props} style={{ ...props.style }}>
               <div className={`dropdown-animation ${placement}`}>

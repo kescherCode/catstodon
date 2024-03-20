@@ -597,6 +597,9 @@ fi:
       actions_description_html: Päätä, mihin toimiin ryhdyt tämän raportin ratkaisemiseksi. Jos ryhdyt rangaistustoimeen ilmoitettua tiliä kohtaan, hänelle lähetetään sähköposti-ilmoitus, paitsi jos <strong>Roskaposti</strong>-luokka on valittuna.
       actions_description_remote_html: Päätä, mihin toimiin ryhdyt tämän raportin ratkaisemiseksi. Tämä vaikuttaa vain siihen, miten <strong>palvelimesi</strong> kommunikoi tämän etätilin kanssa ja käsittelee sen sisältöä.
       add_to_report: Lisää raporttiin
+      already_suspended_badges:
+        local: Jäädytetty jo tällä palvelimella
+        remote: Jäädytetty jo tällä palvelimella
       are_you_sure: Oletko varma?
       assign_to_self: Ota tehtäväksi
       assigned: Määritetty valvoja
@@ -1652,7 +1655,7 @@ fi:
     import: Tuo
     import_and_export: Tuonti ja vienti
     migrate: Tilin muutto muualle
-    notifications: Ilmoitukset
+    notifications: Sähköposti-ilmoitukset
     preferences: Ominaisuudet
     profile: Julkinen profiili
     relationships: Seuratut ja seuraajat
@@ -1697,8 +1700,6 @@ fi:
         other: "%{count} ääntä"
       vote: Äänestä
     show_more: Näytä lisää
-    show_newer: Näytä uudemmat
-    show_older: Näytä vanhempi
     show_thread: Näytä ketju
     title: "%{name}: ”%{quote}”"
     visibilities:
@@ -1846,10 +1847,10 @@ fi:
       apps_ios_action: Lataa App Storesta
       apps_step: Lataa viralliset sovelluksemme.
       apps_title: Mastodon-sovellukset
-      checklist_subtitle: 'Aloitetaan, sinä aloitat uudella sosiaalisella seudulla:'
-      checklist_title: Tervetuloa tarkistuslista
+      checklist_subtitle: 'Aloitetaan tällä uudella sosiaalisella seudulla:'
+      checklist_title: Tervetulon tarkistuslista
       edit_profile_action: Mukauta
-      edit_profile_step: Täydentämällä profiilisi tietoja tehostat vaikutemaa.
+      edit_profile_step: Tehosta vuorovaikutuksiasi täydennetyllä profiililla.
       edit_profile_title: Mukauta profiiliasi
       explanation: Näillä vinkeillä pääset alkuun
       feature_action: Lue lisää
@@ -1867,7 +1868,9 @@ fi:
       follows_subtitle: Seuraa tunnettuja tilejä
       follows_title: Ehdotuksia seurattavaksi
       follows_view_more: Näytä lisää seurattavia henkilöitä
-      hashtags_recent_count: "%{people} henkilöä viimeisenä %{days} päivänä"
+      hashtags_recent_count:
+        one: "%{people} henkilö viimeisenä 2 päivänä"
+        other: "%{people} henkilöä viimeisenä 2 päivänä"
       hashtags_subtitle: Tutki, mikä on ollut suosittua viimeisenä 2 päivänä
       hashtags_title: Suositut aihetunnisteet
       hashtags_view_more: Näytä lisää suosittuja aihetunnisteita

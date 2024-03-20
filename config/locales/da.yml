@@ -597,6 +597,9 @@ da:
       actions_description_html: Afgør, hvilke foranstaltning, der skal træffes for at løse denne anmeldelse. Træffes en straffende foranstaltning mod den anmeldte konto, fremsendes en e-mailnotifikation, undtagen når kategorien <strong>Spam</strong> er valgt.
       actions_description_remote_html: Fastslå en nødvendig handling mhp. at løse denne anmeldelse. Dette vil kun påvirke <strong>din</strong> servers kommunikation med, og indholdshåndtering for, fjernkontoen.
       add_to_report: Føj mere til anmeldelse
+      already_suspended_badges:
+        local: Allerede suspenderet på denne server
+        remote: Allerede suspenderet på vedkommendes server
       are_you_sure: Sikker?
       assign_to_self: Tildel til mig
       assigned: Tildelt moderator
@@ -1652,7 +1655,7 @@ da:
     import: Import
     import_and_export: Import og eksport
     migrate: Kontomigrering
-    notifications: Notifikationer
+    notifications: E-mailnotifikationer
     preferences: Præferencer
     profile: Offentlig profil
     relationships: Følger og følgere
@@ -1697,8 +1700,6 @@ da:
         other: "%{count} stemmer"
       vote: Stem
     show_more: Vis flere
-    show_newer: Vis nyere
-    show_older: Vis ældre
     show_thread: Vis tråd
     title: '%{name}: "%{quote}"'
     visibilities:
@@ -1867,7 +1868,9 @@ da:
       follows_subtitle: Følg velkendte konti
       follows_title: Hvem, som skal følges
       follows_view_more: Vis nogle personer at følge
-      hashtags_recent_count: "%{people} personer de seneste %{days} dage"
+      hashtags_recent_count:
+        one: "%{people} person de seneste 2 dage"
+        other: "%{people} personer de seneste 2 dage"
       hashtags_subtitle: Udforsk de seneste 2 dages tendenser
       hashtags_title: Populære hashtags
       hashtags_view_more: Se flere populære hashtags

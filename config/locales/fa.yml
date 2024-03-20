@@ -1416,7 +1416,6 @@ fa:
     import: درون‌ریزی
     import_and_export: درون‌ریزی و برون‌بری
     migrate: انتقال حساب
-    notifications: آگاهی‌ها
     preferences: ترجیحات
     profile: نمایه
     relationships: پیگیری‌ها و پیگیران
@@ -1461,8 +1460,6 @@ fa:
         other: "%{count} رأی"
       vote: رأی
     show_more: نمایش
-    show_newer: نمایش جدیدتر
-    show_older: نمایش قدیمی‌تر
     show_thread: نمایش رشته
     title: "%{name}: «%{quote}»"
     visibilities:
