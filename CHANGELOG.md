@@ -2,6 +2,11 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.1.2] - 2024-04-11
+
+- Glitch-soc changes, most notably notifications about severed connections.
+  - Wow, my Python code to do the same manually was finally rendered obsolete!
+
 ## [v4.3.0-alpha.3+glitch+cat+1.0.9] - 2024-03-03
 
 - Glitch-soc changes again (this time, among other stuff, the search bar icon position is fixed)
