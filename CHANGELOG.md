@@ -2,6 +2,10 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.1.3] - 2024-04-26
+
+- Glitch-soc changes, most notably fixing the display of follow request notifications.
+
 ## [v4.3.0-alpha.3+glitch+cat+1.1.2] - 2024-04-11
 
 - Glitch-soc changes, most notably notifications about severed connections.
