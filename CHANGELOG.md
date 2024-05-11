@@ -2,6 +2,11 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.0] - 2024-05-11
+
+- Glitch-soc changes since and including 62bc36416f2d2defc77a501226afd0679b6ca252
+- Ruby version 3.3.1. Update your rbenv!
+
 ## [v4.3.0-alpha.3+glitch+cat+1.1.3] - 2024-04-26
 
 - Glitch-soc changes, most notably fixing the display of follow request notifications.
