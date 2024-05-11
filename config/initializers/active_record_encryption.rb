@@ -8,7 +8,7 @@
   ENV.fetch(key) do
     abort <<~MESSAGE
 
-      Mastodon now requires that these variables are set:
+      Catstodon now requires that these variables are set:
 
         - ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY
         - ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT

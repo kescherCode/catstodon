@@ -6,6 +6,13 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 - Glitch-soc changes since and including 62bc36416f2d2defc77a501226afd0679b6ca252
 - Ruby version 3.3.1. Update your rbenv!
+- Mastodon/Catstodon now requires that these variables are set:
+
+  - ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY
+  - ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT
+  - ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY
+
+  After `bundle install`, run `bin/rails db:encryption:init` to generate values and then assign the environment variable, for example in your `.env.production`.
 
 ## [v4.3.0-alpha.3+glitch+cat+1.1.3] - 2024-04-26
 
