@@ -751,6 +751,7 @@ es-MX:
         desc_html: Esto se basa en scripts externos de hCaptcha, que pueden suponer una preocupación de seguridad y privacidad. Además, <strong>esto puede volver el proceso de registro significativamente menos accesible para algunas personas (especialmente con discapacidades)</strong>. Por estas razones, por favor, considera medidas alternativas como el registro por aprobación manual o con invitación.
         title: Solicita a los nuevos usuarios que resuelvan un CAPTCHA para confirmar su cuenta
       content_retention:
+        danger_zone: Zona peligrosa
         preamble: Controlar cómo el contenido generado por el usuario se almacena en Mastodon.
         title: Retención de contenido
       default_noindex:
@@ -1674,7 +1675,7 @@ es-MX:
     lost_follows: Cuentas seguidas perdidas
     preamble: Puedes perder cuentas seguidas y seguidores cuando bloqueas un dominio o cuando tus moderadores deciden suspender un servidor remoto. Cuando esto suceda, podrás descargar listas de relaciones cortadas, para ser inspeccionadas y posiblemente importadas en otro servidor.
     purged: La información sobre este servidor ha sido purgada por los administradores de tu servidor.
-    type: Suceso
+    type: Evento
   statuses:
     attached:
       audio:
@@ -1768,6 +1769,7 @@ es-MX:
     contrast: Alto contraste
     default: Mastodon
     mastodon-light: Mastodon (claro)
+    system: Automático (usar tema del sistema)
   time:
     formats:
       default: "%d de %b del %Y, %H:%M"

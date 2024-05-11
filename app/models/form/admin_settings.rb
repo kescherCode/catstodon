@@ -44,6 +44,8 @@ class Form::AdminSettings
     status_page_url
     captcha_enabled
     authorized_fetch
+    app_icon
+    favicon
     reject_pattern
     reject_blurhash
   ).freeze
@@ -76,6 +78,8 @@ class Form::AdminSettings
   UPLOAD_KEYS = %i(
     thumbnail
     mascot
+    app_icon
+    favicon
   ).freeze
 
   PSEUDO_KEYS = %i(

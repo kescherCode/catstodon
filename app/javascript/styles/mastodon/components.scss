@@ -2015,7 +2015,22 @@ a .account__avatar {
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+}
+
+.account__relationship,
+.explore__suggestions__card {
+  .icon-button {
+    border: 1px solid var(--background-border-color);
+    border-radius: 4px;
+    box-sizing: content-box;
+    padding: 5px;
+
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }
 
 .account-authorize {
@@ -2165,7 +2180,8 @@ a.account__display-name {
   }
 }
 
-.notification__relationships-severance-event {
+.notification__relationships-severance-event,
+.notification__moderation-warning {
   display: flex;
   gap: 16px;
   color: $secondary-text-color;
@@ -2244,14 +2260,14 @@ a.account__display-name {
   &.activate {
     & > .icon {
       animation: spring-rotate-in 1s linear;
-      transform-origin: 50% 55%;
+      transform-origin: 50% 52%;
     }
   }
 
   &.deactivate {
     & > .icon {
       animation: spring-rotate-out 1s linear;
-      transform-origin: 50% 55%;
+      transform-origin: 50% 52%;
     }
   }
 }
@@ -2612,6 +2628,7 @@ a.account__display-name {
 }
 
 $ui-header-height: 55px;
+$ui-header-logo-wordmark-width: 99px;
 
 .ui__header {
   display: none;
@@ -2627,6 +2644,10 @@ $ui-header-height: 55px;
   &__logo {
     display: inline-flex;
     padding: 15px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+    container: header-logo / inline-size;
 
     .logo {
       height: $ui-header-height - 30px;
@@ -2637,7 +2658,7 @@ $ui-header-height: 55px;
       display: none;
     }
 
-    @media screen and (width >= 320px) {
+    @container header-logo (min-width: #{$ui-header-logo-wordmark-width}) {
       .logo--wordmark {
         display: block;
       }
@@ -2654,6 +2675,7 @@ $ui-header-height: 55px;
     gap: 10px;
     padding: 0 10px;
     overflow: hidden;
+    flex-shrink: 0;
 
     .button {
       flex: 0 0 auto;
@@ -2671,7 +2693,7 @@ $ui-header-height: 55px;
 }
 
 .tabs-bar__wrapper {
-  background: var(--background-color-tint);
+  background: var(--background-color);
   backdrop-filter: var(--background-filter);
   position: sticky;
   top: $ui-header-height;
@@ -2890,24 +2912,31 @@ $ui-header-height: 55px;
     }
   }
 
-  .layout-single-column .ui__header {
-    display: flex;
-    background: var(--background-color-tint);
-    border-bottom: 1px solid var(--background-border-color);
-  }
+  .layout-single-column {
+    .ui__header {
+      display: flex;
+      background: var(--background-color);
+      border-bottom: 1px solid var(--background-border-color);
+    }
 
-  .column > .scrollable,
-  .tabs-bar__wrapper .column-header,
-  .tabs-bar__wrapper .column-back-button {
-    border-left: 0;
-    border-right: 0;
-  }
+    .column > .scrollable,
+    .tabs-bar__wrapper .column-header,
+    .tabs-bar__wrapper .column-back-button {
+      border-left: 0;
+      border-right: 0;
+    }
 
-  .column-header,
-  .column-back-button,
-  .scrollable,
-  .error-column {
-    border-radius: 0 !important;
+    .column-header,
+    .column-back-button,
+    .scrollable,
+    .error-column {
+      border-radius: 0 !important;
+    }
+
+    .column-header,
+    .column-back-button {
+      border-top: 0;
+    }
   }
 }
 
@@ -2937,6 +2966,75 @@ $ui-header-height: 55px;
 
 .explore__search-header {
   display: none;
+}
+
+.explore__suggestions__card {
+  padding: 12px 16px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--background-border-color);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &__source {
+    padding-inline-start: 60px;
+    font-size: 13px;
+    line-height: 16px;
+    color: $dark-text-color;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__body {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    &__main {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+
+      &__name-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &__name {
+          display: block;
+          color: inherit;
+          text-decoration: none;
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .button {
+          min-width: 80px;
+        }
+
+        .display-name {
+          font-size: 15px;
+          line-height: 20px;
+          color: $secondary-text-color;
+
+          strong {
+            font-weight: 700;
+          }
+
+          &__account {
+            color: $darker-text-color;
+            display: block;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media screen and (max-width: $no-gap-breakpoint - 1px) {
@@ -3465,10 +3563,6 @@ $ui-header-height: 55px;
 
   &:hover {
     text-decoration: underline;
-  }
-
-  @media screen and (max-width: $no-gap-breakpoint) {
-    border-top: 0;
   }
 }
 
@@ -4232,10 +4326,6 @@ a.status-card {
     &:first-child {
       padding-top: 16px;
     }
-  }
-
-  @media screen and (max-width: $no-gap-breakpoint) {
-    border-top: 0;
   }
 }
 
@@ -5085,6 +5175,7 @@ a.status-card {
 .language-dropdown__dropdown {
   box-shadow: var(--dropdown-shadow);
   background: var(--dropdown-background-color);
+  backdrop-filter: var(--background-filter);
   border: 1px solid var(--dropdown-border-color);
   padding: 4px;
   border-radius: 4px;
@@ -5525,7 +5616,7 @@ a.status-card {
   user-select: text;
   display: flex;
 
-  @media screen and (max-width: $no-gap-breakpoint) {
+  @media screen and (width <= 630px) {
     margin-top: auto;
   }
 }
@@ -7275,10 +7366,11 @@ a.status-card {
         content: '';
         position: absolute;
         bottom: -1px;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
         height: 3px;
-        border-radius: 4px;
+        border-radius: 4px 4px 0 0;
         background: $highlight-text-color;
       }
     }
@@ -7857,8 +7949,13 @@ noscript {
         }
       }
 
-      @container account-header (max-width: 372px) {
-        .optional {
+      .optional {
+        @container account-header (max-width: 372px) {
+          display: none;
+        }
+
+        // Fallback for older browsers with no container queries support
+        @media screen and (max-width: 372px + 55px) {
           display: none;
         }
       }
@@ -10048,6 +10145,7 @@ noscript {
     font-weight: 500;
     font-size: 11px;
     line-height: 16px;
+    word-break: keep-all;
 
     &__badge {
       background: $ui-button-background-color;
@@ -10098,9 +10196,10 @@ noscript {
     }
 
     .filtered-notifications-banner__badge {
-      background-color: $highlight-text-color;
+      background: $ui-button-background-color;
       border-radius: 4px;
       padding: 1px 6px;
+      color: $white;
     }
   }
 
