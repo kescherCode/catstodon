@@ -2,6 +2,10 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.1] - 2024-05-14
+
+- Glitch-soc changes :3
+
 ## [v4.3.0-alpha.3+glitch+cat+1.2.0] - 2024-05-11
 
 - Glitch-soc changes since and including 62bc36416f2d2defc77a501226afd0679b6ca252
