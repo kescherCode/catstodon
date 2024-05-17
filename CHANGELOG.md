@@ -4,7 +4,9 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 ## [v4.3.0-alpha.3+glitch+cat+1.2.2] - 2024-05-17
 
-- Glitch-soc changes :3
+- Upstream changes :3
+  - Most notably, YJIT is now enabled by default (simply remove `config/initializers/enable_yjit.rb` if you want a lower
+    memory footprint in exchange for worse performance)
 
 ## [v4.3.0-alpha.3+glitch+cat+1.2.1] - 2024-05-14
 
@@ -20,7 +22,8 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
   - ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT
   - ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY
 
-  After `bundle install`, run `bin/rails db:encryption:init` to generate values and then assign the environment variable, for example in your `.env.production`.
+  After `bundle install`, run `bin/rails db:encryption:init` to generate values and then assign the environment
+  variable, for example in your `.env.production`.
 
 ## [v4.3.0-alpha.3+glitch+cat+1.1.3] - 2024-04-26
 
