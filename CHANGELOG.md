@@ -7,6 +7,7 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 - Upstream changes, once again (including, but not limited to:)
   - Only uses a maximum of 1 megabyte of response body for link previews
   - Allow multiple `redirect_uri`s for OAuth 2.0 Applications
+- Adjust emoji reactions patch to use modern React context for identity instead of an identity consumer
 
 ## [v4.3.0-alpha.3+glitch+cat+1.2.2] - 2024-05-17
 

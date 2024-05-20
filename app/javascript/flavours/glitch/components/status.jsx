@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { connect } from 'react-redux';
 
 import { HotKeys } from 'react-hotkeys';
 
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import PollContainer from 'flavours/glitch/containers/poll_container';
 import NotificationOverlayContainer from 'flavours/glitch/features/notifications/containers/overlay_container';
+import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { autoUnfoldCW } from 'flavours/glitch/utils/content_warning';
 import { withOptionalRouter, WithOptionalRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
@@ -20,7 +23,6 @@ import Card from '../features/status/components/card';
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
 import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
-import { IdentityConsumer } from '../features/ui/util/identity_consumer';
 import { SensitiveMediaContext } from '../features/ui/util/sensitive_media_context';
 import { displayMedia, visibleReactions } from '../initial_state';
 
@@ -78,6 +80,7 @@ class Status extends ImmutablePureComponent {
   static contextType = SensitiveMediaContext;
 
   static propTypes = {
+    identity: identityContextPropShape,
     containerId: PropTypes.string,
     id: PropTypes.string,
     status: ImmutablePropTypes.map,
@@ -545,6 +548,7 @@ class Status extends ImmutablePureComponent {
       nextInReplyToId,
       rootId,
       history,
+      identity,
       ...other
     } = this.props;
     const { isCollapsed } = this.state;
@@ -846,18 +850,14 @@ class Status extends ImmutablePureComponent {
               {...statusContentProps}
             />
 
-            <IdentityConsumer>
-              {identity => (
-                <StatusReactions
-                  statusId={status.get('id')}
-                  reactions={status.get('reactions')}
-                  numVisible={visibleReactions}
-                  addReaction={this.props.onReactionAdd}
-                  removeReaction={this.props.onReactionRemove}
-                  canReact={identity.signedIn}
-                />
-              )}
-            </IdentityConsumer>
+            <StatusReactions
+              statusId={status.get('id')}
+              reactions={status.get('reactions')}
+              numVisible={visibleReactions}
+              addReaction={this.props.onReactionAdd}
+              removeReaction={this.props.onReactionRemove}
+              canReact={this.props.identity.signedIn}
+            />
 
             {(!isCollapsed || !(muted || !settings.getIn(['collapsed', 'show_action_bar']))) && (
               <StatusActionBar
@@ -881,4 +881,4 @@ class Status extends ImmutablePureComponent {
 
 }
 
-export default withOptionalRouter(injectIntl(Status));
+export default withOptionalRouter(injectIntl((withIdentity(Status))));

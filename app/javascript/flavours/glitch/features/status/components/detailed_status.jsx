@@ -15,6 +15,7 @@ import { getHashtagBarForStatus } from 'flavours/glitch/components/hashtag_bar';
 import PictureInPicturePlaceholder from 'flavours/glitch/components/picture_in_picture_placeholder';
 import { VisibilityIcon } from 'flavours/glitch/components/visibility_icon';
 import PollContainer from 'flavours/glitch/containers/poll_container';
+import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 import { Avatar } from '../../../components/avatar';
@@ -29,12 +30,8 @@ import Video from '../../video';
 import Card from './card';
 
 class DetailedStatus extends ImmutablePureComponent {
-
-  static contextTypes = {
-    identity: PropTypes.object,
-  };
-
   static propTypes = {
+    identity: identityContextPropShape,
     status: ImmutablePropTypes.map,
     settings: ImmutablePropTypes.map.isRequired,
     onOpenMedia: PropTypes.func.isRequired,
@@ -319,7 +316,7 @@ class DetailedStatus extends ImmutablePureComponent {
             reactions={status.get('reactions')}
             addReaction={this.props.onReactionAdd}
             removeReaction={this.props.onReactionRemove}
-            canReact={this.context.identity.signedIn}
+            canReact={this.props.identity.signedIn}
           />
 
           <div className='detailed-status__meta'>
@@ -348,4 +345,4 @@ class DetailedStatus extends ImmutablePureComponent {
 
 }
 
-export default withRouter(DetailedStatus);
+export default withRouter(withIdentity(DetailedStatus));
