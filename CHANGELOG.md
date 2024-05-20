@@ -2,6 +2,12 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.3] - 2024-05-21
+
+- Upstream changes, once again (including, but not limited to:)
+  - Only uses a maximum of 1 megabyte of response body for link previews
+  - Allow multiple `redirect_uri`s for OAuth 2.0 Applications
+
 ## [v4.3.0-alpha.3+glitch+cat+1.2.2] - 2024-05-17
 
 - Upstream changes :3
