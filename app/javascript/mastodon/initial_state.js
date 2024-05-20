@@ -45,6 +45,15 @@
  */
 
 /**
+ * @typedef Role
+ * @property {string} id
+ * @property {string} name
+ * @property {string} permissions
+ * @property {string} color
+ * @property {boolean} highlighted
+ */
+
+/**
  * @typedef PollLimits
  * @property {number} min_options
  * @property {number} max_options
@@ -59,6 +68,7 @@
  * @property {InitialStateLanguage[]} languages
  * @property {boolean=} critical_updates_pending
  * @property {InitialStateMeta} meta
+ * @property {Role?} role
  * @property {PollLimits} poll_limits
  */
 
