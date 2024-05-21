@@ -2,6 +2,11 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.5] - 2024-05-21
+
+- Apply a fix from the emoji reactions patch branch for an issue introduced in the 1.2.3 release for this Mastodon version.
+  - Thanks, Essem!
+
 ## [v4.3.0-alpha.3+glitch+cat+1.2.4] - 2024-05-21
 
 - Emergency release to fix production after ICU version 75 broke a dependency of Mastodon, `charlock_holmes`, in places
