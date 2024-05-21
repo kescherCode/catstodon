@@ -2,6 +2,11 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.4] - 2024-05-21
+
+- Emergency release to fix production after ICU version 75 broke a dependency of Mastodon, `charlock_holmes`, in places
+  that are not used in Mastodon.
+
 ## [v4.3.0-alpha.3+glitch+cat+1.2.3] - 2024-05-21
 
 - Upstream changes, once again (including, but not limited to:)
