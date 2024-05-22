@@ -2,6 +2,9 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.6] - 2024-05-23
+- Upstream changes
+
 ## [v4.3.0-alpha.3+glitch+cat+1.2.5] - 2024-05-21
 
 - Apply a fix from the emoji reactions patch branch for an issue introduced in the 1.2.3 release for this Mastodon version.
