@@ -130,4 +130,11 @@ export const sso_redirect = getMeta('sso_redirect');
 // Glitch-soc-specific settings
 export const pollLimits = (initialState && initialState.poll_limits);
 
+/**
+ * @returns {string | undefined}
+ */
+export function getAccessToken() {
+  return getMeta('access_token');
+}
+
 export default initialState;

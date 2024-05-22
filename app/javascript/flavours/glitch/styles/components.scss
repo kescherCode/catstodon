@@ -4622,7 +4622,7 @@ a.status-card {
       color: $primary-text-color;
     }
 
-    .icon {
+    .icon-sliders {
       transform: rotate(60deg);
     }
   }
@@ -4672,7 +4672,7 @@ a.status-card {
   padding: 0;
 }
 
-.no-reduce-motion .column-header__button .icon {
+.no-reduce-motion .column-header__button .icon-sliders {
   transition: transform 150ms ease-in-out;
 }
 
