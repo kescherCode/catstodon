@@ -3,13 +3,14 @@
 class SuspiciousSignInDetector
   IPV6_TOLERANCE_MASK = 64
   IPV4_TOLERANCE_MASK = 16
+  ENABLE_SUSPICIOUS_SIGN_IN = ENV['ENABLE_SUSPICIOUS_SIGN_IN'] != 'false'
 
   def initialize(user)
     @user = user
   end
 
   def suspicious?(request)
-    !sufficient_security_measures? && !freshly_signed_up? && !previously_seen_ip?(request)
+    !sufficient_security_measures? && !freshly_signed_up? && !previously_seen_ip?(request) if DISABLE_SUSPICIOUS_SIGN_IN
   end
 
   private
