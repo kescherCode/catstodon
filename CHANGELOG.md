@@ -2,12 +2,21 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.3+glitch+cat+1.2.7] - 2024-05-29
+
+- Upstream changes
+- Add ability to disable the suspicious sign-in detector
+  - The CatCatNya~ production config has an IP retention period of one day. That will cause suspicious login emails to
+    be sent out simply because we don't have any known IP data. Therefore, this fix is being applied.
+
 ## [v4.3.0-alpha.3+glitch+cat+1.2.6] - 2024-05-23
+
 - Upstream changes
 
 ## [v4.3.0-alpha.3+glitch+cat+1.2.5] - 2024-05-21
 
-- Apply a fix from the emoji reactions patch branch for an issue introduced in the 1.2.3 release for this Mastodon version.
+- Apply a fix from the emoji reactions patch branch for an issue introduced in the 1.2.3 release for this Mastodon
+  version.
   - Thanks, Essem!
 
 ## [v4.3.0-alpha.3+glitch+cat+1.2.4] - 2024-05-21
