@@ -2,10 +2,10 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
-## [v4.3.0-alpha.3+glitch+cat+1.2.7] - 2024-05-29
+## [v4.3.0-alpha.4+glitch+cat+1.0.0] - 2024-05-29
 
 - Upstream changes
-  - Includes security fixes announced in version 4.2.9!
+  - Includes security fixes announced in vanilla version 4.2.9! See [CHANGELOG_glitch.md](CHANGELOG_glitch.md)
 - Add ability to disable the suspicious sign-in detector
   - The CatCatNya~ production config has an IP retention period of one day. That will cause suspicious login emails to
     be sent out simply because we don't have any known IP data. Therefore, this fix is being applied.
