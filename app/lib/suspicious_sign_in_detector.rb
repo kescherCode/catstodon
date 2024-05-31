@@ -10,7 +10,7 @@ class SuspiciousSignInDetector
   end
 
   def suspicious?(request)
-    !sufficient_security_measures? && !freshly_signed_up? && !previously_seen_ip?(request) if DISABLE_SUSPICIOUS_SIGN_IN
+    !sufficient_security_measures? && !freshly_signed_up? && !previously_seen_ip?(request) if ENABLE_SUSPICIOUS_SIGN_IN
   end
 
   private
