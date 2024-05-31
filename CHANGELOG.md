@@ -2,6 +2,11 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.4+glitch+cat+1.0.1] - 2024-05-31
+
+- Remove Oatstodon.
+- Fix sign-in issues when the suspicious sign-in detector would trigger.
+
 ## [v4.3.0-alpha.4+glitch+cat+1.0.0] - 2024-05-29
 
 - Upstream changes
