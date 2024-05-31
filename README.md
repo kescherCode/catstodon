@@ -30,8 +30,6 @@ instead, use merge (fast-forward, if possible, with merge commit otherwise).
   emojis.
 - Allow higher resolution images. (4096x4096 instead of the previous limit of 3840x2160)
 - Allow posting polls with only one poll option (if `MIN_POLL_OPTIONS` is set to 1 on your instance).
-- Added oatstodon flavour (taken from [types.pl fork](https://github.com/ralsei/types.pl),
-  by [@oat@hellsite.site](https://hellsite.site/@oat)), with slight adjustments since.
 - Emoji reactions on statuses (with both Unicode and custom emojis, same as for announcements), a feature originally
   developed for [Nyastodon](https://git.bsd.gay/fef/nyastodon).
   Ended up as a Catstodon-maintained patch after its initial two Pull Requests to glitch-soc, but was handed over
@@ -43,7 +41,7 @@ instead, use merge (fast-forward, if possible, with merge commit otherwise).
   from [Sakurajima Mastodon](https://github.com/chikorita157/mastodon-sakura).
 - Adds the ability to disable the suspicious sign in detection entirely.
   - Useful for situations where the instance may not have up-to-date IP information, such as when the period of IP
-    address retention is set to a low value (see *Previous differences now merged into vanilla Mastodon*)
+    address retention is set to a low value (see _Previous differences now merged into vanilla Mastodon_)
 
 ## Previous differences now merged into glitch-soc
 
