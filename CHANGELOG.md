@@ -4,7 +4,8 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 ## [v4.3.0-alpha.4+glitch+cat+1.0.2] - 2024-06-16
 
-- Upstream changes.
+- Upstream changes
+  - Ruby version is now 3.3.2, and must be installed before upgrading to this version.
 
 ## [v4.3.0-alpha.4+glitch+cat+1.0.1] - 2024-05-31
 
