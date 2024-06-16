@@ -23,6 +23,7 @@ import { DisplayName } from '../../../components/display_name';
 import MediaGallery from '../../../components/media_gallery';
 import StatusContent from '../../../components/status_content';
 import StatusReactions from '../../../components/status_reactions';
+import { visibleReactions } from '../../../initial_state';
 import Audio from '../../audio';
 import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 import Video from '../../video';
@@ -311,13 +312,13 @@ class DetailedStatus extends ImmutablePureComponent {
             {...statusContentProps}
           />
 
-          <StatusReactions
+          {visibleReactions > 0 && (<StatusReactions
             statusId={status.get('id')}
             reactions={status.get('reactions')}
             addReaction={this.props.onReactionAdd}
             removeReaction={this.props.onReactionRemove}
             canReact={this.props.identity.signedIn}
-          />
+          />)}
 
           <div className='detailed-status__meta'>
             <div className='detailed-status__meta__line'>
