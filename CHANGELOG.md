@@ -2,6 +2,10 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.4+glitch+cat+1.0.2] - 2024-06-16
+
+- Upstream changes.
+
 ## [v4.3.0-alpha.4+glitch+cat+1.0.1] - 2024-05-31
 
 - Remove Oatstodon.
