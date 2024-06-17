@@ -42,6 +42,9 @@ instead, use merge (fast-forward, if possible, with merge commit otherwise).
 - Adds the ability to disable the suspicious sign in detection entirely.
   - Useful for situations where the instance may not have up-to-date IP information, such as when the period of IP
     address retention is set to a low value (see _Previous differences now merged into vanilla Mastodon_)
+- Environment variable `MASTODON_USE_LIBVIPS` is true by default.
+  - This is a minor change, but it _requires_ all systems running Catstodon to run a recent libvips version (8.13+).
+  - Vanilla Mastodon intends to deprecate ImageMagick anyway, so sooner or later, this change will cease being one.
 
 ## Previous differences now merged into glitch-soc
 
