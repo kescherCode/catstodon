@@ -160,6 +160,7 @@ class Notification < ApplicationRecord
               .limit(1),
             query
               .joins('CROSS JOIN grouped_notifications')
+              .where('array_length(grouped_notifications.groups, 1) < :limit', limit: limit)
               .where('notifications.id < grouped_notifications.id')
               .where.not("COALESCE(notifications.group_key, 'ungrouped-' || notifications.id) = ANY(grouped_notifications.groups)")
               .select('notifications.*', "array_append(grouped_notifications.groups, COALESCE(notifications.group_key, 'ungrouped-' || notifications.id))")
@@ -187,6 +188,7 @@ class Notification < ApplicationRecord
               .limit(1),
             query
               .joins('CROSS JOIN grouped_notifications')
+              .where('array_length(grouped_notifications.groups, 1) < :limit', limit: limit)
               .where('notifications.id > grouped_notifications.id')
               .where.not("COALESCE(notifications.group_key, 'ungrouped-' || notifications.id) = ANY(grouped_notifications.groups)")
               .select('notifications.*', "array_append(grouped_notifications.groups, COALESCE(notifications.group_key, 'ungrouped-' || notifications.id))")
