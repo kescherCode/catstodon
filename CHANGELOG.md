@@ -2,6 +2,12 @@
 
 All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes will be documented here.
 
+## [v4.3.0-alpha.4+glitch+cat+1.0.3] - 2024-06-17
+
+- Upstream changes
+- Emoji reaction PR changes
+  - "Disable reactions in detailed status view when visibleReactions is 0" by Essem
+
 ## [v4.3.0-alpha.4+glitch+cat+1.0.2] - 2024-06-16
 
 - Upstream changes
