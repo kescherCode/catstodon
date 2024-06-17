@@ -7,6 +7,7 @@ All release dates, as well as most other dates, are intended to be read as "with
 ## [v4.3.0-alpha.4+glitch+cat+1.0.3] - 2024-06-17
 
 - Upstream changes
+  - Ruby version is now 3.3.3, and must be installed before upgrading to this version.
 - Emoji reaction PR changes
   - "Disable reactions in detailed status view when visibleReactions is 0" by Essem
 
