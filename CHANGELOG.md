@@ -4,6 +4,12 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.0-alpha.4+glitch+cat+1.1.0] - 2024-06-17
+
+- Set environment variable `MASTODON_USE_LIBVIPS` to true by default.
+  - You need to install libvips for this.
+  - If you don't want to, you'll _have to_ set this environment variable to `false`, for any commands you run.
+
 ## [v4.3.0-alpha.4+glitch+cat+1.0.3] - 2024-06-17
 
 - Upstream changes
