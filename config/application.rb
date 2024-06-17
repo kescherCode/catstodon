@@ -102,7 +102,7 @@ module Mastodon
     config.before_configuration do
       require 'mastodon/redis_config'
 
-      config.x.use_vips = ENV['MASTODON_USE_LIBVIPS'] == 'true'
+      config.x.use_vips = ENV.fetch('MASTODON_USE_LIBVIPS', 'true') == 'true'
 
       if config.x.use_vips
         require_relative '../lib/paperclip/vips_lazy_thumbnail'
