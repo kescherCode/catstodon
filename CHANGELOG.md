@@ -4,6 +4,12 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.0-alpha.4+glitch+cat+1.1.1] - 2024-06-19
+
+- Upstream changes (18d9601464524dabc4a451524a535d0f9a3cb65e -> 0c2b1f56ef6f0c48330076498741849b79d8b18c)
+- Emoji reaction patch changes
+- "Turn custom emoji regexps into class level constants" by Essem
+
 ## [v4.3.0-alpha.4+glitch+cat+1.1.0] - 2024-06-17
 
 - Set environment variable `MASTODON_USE_LIBVIPS` to true by default.
