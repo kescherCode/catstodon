@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import classNames from 'classnames';
-import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { connect } from 'react-redux';
 
 import { HotKeys } from 'react-hotkeys';
 
@@ -22,7 +20,7 @@ import Card from '../features/status/components/card';
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/components/bundle';
-import { MediaGallery, Video, Audio } from '../features/ui/util/async-components';
+import { Audio, MediaGallery, Video } from '../features/ui/util/async-components';
 import { SensitiveMediaContext } from '../features/ui/util/sensitive_media_context';
 import { displayMedia, visibleReactions } from '../initial_state';
 
@@ -811,7 +809,7 @@ class Status extends ImmutablePureComponent {
           {prepend}
 
           <div
-            className={classNames('status', `status-${status.get('visibility')}`, { 'status-reply': !!status.get('in_reply_to_id'), 'status--in-thread': !!rootId, 'status--first-in-thread': previousId && (!connectUp || connectToRoot), muted: this.props.muted, 'has-background': isCollapsed && background, collapsed: isCollapsed })}
+            className={classNames('status', `status-${status.get('visibility')}`, { 'status-reply': !!status.get('in_reply_to_id'), 'status--in-thread': !!rootId, 'status--first-in-thread': previousId && (!connectUp || connectToRoot), muted: this.props.muted, 'has-background': isCollapsed && background })}
             data-id={status.get('id')}
             style={isCollapsed && background ? { backgroundImage: `url(${background})` } : null}
           >
