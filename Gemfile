@@ -25,7 +25,7 @@ gem 'ruby-vips', '~> 2.2', require: false
 gem 'active_model_serializers', '~> 0.10'
 gem 'addressable', '~> 2.8'
 gem 'bootsnap', '~> 1.18.0', require: false
-gem 'browser'
+gem 'browser', '< 6' # https://github.com/fnando/browser/issues/543
 gem 'charlock_holmes', '~> 0.7.7'
 gem 'chewy', '~> 7.3'
 gem 'devise', '~> 4.9'
@@ -114,7 +114,7 @@ group :opentelemetry do
   gem 'opentelemetry-instrumentation-net_http', '~> 0.22.4', require: false
   gem 'opentelemetry-instrumentation-pg', '~> 0.27.1', require: false
   gem 'opentelemetry-instrumentation-rack', '~> 0.24.1', require: false
-  gem 'opentelemetry-instrumentation-rails', '~> 0.30.0', require: false
+  gem 'opentelemetry-instrumentation-rails', '~> 0.31.0', require: false
   gem 'opentelemetry-instrumentation-redis', '~> 0.25.3', require: false
   gem 'opentelemetry-instrumentation-sidekiq', '~> 0.25.2', require: false
   gem 'opentelemetry-sdk', '~> 1.4', require: false
