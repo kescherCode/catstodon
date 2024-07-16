@@ -4,6 +4,11 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.0-alpha.5+glitch+cat+1.0.1] - 2024-07-16
+
+- Upstream changes
+  - You can hide hover cards now.
+
 ## [v4.3.0-alpha.5+glitch+cat+1.0.0] - 2024-07-04
 
 - Upstream changes. Important for security! Upgrade now.
