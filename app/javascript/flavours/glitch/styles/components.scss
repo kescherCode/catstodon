@@ -1430,6 +1430,8 @@ body > [data-popper-placement] {
   min-height: 54px;
   border-bottom: 1px solid var(--background-border-color);
   cursor: auto;
+  opacity: 1;
+  animation: fade 150ms linear;
 
   @keyframes fade {
     0% {
@@ -1440,9 +1442,6 @@ body > [data-popper-placement] {
       opacity: 1;
     }
   }
-
-  opacity: 1;
-  animation: fade 150ms linear;
 
   .media-gallery,
   .video-player,
@@ -5216,8 +5215,10 @@ a.status-card {
     &__menu {
       @include search-popout;
 
-      padding: 0;
-      background: $ui-secondary-color;
+      & {
+        padding: 0;
+        background: $ui-secondary-color;
+      }
     }
 
     &__menu-list {
@@ -10764,8 +10765,7 @@ noscript {
 .filtered-notifications-banner {
   display: flex;
   align-items: center;
-  border: 1px solid var(--background-border-color);
-  border-top: 0;
+  border-bottom: 1px solid var(--background-border-color);
   padding: 24px 32px;
   gap: 16px;
   color: $darker-text-color;
@@ -11026,7 +11026,7 @@ noscript {
       gap: 4px;
 
       dt {
-        flex: 0 0 auto;
+        flex: 0 1 auto;
         color: $dark-text-color;
         min-width: 0;
         overflow: hidden;
