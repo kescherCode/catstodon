@@ -4,6 +4,20 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.0-alpha.5+glitch+cat+1.0.2] - 2024-07-16
+
+- Upstream changes
+  - Notable: Notification grouping.
+- Emoji patch changes
+  - Notification grouping now works for reactions as well.
+    - Thanks again, Essem, for maintaining the emoji reactions patch!
+    - Catstodon
+      commit: [fd8b04e9e7](https://git.kescher.at/CatCatNya/catstodon/commit/fd8b04e9e7c0e41b281012c49963ca9b5213ace7)
+- Allow dashes in emoji shortcodes. Merged mainly to support remote instances' emoji shortcodes.
+  - Thanks to hazycora for originally contributing this patch to Chuckya Mastodon.
+  - Catstodon
+    commit: [8ad361cb29](https://git.kescher.at/CatCatNya/catstodon/commit/8ad361cb29b46425e99bfc8edefcada0fe70a62f)
+
 ## [v4.3.0-alpha.5+glitch+cat+1.0.1] - 2024-07-16
 
 - Upstream changes
