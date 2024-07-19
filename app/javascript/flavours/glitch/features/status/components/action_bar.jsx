@@ -4,7 +4,6 @@ import { PureComponent } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import classNames from 'classnames';
-import { withRouter } from 'react-router-dom';
 
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
@@ -24,7 +23,6 @@ import RepeatPrivateActiveIcon from '@/svg-icons/repeat_private_active.svg?react
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
 import { PERMISSION_MANAGE_USERS, PERMISSION_MANAGE_FEDERATION } from 'flavours/glitch/permissions';
 import { accountAdminLink, statusAdminLink } from 'flavours/glitch/utils/backend_links';
-import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 import { IconButton } from '../../../components/icon_button';
 import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
@@ -82,7 +80,6 @@ class ActionBar extends PureComponent {
     onPin: PropTypes.func,
     onEmbed: PropTypes.func,
     intl: PropTypes.object.isRequired,
-    ...WithRouterPropTypes,
   };
 
   handleReplyClick = () => {
@@ -106,23 +103,23 @@ class ActionBar extends PureComponent {
   };
 
   handleDeleteClick = () => {
-    this.props.onDelete(this.props.status, this.props.history);
+    this.props.onDelete(this.props.status);
   };
 
   handleRedraftClick = () => {
-    this.props.onDelete(this.props.status, this.props.history, true);
+    this.props.onDelete(this.props.status, true);
   };
 
   handleEditClick = () => {
-    this.props.onEdit(this.props.status, this.props.history);
+    this.props.onEdit(this.props.status);
   };
 
   handleDirectClick = () => {
-    this.props.onDirect(this.props.status.get('account'), this.props.history);
+    this.props.onDirect(this.props.status.get('account'));
   };
 
   handleMentionClick = () => {
-    this.props.onMention(this.props.status.get('account'), this.props.history);
+    this.props.onMention(this.props.status.get('account'));
   };
 
   handleMuteClick = () => {
@@ -273,4 +270,4 @@ class ActionBar extends PureComponent {
 
 }
 
-export default withRouter(withIdentity(injectIntl(ActionBar)));
+export default withIdentity(injectIntl(ActionBar));

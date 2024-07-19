@@ -339,11 +339,11 @@ class Status extends ImmutablePureComponent {
             message: intl.formatMessage(messages.replyMessage),
             confirm: intl.formatMessage(messages.replyConfirm),
             onDoNotAsk: () => dispatch(changeLocalSetting(['confirm_before_clearing_draft'], false)),
-            onConfirm: () => dispatch(replyCompose(status, this.props.history)),
+            onConfirm: () => dispatch(replyCompose(status)),
           },
         }));
       } else {
-        dispatch(replyCompose(status, this.props.history));
+        dispatch(replyCompose(status));
       }
     } else {
       dispatch(openModal({
@@ -399,33 +399,33 @@ class Status extends ImmutablePureComponent {
     }
   };
 
-  handleDeleteClick = (status, history, withRedraft = false) => {
+  handleDeleteClick = (status, withRedraft = false) => {
     const { dispatch, intl } = this.props;
 
     if (!deleteModal) {
-      dispatch(deleteStatus(status.get('id'), history, withRedraft));
+      dispatch(deleteStatus(status.get('id'), withRedraft));
     } else {
       dispatch(openModal({
         modalType: 'CONFIRM',
         modalProps: {
           message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
           confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
-          onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
+          onConfirm: () => dispatch(deleteStatus(status.get('id'), withRedraft)),
         },
       }));
     }
   };
 
-  handleEditClick = (status, history) => {
-    this.props.dispatch(editStatus(status.get('id'), history));
+  handleEditClick = (status) => {
+    this.props.dispatch(editStatus(status.get('id')));
   };
 
-  handleDirectClick = (account, history) => {
-    this.props.dispatch(directCompose(account, history));
+  handleDirectClick = (account) => {
+    this.props.dispatch(directCompose(account));
   };
 
-  handleMentionClick = (account, history) => {
-    this.props.dispatch(mentionCompose(account, history));
+  handleMentionClick = (account) => {
+    this.props.dispatch(mentionCompose(account));
   };
 
   handleOpenMedia = (media, index, lang) => {
