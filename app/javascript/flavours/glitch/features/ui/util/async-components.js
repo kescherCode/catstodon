@@ -7,7 +7,15 @@ export function Compose () {
 }
 
 export function Notifications () {
-  return import(/* webpackChunkName: "flavours/glitch/async/notifications" */'../../notifications');
+  return import(/* webpackChunkName: "flavours/glitch/async/notifications_v1" */'../../notifications');
+}
+
+export function Notifications_v2 () {
+  return import(/* webpackChunkName: "flavours/glitch/async/notifications_v2" */'../../notifications_v2');
+}
+
+export function NotificationsWrapper () {
+  return import(/* webpackChunkName: "flavours/glitch/async/notifications" */'../../notifications_wrapper');
 }
 
 export function HomeTimeline () {

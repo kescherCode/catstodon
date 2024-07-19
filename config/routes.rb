@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     /lists/(*any)
     /links/(*any)
     /notifications/(*any)
+    /notifications_v2/(*any)
     /favourites
     /bookmarks
     /pinned

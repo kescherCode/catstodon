@@ -12,8 +12,9 @@ import Favico from 'favico.js';
 import { debounce } from 'lodash';
 import { HotKeys } from 'react-hotkeys';
 
-import { changeLayout } from 'flavours/glitch/actions/app';
+import { focusApp, unfocusApp, changeLayout } from 'flavours/glitch/actions/app';
 import { synchronouslySubmitMarkers, submitMarkers, fetchMarkers } from 'flavours/glitch/actions/markers';
+import { initializeNotifications } from 'flavours/glitch/actions/notifications_migration';
 import { INTRODUCTION_VERSION } from 'flavours/glitch/actions/onboarding';
 import { HoverCardController } from 'flavours/glitch/components/hover_card_controller';
 import { Permalink } from 'flavours/glitch/components/permalink';
@@ -24,7 +25,7 @@ import { WithRouterPropTypes } from 'flavours/glitch/utils/react_router';
 
 import { uploadCompose, resetCompose, changeComposeSpoilerness } from '../../actions/compose';
 import { clearHeight } from '../../actions/height_cache';
-import { expandNotifications, notificationsSetVisibility } from '../../actions/notifications';
+import { notificationsSetVisibility } from '../../actions/notifications';
 import { fetchServer, fetchServerTranslationLanguages } from '../../actions/server';
 import { expandHomeTimeline } from '../../actions/timelines';
 import initialState, { me, owner, singleUserMode, trendsEnabled, trendsAsLanding, timelinePreview, disableHoverCards } from '../../initial_state';
@@ -51,7 +52,7 @@ import {
   Favourites,
   DirectTimeline,
   HashtagTimeline,
-  Notifications,
+  NotificationsWrapper,
   NotificationRequests,
   NotificationRequest,
   FollowRequests,
@@ -74,6 +75,7 @@ import {
 } from './util/async-components';
 import { ColumnsContextProvider } from './util/columns_context';
 import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
+
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status';
@@ -214,7 +216,7 @@ class SwitchingColumnsArea extends PureComponent {
             <WrappedRoute path='/tags/:id' component={HashtagTimeline} content={children} />
             <WrappedRoute path='/links/:url' component={LinkTimeline} content={children} />
             <WrappedRoute path='/lists/:id' component={ListTimeline} content={children} />
-            <WrappedRoute path='/notifications' component={Notifications} content={children} exact />
+            <WrappedRoute path='/notifications' component={NotificationsWrapper} content={children} exact />
             <WrappedRoute path='/notifications/requests' component={NotificationRequests} content={children} exact />
             <WrappedRoute path='/notifications/requests/:id' component={NotificationRequest} content={children} exact />
             <WrappedRoute path='/favourites' component={FavouritedStatuses} content={children} />
@@ -304,7 +306,10 @@ class UI extends PureComponent {
     const visibility = !document[this.visibilityHiddenProp];
     this.props.dispatch(notificationsSetVisibility(visibility));
     if (visibility) {
+      this.props.dispatch(focusApp());
       this.props.dispatch(submitMarkers({ immediate: true }));
+    } else {
+      this.props.dispatch(unfocusApp());
     }
   };
 
@@ -419,7 +424,7 @@ class UI extends PureComponent {
     if (signedIn) {
       this.props.dispatch(fetchMarkers());
       this.props.dispatch(expandHomeTimeline());
-      this.props.dispatch(expandNotifications());
+      this.props.dispatch(initializeNotifications());
       this.props.dispatch(fetchServerTranslationLanguages());
 
       setTimeout(() => this.props.dispatch(fetchServer()), 3000);

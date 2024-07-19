@@ -12,6 +12,7 @@ import {
 import {
   fetchMarkers,
 } from '../actions/markers';
+import { clearNotifications } from '../actions/notification_groups';
 import {
   NOTIFICATIONS_MOUNT,
   NOTIFICATIONS_UNMOUNT,
@@ -21,7 +22,6 @@ import {
   NOTIFICATIONS_EXPAND_REQUEST,
   NOTIFICATIONS_EXPAND_FAIL,
   NOTIFICATIONS_FILTER_SET,
-  NOTIFICATIONS_CLEAR,
   NOTIFICATIONS_SCROLL_TOP,
   NOTIFICATIONS_LOAD_PENDING,
   NOTIFICATIONS_DELETE_MARKED_REQUEST,
@@ -332,7 +332,7 @@ export default function notifications(state = initialState, action) {
   case authorizeFollowRequestSuccess.type:
   case rejectFollowRequestSuccess.type:
     return filterNotifications(state, [action.payload.id], 'follow_request');
-  case NOTIFICATIONS_CLEAR:
+  case clearNotifications.pending.type:
     return state.set('items', ImmutableList()).set('pendingItems', ImmutableList()).set('hasMore', false);
   case timelineDelete.type:
     return deleteByStatus(state, action.payload.statusId);

@@ -107,7 +107,7 @@ export default class StatusPrepend extends PureComponent {
         return (
           <FormattedMessage
             id='notification.poll'
-            defaultMessage='A poll you have voted in has ended'
+            defaultMessage='A poll you voted in has ended'
           />
         );
       }
