@@ -15,7 +15,7 @@ class REST::NotificationGroupSerializer < ActiveModel::Serializer
   belongs_to :account_warning, key: :moderation_warning, if: :moderation_warning_event?, serializer: REST::AccountWarningSerializer
 
   def status_type?
-    [:favourite, :reblog, :status, :mention, :poll, :update].include?(object.type)
+    [:favourite, :reaction, :reblog, :status, :mention, :poll, :update].include?(object.type)
   end
 
   def report_type?
