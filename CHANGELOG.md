@@ -4,6 +4,14 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [4.3.0-alpha.5+glitch+cat+1.0.3] - 2024-07-30
+
+- Upstream changes
+  - Fixes for intermittent errors in grouped notifications
+- Emoji reaction patch changes
+  - "Fix reactions bar alignment in ungrouped notifications" ([30899e050e](https://git.kescher.at/CatCatNya/catstodon/commit/30899e050e4de5952da14278e804ea23110f9204)) by Essem
+  - Other commit for i18n fixes was already applied in Catstodon.
+
 ## [v4.3.0-alpha.5+glitch+cat+1.0.2] - 2024-07-16
 
 - Upstream changes
