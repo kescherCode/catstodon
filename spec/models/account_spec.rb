@@ -592,7 +592,7 @@ RSpec.describe Account do
       expect(results).to eq [match]
     end
 
-    it 'limits by 10 by default' do
+    it 'limits result count by default value' do
       stub_const('Account::Search::DEFAULT_LIMIT', 1)
       2.times { Fabricate(:account, display_name: 'Display Name') }
       results = described_class.advanced_search_for('display', account)
@@ -710,6 +710,14 @@ RSpec.describe Account do
 
     it 'does not match URL query string' do
       expect(subject.match('https://example.com/?x=@alice')).to be_nil
+    end
+
+    it 'matches usernames immediately following the letter ß' do
+      expect(subject.match('Hello toß @alice from me')[1]).to eq 'alice'
+    end
+
+    it 'matches usernames containing uppercase characters' do
+      expect(subject.match('Hello to @aLice@Example.com from me')[1]).to eq 'aLice@Example.com'
     end
   end
 

@@ -521,7 +521,7 @@ body > [data-popper-placement] {
     gap: 16px;
     flex: 0 1 auto;
     border-radius: 4px;
-    border: 1px solid lighten($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
     transition: border-color 300ms linear;
     min-height: 0;
     position: relative;
@@ -587,7 +587,7 @@ body > [data-popper-placement] {
 
     .autosuggest-input {
       flex: 1 1 auto;
-      border-bottom: 1px solid lighten($ui-base-color, 8%);
+      border-bottom: 1px solid var(--background-border-color);
     }
   }
 
@@ -1505,7 +1505,7 @@ body > [data-popper-placement] {
   }
 
   &--first-in-thread {
-    border-top: 1px solid lighten($ui-base-color, 8%);
+    border-top: 1px solid var(--background-border-color);
   }
 
   &__line {
@@ -1989,7 +1989,6 @@ body > [data-popper-placement] {
 
 .account {
   padding: 10px; // glitch: reduced padding
-  border-bottom: 1px solid var(--background-border-color);
 
   .account__display-name {
     flex: 1 1 auto;
@@ -3522,7 +3521,7 @@ $ui-header-logo-wordmark-width: 99px;
 .copy-paste-text {
   background: lighten($ui-base-color, 4%);
   border-radius: 8px;
-  border: 1px solid lighten($ui-base-color, 8%);
+  border: 1px solid var(--background-border-color);
   padding: 16px;
   color: $primary-text-color;
   font-size: 15px;
@@ -5097,7 +5096,7 @@ a.status-card {
 
   section {
     padding: 16px;
-    border-bottom: 1px solid lighten($ui-base-color, 8%);
+    border-bottom: 1px solid var(--background-border-color);
 
     &:last-child {
       border-bottom: 0;
@@ -5801,7 +5800,7 @@ a.status-card {
       input {
         padding: 8px 12px;
         background: $ui-base-color;
-        border: 1px solid lighten($ui-base-color, 8%);
+        border: 1px solid var(--background-border-color);
         color: $darker-text-color;
 
         @media screen and (width <= 600px) {
@@ -5887,7 +5886,7 @@ a.status-card {
     margin-top: -2px;
     width: 100%;
     background: $ui-base-color;
-    border: 1px solid lighten($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
     border-radius: 0 0 4px 4px;
     box-shadow: var(--dropdown-shadow);
     z-index: 99;
@@ -6541,6 +6540,25 @@ a.status-card {
     }
   }
 
+  &__confirmation {
+    font-size: 14px;
+    line-height: 20px;
+    color: $darker-text-color;
+
+    h1 {
+      font-size: 16px;
+      line-height: 24px;
+      color: $primary-text-color;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    strong {
+      font-weight: 700;
+      color: $primary-text-color;
+    }
+  }
+
   &__bullet-points {
     display: flex;
     flex-direction: column;
@@ -6627,11 +6645,8 @@ a.status-card {
 
 .doodle-modal,
 .boost-modal,
-.confirmation-modal,
 .report-modal,
 .actions-modal,
-.mute-modal,
-.block-modal,
 .compare-history-modal {
   background: lighten($ui-secondary-color, 8%);
   color: $inverted-text-color;
@@ -6666,10 +6681,7 @@ a.status-card {
 }
 
 .doodle-modal__action-bar,
-.boost-modal__action-bar,
-.confirmation-modal__action-bar,
-.mute-modal__action-bar,
-.block-modal__action-bar {
+.boost-modal__action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6690,16 +6702,6 @@ a.status-card {
   .button {
     flex: 0 0 auto;
   }
-}
-
-.mute-modal,
-.block-modal {
-  line-height: 24px;
-}
-
-.mute-modal .react-toggle,
-.block-modal .react-toggle {
-  vertical-align: middle;
 }
 
 .report-modal {
@@ -7096,31 +7098,7 @@ a.status-card {
   }
 }
 
-.confirmation-modal__action-bar,
-.mute-modal__action-bar,
-.block-modal__action-bar {
-  .confirmation-modal__secondary-button {
-    flex-shrink: 1;
-  }
-}
-
-.confirmation-modal__secondary-button,
-.confirmation-modal__cancel-button,
-.mute-modal__cancel-button,
-.block-modal__cancel-button {
-  background-color: transparent;
-  color: $lighter-text-color;
-  font-size: 14px;
-  font-weight: 500;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: darken($lighter-text-color, 4%);
-    background-color: transparent;
-  }
-}
-
+// TODO
 .confirmation-modal__do_not_ask_again {
   padding-inline-start: 20px;
   padding-inline-end: 20px;
@@ -7133,9 +7111,6 @@ a.status-card {
   }
 }
 
-.confirmation-modal__container,
-.mute-modal__container,
-.block-modal__container,
 .report-modal__target {
   padding: 30px;
   font-size: 16px;
@@ -7169,29 +7144,8 @@ a.status-card {
   }
 }
 
-.confirmation-modal__container,
 .report-modal__target {
   text-align: center;
-}
-
-.block-modal,
-.mute-modal {
-  &__explanation {
-    margin-top: 20px;
-  }
-
-  .setting-toggle {
-    margin-top: 20px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-
-    &__label {
-      color: $inverted-text-color;
-      margin: 0;
-      margin-inline-start: 8px;
-    }
-  }
 }
 
 .report-modal__target {
@@ -9366,13 +9320,13 @@ noscript {
   }
 
   .search__input {
-    border: 1px solid lighten($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
     padding: 10px;
     padding-inline-end: 30px;
   }
 
   .search__popout {
-    border: 1px solid lighten($ui-base-color, 8%);
+    border: 1px solid var(--background-border-color);
   }
 
   .search .icon {
@@ -9691,7 +9645,7 @@ noscript {
     &__input {
       @include search-input;
 
-      border: 1px solid lighten($ui-base-color, 8%);
+      border: 1px solid var(--background-border-color);
       padding: 4px 6px;
       color: $primary-text-color;
       font-size: 16px;
@@ -9726,7 +9680,7 @@ noscript {
       margin-top: -1px;
       padding-top: 5px;
       padding-bottom: 5px;
-      border: 1px solid lighten($ui-base-color, 8%);
+      border: 1px solid var(--background-border-color);
     }
 
     &.focused &__input {
@@ -11038,6 +10992,8 @@ noscript {
   }
 
   &__embedded-status {
+    cursor: pointer;
+
     &__account {
       display: flex;
       align-items: center;
@@ -11059,7 +11015,6 @@ noscript {
       font-size: 15px;
       line-height: 22px;
       color: $dark-text-color;
-      cursor: pointer;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       max-height: 4 * 22px;
@@ -11123,15 +11078,7 @@ noscript {
   $icon-margin: 48px; // 40px avatar + 8px gap
 
   .status__content,
-  .status__action-bar,
-  .media-gallery,
-  .video-player,
-  .audio-player,
-  .attachment-list,
-  .picture-in-picture-placeholder,
-  .more-from-author,
-  .status-card,
-  .hashtag-bar {
+  .status__action-bar {
     margin-inline-start: $icon-margin;
     width: calc(100% - $icon-margin);
   }

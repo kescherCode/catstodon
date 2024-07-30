@@ -2,13 +2,9 @@ import { connect } from 'react-redux';
 
 import { mentionCompose } from '../../../actions/compose';
 import {
-  reblog,
-  favourite,
-  unreblog,
-  unfavourite,
+  toggleReblog,
+  toggleFavourite,
 } from '../../../actions/interactions';
-import { openModal } from '../../../actions/modal';
-import { boostModal } from '../../../initial_state';
 import { makeGetNotification, makeGetStatus, makeGetReport } from '../../../selectors';
 import Notification from '../components/notification';
 
@@ -35,28 +31,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(mentionCompose(account));
   },
 
-  onModalReblog (status, privacy) {
-    dispatch(reblog({ statusId: status.get('id'), visibility: privacy }));
-  },
-
   onReblog (status, e) {
-    if (status.get('reblogged')) {
-      dispatch(unreblog({ statusId: status.get('id') }));
-    } else {
-      if (e.shiftKey || !boostModal) {
-        this.onModalReblog(status);
-      } else {
-        dispatch(openModal({ modalType: 'BOOST', modalProps: { status, onReblog: this.onModalReblog } }));
-      }
-    }
+    dispatch(toggleReblog(status.get('id'), e.shiftKey));
   },
 
-  onFavourite (status) {
-    if (status.get('favourited')) {
-      dispatch(unfavourite(status));
-    } else {
-      dispatch(favourite(status));
-    }
+  onFavourite (status, e) {
+    dispatch(toggleFavourite(status.get('id'), e.shiftKey));
   },
 });
 
