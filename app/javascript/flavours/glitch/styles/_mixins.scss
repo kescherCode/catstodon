@@ -1,15 +1,3 @@
-@mixin avatar-radius() {
-  border-radius: $ui-avatar-border-size;
-  background-position: 50%;
-  background-clip: padding-box;
-}
-
-@mixin avatar-size($size: 48px) {
-  width: $size;
-  height: $size;
-  background-size: $size $size;
-}
-
 @mixin fullwidth-gallery {
   &.full-width {
     margin-left: -14px;

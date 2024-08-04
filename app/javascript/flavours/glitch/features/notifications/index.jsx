@@ -38,7 +38,10 @@ import { LoadGap } from '../../components/load_gap';
 import ScrollableList from '../../components/scrollable_list';
 import NotificationPurgeButtonsContainer from '../../containers/notification_purge_buttons_container';
 
-import { FilteredNotificationsBanner } from './components/filtered_notifications_banner';
+import {
+  FilteredNotificationsBanner,
+  FilteredNotificationsIconButton,
+} from './components/filtered_notifications_banner';
 import NotificationsPermissionBanner from './components/notifications_permission_banner';
 import ColumnSettingsContainer from './containers/column_settings_container';
 import FilterBarContainer from './containers/filter_bar_container';
@@ -290,7 +293,9 @@ class Notifications extends PureComponent {
       scrollContainer = <NotSignedInIndicator />;
     }
 
-    const extraButtons = [];
+    const extraButtons = [
+      <FilteredNotificationsIconButton key='filtered-notifications-icon' className='column-header__button' />,
+    ];
 
     if (canMarkAsRead) {
       extraButtons.push(
