@@ -4,6 +4,11 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [4.3.0-alpha.5+glitch+cat+1.0.7] - 2024-08-05
+
+- Emoji reaction patch changes
+  - "Fix reblog reactions being hydrated improperly" by Essem
+
 ## [4.3.0-alpha.5+glitch+cat+1.0.6] - 2024-08-04
 
 - Upstream changes
