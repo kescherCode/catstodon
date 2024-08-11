@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 
 import classNames from 'classnames';
 import { Helmet } from 'react-helmet';
@@ -19,6 +19,7 @@ import VisibilityIcon from '@/material-icons/400-24px/visibility.svg?react';
 import VisibilityOffIcon from '@/material-icons/400-24px/visibility_off.svg?react';
 import { Icon }  from 'flavours/glitch/components/icon';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
+import { TimelineHint } from 'flavours/glitch/components/timeline_hint';
 import ScrollContainer from 'flavours/glitch/containers/scroll_container';
 import BundleColumnError from 'flavours/glitch/features/ui/components/bundle_column_error';
 import { identityContextPropShape, withIdentity } from 'flavours/glitch/identity_context';
@@ -637,7 +638,7 @@ class Status extends ImmutablePureComponent {
   };
 
   render () {
-    let ancestors, descendants;
+    let ancestors, descendants, remoteHint;
     const { isLoading, status, settings, ancestorsIds, descendantsIds, intl, domain, multiColumn, pictureInPicture } = this.props;
     const { fullscreen } = this.state;
 
@@ -667,6 +668,10 @@ class Status extends ImmutablePureComponent {
 
     const isLocal = status.getIn(['account', 'acct'], '').indexOf('@') === -1;
     const isIndexable = !status.getIn(['account', 'noindex']);
+
+    if (!isLocal) {
+      remoteHint = <TimelineHint url={status.get('url')} resource={<FormattedMessage id='timeline_hint.resources.replies' defaultMessage='Some replies' />} />;
+    }
 
     const handlers = {
       moveUp: this.handleHotkeyMoveUp,
@@ -742,6 +747,7 @@ class Status extends ImmutablePureComponent {
             </HotKeys>
 
             {descendants}
+            {remoteHint}
           </div>
         </ScrollContainer>
 

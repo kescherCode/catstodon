@@ -146,6 +146,10 @@ export function SettingsModal () {
   return import(/* webpackChunkName: "flavours/glitch/async/settings_modal" */'../../local_settings');
 }
 
+export function IgnoreNotificationsModal () {
+  return import(/* webpackChunkName: "flavours/glitch/async/ignore_notifications_modal" */'../components/ignore_notifications_modal');
+}
+
 export function MediaGallery () {
   return import(/* webpackChunkName: "flavours/glitch/async/media_gallery" */'../../../components/media_gallery');
 }
