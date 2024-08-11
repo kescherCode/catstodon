@@ -4,6 +4,10 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [4.3.0-alpha.5+glitch+cat+1.0.8] - 2024-08-11
+
+- Upstream changes
+
 ## [4.3.0-alpha.5+glitch+cat+1.0.7] - 2024-08-05
 
 - Emoji reaction patch changes
