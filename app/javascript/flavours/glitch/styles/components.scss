@@ -426,10 +426,17 @@ body > [data-popper-placement] {
 
       &:hover,
       &:focus,
-      &:active,
+      &:active {
+        background: var(--dropdown-border-color);
+
+        .autosuggest-account .display-name__account {
+          color: inherit;
+        }
+      }
+
       &.selected {
         background: $ui-highlight-color;
-        color: $primary-text-color;
+        color: $ui-button-color;
 
         .autosuggest-account .display-name__account {
           color: inherit;
@@ -465,7 +472,7 @@ body > [data-popper-placement] {
     display: block;
     line-height: 16px;
     font-size: 12px;
-    color: $dark-text-color;
+    color: $ui-primary-color;
   }
 }
 
@@ -1996,6 +2003,7 @@ body > [data-popper-placement] {
 
 .account {
   padding: 10px; // glitch: reduced padding
+  border-bottom: 1px solid var(--background-border-color);
 
   .account__display-name {
     flex: 1 1 auto;
@@ -2184,13 +2192,14 @@ body > [data-popper-placement] {
 .account__avatar {
   display: block;
   position: relative;
+  border-radius: var(--avatar-border-radius);
 
   img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: var(--avatar-border-radius);
   }
 
   &-inline {
@@ -3024,7 +3033,7 @@ $ui-header-logo-wordmark-width: 99px;
   overflow: hidden;
 }
 
-@media screen and (width >= 631px) {
+@media screen and (width > $mobile-breakpoint) {
   .columns-area {
     padding: 0;
   }
@@ -4459,6 +4468,10 @@ a.status-card {
   }
 }
 
+.timeline-hint--with-descendants {
+  border-top: 1px solid var(--background-border-color);
+}
+
 .regeneration-indicator {
   text-align: center;
   font-size: 16px;
@@ -4748,10 +4761,19 @@ a.status-card {
   opacity: 1;
   z-index: 1;
   position: relative;
+  border-left: 1px solid var(--background-border-color);
+  border-right: 1px solid var(--background-border-color);
+  border-bottom: 1px solid var(--background-border-color);
+
+  @media screen and (max-width: $no-gap-breakpoint) {
+    border-left: 0;
+    border-right: 0;
+  }
 
   &.collapsed {
     max-height: 0;
     opacity: 0.5;
+    border-bottom: 0;
   }
 
   &.animating {
@@ -4778,13 +4800,7 @@ a.status-card {
 }
 
 .column-header__collapsible-inner {
-  border: 1px solid var(--background-border-color);
   border-top: 0;
-
-  @media screen and (max-width: $no-gap-breakpoint) {
-    border-left: 0;
-    border-right: 0;
-  }
 }
 
 .column-header__setting-btn {
@@ -6207,7 +6223,7 @@ a.status-card {
   user-select: text;
   display: flex;
 
-  @media screen and (width <= 630px) {
+  @media screen and (width <= $mobile-breakpoint) {
     margin-top: auto;
   }
 }
@@ -6566,7 +6582,7 @@ a.status-card {
     border-radius: 0 0 16px 16px;
     border-top: 0;
 
-    @media screen and (max-width: $no-gap-breakpoint) {
+    @media screen and (max-width: $mobile-breakpoint) {
       border-radius: 0;
       border-bottom: 0;
       padding-bottom: 32px;
@@ -7925,9 +7941,18 @@ img.modal-warning {
 }
 
 .scrollable .account-card__title__avatar {
-  img,
+  img {
+    border: 2px solid var(--background-color);
+  }
+
   .account__avatar {
-    border-color: lighten($ui-base-color, 8%);
+    border: none;
+  }
+}
+
+.scrollable .account-card__header {
+  img {
+    border-radius: 4px;
   }
 }
 
@@ -8531,7 +8556,8 @@ noscript {
 
       .account__avatar {
         background: var(--background-color);
-        border: 2px solid var(--background-border-color);
+        border: 1px solid var(--background-border-color);
+        border-radius: var(--avatar-border-radius);
       }
     }
   }
@@ -9660,8 +9686,9 @@ noscript {
   backdrop-filter: var(--background-filter);
   border: 1px solid var(--modal-border-color);
   padding: 24px;
+  box-sizing: border-box;
 
-  @media screen and (max-width: $no-gap-breakpoint) {
+  @media screen and (max-width: $mobile-breakpoint) {
     border-radius: 16px 16px 0 0;
     border-bottom: 0;
     padding-bottom: 32px;
