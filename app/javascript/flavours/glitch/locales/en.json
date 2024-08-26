@@ -148,13 +148,18 @@
   "settings.wide_view": "Wide view (Desktop mode only)",
   "settings.wide_view_hint": "Stretches columns to better fill the available space.",
   "status.collapse": "Collapse",
+  "status.filtered": "Filtered",
   "status.has_audio": "Features attached audio files",
   "status.has_pictures": "Features attached pictures",
   "status.has_preview_card": "Features an attached preview card",
   "status.has_video": "Features attached videos",
+  "status.hide": "Hide post",
   "status.in_reply_to": "This toot is a reply",
   "status.is_poll": "This toot is a poll",
   "status.local_only": "Only visible from your instance",
   "status.react": "React",
+  "status.show_filter_reason": "Show anyway",
+  "status.show_less": "Show less",
+  "status.show_more": "Show more",
   "status.uncollapse": "Uncollapse"
 }
