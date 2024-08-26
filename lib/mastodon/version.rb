@@ -25,11 +25,11 @@ module Mastodon
     end
 
     def catstodon_revision
-      '1.0.10'
+      '1.0.0'
     end
 
     def build_metadata
-      ["glitch+cat+#{catstodon_revision}", ENV.fetch('MASTODON_VERSION_METADATA', nil)].compact_blank.join('.')
+      ["cat.#{catstodon_revision}", ENV.fetch('MASTODON_VERSION_METADATA', nil)].compact_blank.join('.')
     end
 
     def to_a

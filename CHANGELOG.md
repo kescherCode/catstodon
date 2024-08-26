@@ -4,6 +4,18 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [4.3.0-beta.1+cat.1.0.0] - 2024-08-26
+
+- Upstream (glitch-soc) changes
+- Shorter versioning scheme (drops "glitch" in version)
+  - It is obvious this code is still, and will for the foreseeable future, be based on glitch-soc.
+- Release model changes
+  - Glitch-soc is trying out releases. We will, similarly, do releases as well.
+  - This means the main branch will now contain "nightly, but stable enough" states, similar to glitch-soc's main
+    branch, but not every wave of commits to main will be accompanied by a new version.
+  - Each glitch-soc release will be accompanied by a Catstodon release eventually.
+  - Releases are now made whenever glitch-soc does one, or when important bugs are fixed either upstream or in Catstodon.
+
 ## [4.3.0-alpha.5+glitch+cat+1.0.10] - 2024-08-16
 
 - Upstream changes. See [CHANGELOG_glitch.md](CHANGELOG_glitch.md), version 4.2.11.
@@ -38,7 +50,9 @@ All release dates, as well as most other dates, are intended to be read as "with
 - Upstream changes
   - Fixes for intermittent errors in grouped notifications
 - Emoji reaction patch changes
-  - "Fix reactions bar alignment in ungrouped notifications" ([30899e050e](https://git.kescher.at/CatCatNya/catstodon/commit/30899e050e4de5952da14278e804ea23110f9204)) by Essem
+  - "Fix reactions bar alignment in ungrouped
+    notifications" ([30899e050e](https://git.kescher.at/CatCatNya/catstodon/commit/30899e050e4de5952da14278e804ea23110f9204))
+    by Essem
   - Other commit for i18n fixes was already applied in Catstodon.
 
 ## [v4.3.0-alpha.5+glitch+cat+1.0.2] - 2024-07-16
