@@ -410,7 +410,7 @@ class Notification extends ImmutablePureComponent {
       <bdi>
         <Permalink
           className='notification__display-name'
-          href={account.get('url')}
+          href={targetAccount.get('url')}
           title={targetAccount.get('acct')}
           to={`/@${targetAccount.get('acct')}`}
           dangerouslySetInnerHTML={targetDisplayNameHtml}
