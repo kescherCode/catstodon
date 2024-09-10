@@ -1800,7 +1800,8 @@ body > [data-popper-placement] {
 }
 
 .status__wrapper-direct,
-.notification-ungrouped--direct {
+.notification-ungrouped--direct,
+.notification-group--direct {
   background: rgba($ui-highlight-color, 0.05);
 
   &:focus {
@@ -6915,7 +6916,7 @@ a.status-card {
   }
 
   .dialog-option .poll__input {
-    border-color: $inverted-text-color;
+    border-color: $darker-text-color;
     color: $ui-secondary-color;
     display: inline-flex;
     align-items: center;
@@ -6929,13 +6930,13 @@ a.status-card {
     &:active,
     &:focus,
     &:hover {
-      border-color: lighten($inverted-text-color, 15%);
+      border-color: $valid-value-color;
       border-width: 4px;
     }
 
     &.active {
-      border-color: $inverted-text-color;
-      background: $inverted-text-color;
+      border-color: $valid-value-color;
+      background: $valid-value-color;
     }
   }
 
@@ -8128,7 +8129,7 @@ img.modal-warning {
   }
 }
 
-.radio-button.checked::before {
+.radio-button__input.checked::before {
   position: absolute;
   left: 2px;
   top: 2px;
@@ -9071,22 +9072,6 @@ noscript {
       margin: 0;
     }
   }
-
-  &--unread {
-    background: lighten($ui-base-color, 2%);
-
-    &:focus {
-      background: lighten($ui-base-color, 4%);
-    }
-
-    .conversation__content__info {
-      font-weight: 700;
-    }
-
-    .conversation__content__relative-time {
-      color: $primary-text-color;
-    }
-  }
 }
 
 .announcements {
@@ -9283,7 +9268,8 @@ noscript {
 }
 
 .notification,
-.status__wrapper {
+.status__wrapper,
+.conversation {
   position: relative;
 
   &.unread {

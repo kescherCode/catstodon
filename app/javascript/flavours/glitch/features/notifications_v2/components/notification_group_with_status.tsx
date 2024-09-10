@@ -9,7 +9,7 @@ import { navigateToStatus } from 'flavours/glitch/actions/statuses';
 import type { IconProp } from 'flavours/glitch/components/icon';
 import { Icon } from 'flavours/glitch/components/icon';
 import { RelativeTimestamp } from 'flavours/glitch/components/relative_timestamp';
-import { useAppDispatch } from 'flavours/glitch/store';
+import { useAppSelector, useAppDispatch } from 'flavours/glitch/store';
 
 import { AvatarGroup } from './avatar_group';
 import { DisplayedName } from './displayed_name';
@@ -60,6 +60,10 @@ export const NotificationGroupWithStatus: React.FC<{
     [labelRenderer, accountIds, count, labelSeeMoreHref],
   );
 
+  const isPrivateMention = useAppSelector(
+    (state) => state.statuses.getIn([statusId, 'visibility']) === 'direct',
+  );
+
   const handlers = useMemo(
     () => ({
       open: () => {
@@ -79,7 +83,10 @@ export const NotificationGroupWithStatus: React.FC<{
         role='button'
         className={classNames(
           `notification-group focusable notification-group--${type}`,
-          { 'notification-group--unread': unread },
+          {
+            'notification-group--unread': unread,
+            'notification-group--direct': isPrivateMention,
+          },
         )}
         tabIndex={0}
       >

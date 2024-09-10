@@ -351,7 +351,7 @@ namespace :api, format: false do
   end
 
   namespace :v2_alpha do
-    resources :notifications, only: [:index, :show] do
+    resources :notifications, param: :group_key, only: [:index, :show] do
       collection do
         post :clear
         get :unread_count
@@ -360,6 +360,8 @@ namespace :api, format: false do
       member do
         post :dismiss
       end
+
+      resources :accounts, only: [:index], module: :notifications
     end
   end
 

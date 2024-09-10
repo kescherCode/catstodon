@@ -7,6 +7,7 @@ All release dates, as well as most other dates, are intended to be read as "with
 ## [Unreleased] - Unreleased
 
 - Upstream changes
+- Bump Ruby version to 3.3.5
 
 ## [4.3.0-beta.1+cat.1.0.0] - 2024-08-26
 
@@ -18,7 +19,8 @@ All release dates, as well as most other dates, are intended to be read as "with
   - This means the main branch will now contain "nightly, but stable enough" states, similar to glitch-soc's main
     branch, but not every wave of commits to main will be accompanied by a new version.
   - Each glitch-soc release will be accompanied by a Catstodon release eventually.
-  - Releases are now made whenever glitch-soc does one, or when important bugs are fixed either upstream or in Catstodon.
+  - Releases are now made whenever glitch-soc does one, or when important bugs are fixed either upstream or in
+    Catstodon.
 
 ## [4.3.0-alpha.5+glitch+cat+1.0.10] - 2024-08-16
 

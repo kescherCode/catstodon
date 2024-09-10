@@ -111,6 +111,35 @@ const startServer = async () => {
   const server = http.createServer();
   const wss = new WebSocketServer({ noServer: true });
 
+  /**
+   * Adds a namespace to Redis keys or channel names
+   * Fixes: https://github.com/redis/ioredis/issues/1910
+   * @param {string} keyOrChannel
+   * @returns {string}
+   */
+  function redisNamespaced(keyOrChannel) {
+    if (redisConfig.namespace) {
+      return `${redisConfig.namespace}:${keyOrChannel}`;
+    } else {
+      return keyOrChannel;
+    }
+  }
+
+  /**
+   * Removes the redis namespace from a channel name
+   * @param {string} channel
+   * @returns {string}
+   */
+  function redisUnnamespaced(channel) {
+    if (typeof redisConfig.namespace === "string") {
+      // Note: this removes the configured namespace and the colon that is used
+      // to separate it:
+      return channel.slice(redisConfig.namespace.length + 1);
+    } else {
+      return channel;
+    }
+  }
+
   // Set the X-Request-Id header on WebSockets:
   wss.on("headers", function onHeaders(headers, req) {
     headers.push(`X-Request-Id: ${req.id}`);
@@ -200,7 +229,6 @@ const startServer = async () => {
   const subs = {};
 
   const redisSubscribeClient = Redis.createClient(redisConfig, logger);
-  const { redisPrefix } = redisConfig;
 
   // When checking metrics in the browser, the favicon is requested this
   // prevents the request from falling through to the API Router, which would
@@ -222,7 +250,7 @@ const startServer = async () => {
     const interval = 6 * 60;
 
     const tellSubscribed = () => {
-      channels.forEach(channel => redisClient.set(`${redisPrefix}subscribed:${channel}`, '1', 'EX', interval * 3));
+      channels.forEach(channel => redisClient.set(redisNamespaced(`subscribed:${channel}`), '1', 'EX', interval * 3));
     };
 
     tellSubscribed();
@@ -240,11 +268,10 @@ const startServer = async () => {
    */
   const onRedisMessage = (channel, message) => {
     metrics.redisMessagesReceived.inc();
+    logger.debug(`New message on channel ${channel}`);
 
-    const callbacks = subs[channel];
-
-    logger.debug(`New message on channel ${redisPrefix}${channel}`);
-
+    const key = redisUnnamespaced(channel);
+    const callbacks = subs[key];
     if (!callbacks) {
       return;
     }
@@ -273,7 +300,8 @@ const startServer = async () => {
 
     if (subs[channel].length === 0) {
       logger.debug(`Subscribe ${channel}`);
-      redisSubscribeClient.subscribe(channel, (err, count) => {
+
+      redisSubscribeClient.subscribe(redisNamespaced(channel), (err, count) => {
         if (err) {
           logger.error(`Error subscribing to ${channel}`);
         } else if (typeof count === 'number') {
@@ -300,7 +328,9 @@ const startServer = async () => {
 
     if (subs[channel].length === 0) {
       logger.debug(`Unsubscribe ${channel}`);
-      redisSubscribeClient.unsubscribe(channel, (err, count) => {
+
+      // FIXME: https://github.com/redis/ioredis/issues/1910
+      redisSubscribeClient.unsubscribe(redisNamespaced(channel), (err, count) => {
         if (err) {
           logger.error(`Error unsubscribing to ${channel}`);
         } else if (typeof count === 'number') {
@@ -481,14 +511,14 @@ const startServer = async () => {
     });
 
     res.on('close', () => {
-      unsubscribe(`${redisPrefix}${accessTokenChannelId}`, listener);
-      unsubscribe(`${redisPrefix}${systemChannelId}`, listener);
+      unsubscribe(accessTokenChannelId, listener);
+      unsubscribe(systemChannelId, listener);
 
       metrics.connectedChannels.labels({ type: 'eventsource', channel: 'system' }).dec(2);
     });
 
-    subscribe(`${redisPrefix}${accessTokenChannelId}`, listener);
-    subscribe(`${redisPrefix}${systemChannelId}`, listener);
+    subscribe(accessTokenChannelId, listener);
+    subscribe(systemChannelId, listener);
 
     metrics.connectedChannels.labels({ type: 'eventsource', channel: 'system' }).inc(2);
   };
@@ -812,11 +842,11 @@ const startServer = async () => {
     };
 
     channelIds.forEach(id => {
-      subscribe(`${redisPrefix}${id}`, listener);
+      subscribe(id, listener);
     });
 
     if (typeof attachCloseHandler === 'function') {
-      attachCloseHandler(channelIds.map(id => `${redisPrefix}${id}`), listener);
+      attachCloseHandler(channelIds, listener);
     }
 
     return listener;
@@ -1177,7 +1207,7 @@ const startServer = async () => {
     }
 
     channelIds.forEach(channelId => {
-      unsubscribe(`${redisPrefix}${channelId}`, subscription.listener);
+      unsubscribe(channelId, subscription.listener);
     });
 
     metrics.connectedChannels.labels({ type: 'websocket', channel: subscription.channelName }).dec();
@@ -1221,8 +1251,8 @@ const startServer = async () => {
       },
     });
 
-    subscribe(`${redisPrefix}${accessTokenChannelId}`, listener);
-    subscribe(`${redisPrefix}${systemChannelId}`, listener);
+    subscribe(accessTokenChannelId, listener);
+    subscribe(systemChannelId, listener);
 
     subscriptions[accessTokenChannelId] = {
       channelName: 'system',
@@ -1372,15 +1402,23 @@ const startServer = async () => {
  * @param {function(string): void} [onSuccess]
  */
 const attachServerWithConfig = (server, onSuccess) => {
-  if (process.env.SOCKET || process.env.PORT && isNaN(+process.env.PORT)) {
-    server.listen(process.env.SOCKET || process.env.PORT, () => {
+  if (process.env.SOCKET) {
+    server.listen(process.env.SOCKET, () => {
       if (onSuccess) {
         fs.chmodSync(server.address(), 0o666);
         onSuccess(server.address());
       }
     });
   } else {
-    server.listen(+(process.env.PORT || 4000), process.env.BIND || '127.0.0.1', () => {
+    const port = +(process.env.PORT || 4000);
+    let bind = process.env.BIND ?? '127.0.0.1';
+    // Web uses the URI syntax for BIND, which means IPv6 addresses may
+    // be wrapped in square brackets:
+    if (bind.startsWith('[') && bind.endsWith(']')) {
+      bind = bind.slice(1, -1);
+    }
+
+    server.listen(port, bind, () => {
       if (onSuccess) {
         onSuccess(`${server.address().address}:${server.address().port}`);
       }
