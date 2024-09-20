@@ -14,7 +14,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
     else
       create_status
     end
-  rescue Mastodon::RejectPayload
+  rescue Mastodon::RejectPayloadError
     reject_payload!
   end
 
@@ -86,7 +86,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
 
     process_status_params
 
-    raise Mastodon::RejectPayload if MediaAttachment.where(id: @params[:media_attachment_ids]).where(blurhash: Setting.reject_blurhash.split(/\r?\n/).filter(&:present?).uniq).present?
+    raise Mastodon::RejectPayloadError if MediaAttachment.where(id: @params[:media_attachment_ids]).where(blurhash: Setting.reject_blurhash.split(/\r?\n/).filter(&:present?).uniq).present?
 
     process_tags
     process_audience
