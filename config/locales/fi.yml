@@ -7,7 +7,6 @@ fi:
     hosted_on: Mastodon palvelimella %{domain}
     title: Tietoja
   accounts:
-    follow: Seuraa
     followers:
       one: seuraaja
       other: seuraajaa
@@ -981,7 +980,7 @@ fi:
         used_by_over_week:
           one: Käyttänyt yksi käyttäjä viimeisen viikon aikana
           other: Käyttänyt %{count} käyttäjää viimeisen viikon aikana
-      title: Suositukset ja suuntaukset
+      title: Suositukset ja trendit
       trending: Trendaus
     warning_presets:
       add_new: Lisää uusi
@@ -1161,6 +1160,12 @@ fi:
       view_strikes: Näytä aiemmat tiliäsi koskevat varoitukset
     too_fast: Lomake lähetettiin liian nopeasti, yritä uudelleen.
     use_security_key: Käytä suojausavainta
+  author_attribution:
+    example_title: Esimerkkiteksti
+    hint_html: Määrää, kuinka tulet tunnustetuksi, kun Mastodonissa jaetaan linkkejä.
+    more_from_html: Lisää tekijältä %{name}
+    s_blog: Käyttäjän %{name} blogi
+    title: Tekijän tunnustus
   challenge:
     confirm: Jatka
     hint_html: "<strong>Vihje:</strong> Emme pyydä sinulta salasanaa uudelleen seuraavan tunnin aikana."
@@ -1235,8 +1240,6 @@ fi:
       your_appeal_approved: Valituksesi on hyväksytty
       your_appeal_pending: Olet lähettänyt valituksen
       your_appeal_rejected: Valituksesi on hylätty
-  domain_validator:
-    invalid_domain: ei ole kelvollinen verkkotunnus
   edit_profile:
     basic_information: Perustiedot
     hint_html: "<strong>Mukauta, mitä ihmiset näkevät julkisessa profiilissasi ja julkaisujesi vieressä.</strong> Sinua seurataan takaisin ja kanssasi ollaan vuorovaikutuksessa todennäköisemmin, kun sinulla on täytetty profiili ja profiilikuva."
@@ -1736,23 +1739,12 @@ fi:
     edited_at_html: Muokattu %{date}
     errors:
       in_reply_not_found: Julkaisua, johon yrität vastata, ei näytä olevan olemassa.
-    open_in_web: Avaa selaimessa
     over_character_limit: merkkimäärän rajoitus %{max} ylitetty
     pin_errors:
       direct: Vain mainituille käyttäjille näkyviä julkaisuja ei voi kiinnittää
       limit: Olet jo kiinnittänyt enimmäismäärän julkaisuja
       ownership: Muiden julkaisuja ei voi kiinnittää
       reblog: Tehostusta ei voi kiinnittää
-    poll:
-      total_people:
-        one: "%{count} käyttäjä"
-        other: "%{count} käyttäjää"
-      total_votes:
-        one: "%{count} ääni"
-        other: "%{count} ääntä"
-      vote: Äänestä
-    show_more: Näytä lisää
-    show_thread: Näytä ketju
     title: "%{name}: ”%{quote}”"
     visibilities:
       direct: Suoraan
@@ -1951,6 +1943,7 @@ fi:
     instructions_html: Kopioi ja liitä seuraava koodi verkkosivustosi HTML-lähdekoodiin. Lisää sitten verkkosivustosi osoite johonkin profiilisi lisäkentistä ”Muokkaa profiilia” -välilehdellä ja tallenna muutokset.
     verification: Vahvistus
     verified_links: Vahvistetut linkkisi
+    website_verification: Verkkosivuston vahvistus
   webauthn_credentials:
     add: Lisää uusi suojausavain
     create:

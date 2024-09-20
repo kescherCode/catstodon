@@ -51,6 +51,7 @@
 #  reviewed_at                   :datetime
 #  requested_review_at           :datetime
 #  indexable                     :boolean          default(FALSE), not null
+#  attribution_domains           :string           default([]), is an Array
 #
 
 class Account < ApplicationRecord
@@ -88,6 +89,7 @@ class Account < ApplicationRecord
   include Account::Merging
   include Account::Search
   include Account::StatusesSearch
+  include Account::AttributionDomains
   include DomainMaterializable
   include DomainNormalizable
   include Paginable
@@ -111,10 +113,12 @@ class Account < ApplicationRecord
   validates :display_name, length: { maximum: DISPLAY_NAME_LENGTH_LIMIT }, if: -> { local? && will_save_change_to_display_name? }
   validates :note, note_length: { maximum: NOTE_LENGTH_LIMIT }, if: -> { local? && will_save_change_to_note? }
   validates :fields, length: { maximum: DEFAULT_FIELDS_SIZE }, if: -> { local? && will_save_change_to_fields? }
-  validates :uri, absence: true, if: :local?, on: :create
-  validates :inbox_url, absence: true, if: :local?, on: :create
-  validates :shared_inbox_url, absence: true, if: :local?, on: :create
-  validates :followers_url, absence: true, if: :local?, on: :create
+  with_options on: :create do
+    validates :uri, absence: true, if: :local?
+    validates :inbox_url, absence: true, if: :local?
+    validates :shared_inbox_url, absence: true, if: :local?
+    validates :followers_url, absence: true, if: :local?
+  end
 
   normalizes :username, with: ->(username) { username.squish }
 
@@ -253,6 +257,10 @@ class Account < ApplicationRecord
 
   def suspended?
     suspended_at.present? && !instance_actor?
+  end
+
+  def suspended_locally?
+    suspended? && suspension_origin_local?
   end
 
   def suspended_permanently?

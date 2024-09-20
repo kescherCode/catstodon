@@ -7,7 +7,6 @@ cy:
     hosted_on: Mastodon wedi ei weinyddu ar %{domain}
     title: Ynghylch
   accounts:
-    follow: Dilyn
     followers:
       few: Dilynwyr
       many: Dilynwyr
@@ -33,7 +32,7 @@ cy:
   admin:
     account_actions:
       action: Cyflawni gweithred
-      already_silenced: Mae'r cyfrif hwn eisoes wedi'i dewi.
+      already_silenced: Mae'r cyfrif hwn eisoes wedi'i gyfyngu.
       already_suspended: Mae'r cyfrif hwn eisoes wedi'i atal.
       title: Cyflawni gweithred cymedroli ar %{acct}
     account_moderation_notes:
@@ -1233,6 +1232,12 @@ cy:
       view_strikes: Gweld rybuddion y gorffennol yn erbyn eich cyfrif
     too_fast: Cafodd y ffurflen ei chyflwyno'n rhy gyflym, ceisiwch eto.
     use_security_key: Defnyddiwch allwedd diogelwch
+  author_attribution:
+    example_title: Testun enghreifftiol
+    hint_html: Rheolwch sut rydych chi'n cael eich canmol pan fydd dolenni'n cael eu rhannu ar Mastodon.
+    more_from_html: Mwy gan %{name}
+    s_blog: Blog %{name}
+    title: Priodoliad awdur
   challenge:
     confirm: Parhau
     hint_html: "<strong>Awgrym:</strong> Fyddwn ni ddim yn gofyn i chi am eich cyfrinair eto am yr awr nesaf."
@@ -1307,8 +1312,6 @@ cy:
       your_appeal_approved: Mae eich apêl wedi'i chymeradwyo
       your_appeal_pending: Rydych wedi cyflwyno apêl
       your_appeal_rejected: Mae eich apêl wedi'i gwrthod
-  domain_validator:
-    invalid_domain: ddim yn enw parth dilys
   edit_profile:
     basic_information: Gwybodaeth Sylfaenol
     hint_html: "<strong>Addaswch yr hyn y mae pobl yn ei weld ar eich proffil cyhoeddus ac wrth ymyl eich postiadau.</strong> Mae pobl eraill yn fwy tebygol o'ch dilyn yn ôl a rhyngweithio â chi pan fydd gennych broffil wedi'i lenwi a llun proffil."
@@ -1856,31 +1859,12 @@ cy:
     edited_at_html: Wedi'i olygu %{date}
     errors:
       in_reply_not_found: Nid yw'n ymddangos bod y postiad rydych chi'n ceisio ei ateb yn bodoli.
-    open_in_web: Agor yn y we
     over_character_limit: wedi mynd y tu hwnt i'r terfyn nodau o %{max}
     pin_errors:
       direct: Nid oes modd pinio postiadau sy'n weladwy i ddefnyddwyr a grybwyllwyd yn unig
       limit: Rydych chi eisoes wedi pinio uchafswm nifer y postiadau
       ownership: Nid oes modd pinio postiad rhywun arall
       reblog: Nid oes modd pinio hwb
-    poll:
-      total_people:
-        few: "%{count} person"
-        many: "%{count} person"
-        one: "%{count} berson"
-        other: "%{count} person"
-        two: "%{count} person"
-        zero: "%{count} o bersonau"
-      total_votes:
-        few: "%{count} pleidlais"
-        many: "%{count} pleidlais"
-        one: "%{count} bleidlais"
-        other: "%{count} pleidlais"
-        two: "%{count} pleidlais"
-        zero: "%{count} o bleidleisiau"
-      vote: Pleidlais
-    show_more: Dangos mwy
-    show_thread: Dangos edefyn
     title: '%{name}: "%{quote}"'
     visibilities:
       direct: Uniongyrchol
@@ -2083,6 +2067,7 @@ cy:
     instructions_html: Copïwch a gludo'r cod isod i HTML eich gwefan. Yna ychwanegwch gyfeiriad eich gwefan i un o'r meysydd ychwanegol ar eich proffil o'r tab "Golygu proffil" a chadw'r newidiadau.
     verification: Dilysu
     verified_links: Eich dolenni wedi'u dilysu
+    website_verification: Gwirio gwefan
   webauthn_credentials:
     add: Ychwanegu allwedd ddiogelwch newydd
     create:

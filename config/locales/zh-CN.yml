@@ -7,7 +7,6 @@ zh-CN:
     hosted_on: 运行在 %{domain} 上的 Mastodon 实例
     title: 关于本站
   accounts:
-    follow: 关注
     followers:
       other: 关注者
     following: 正在关注
@@ -23,7 +22,7 @@ zh-CN:
   admin:
     account_actions:
       action: 执行操作
-      already_silenced: 此帐户已受限。
+      already_silenced: 此账户已受限。
       already_suspended: 此帐户已被封禁。
       title: 在 %{acct} 上执行管理操作
     account_moderation_notes:
@@ -1143,6 +1142,12 @@ zh-CN:
       view_strikes: 查看针对你账号的记录
     too_fast: 表单提交过快，请重试。
     use_security_key: 使用安全密钥
+  author_attribution:
+    example_title: 示例文本
+    hint_html: 控制在 Mastodon 上分享的链接如何显示你的署名。
+    more_from_html: 来自 %{name} 的更多内容
+    s_blog: "%{name} 的博客"
+    title: 作者归属
   challenge:
     confirm: 继续
     hint_html: "<strong>注意：</strong>接下来一小时内我们不会再次要求你输入密码。"
@@ -1217,8 +1222,6 @@ zh-CN:
       your_appeal_approved: 你的申诉已被批准
       your_appeal_pending: 你已提交申诉
       your_appeal_rejected: 你的申诉已被驳回
-  domain_validator:
-    invalid_domain: 不是一个有效的域名
   edit_profile:
     basic_information: 基本信息
     hint_html: "<strong>自定义公开资料和嘟文旁边显示的内容。</strong>当您填写完整的个人资料并设置了头像时，其他人更有可能关注您并与您互动。"
@@ -1706,21 +1709,12 @@ zh-CN:
     edited_at_html: 编辑于 %{date}
     errors:
       in_reply_not_found: 你回复的嘟文似乎不存在
-    open_in_web: 在站内打开
     over_character_limit: 超过了 %{max} 字的限制
     pin_errors:
       direct: 仅对被提及的用户可见的帖子不能被置顶
       limit: 你所固定的嘟文数量已达到上限
       ownership: 不能置顶别人的嘟文
       reblog: 不能置顶转嘟
-    poll:
-      total_people:
-        other: "%{count} 人"
-      total_votes:
-        other: "%{count} 票"
-      vote: 投票
-    show_more: 显示更多
-    show_thread: 显示全部对话
     title: "%{name}：“%{quote}”"
     visibilities:
       direct: 私信
@@ -1918,6 +1912,7 @@ zh-CN:
     instructions_html: 将下面的代码复制并粘贴到你网站的HTML中。然后在“编辑个人资料”选项卡中的附加字段之一添加你网站的地址，并保存更改。
     verification: 验证
     verified_links: 你已验证的链接
+    website_verification: 网站验证
   webauthn_credentials:
     add: 添加新的安全密钥
     create:

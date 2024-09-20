@@ -55,11 +55,11 @@ const initialState = ImmutableMap({
   markNewForDelete: false,
 });
 
-export const notificationToMap = (notification, markForDelete = false) => ImmutableMap({
+export const notificationToMap = (notification) => ImmutableMap({
   id: notification.id,
   type: notification.type,
   account: notification.account.id,
-  markedForDelete: markForDelete,
+  markedForDelete: false,
   status: notification.status ? notification.status.id : null,
   report: notification.report ? fromJS(notification.report) : null,
   event: notification.event ? fromJS(notification.event) : null,
@@ -76,7 +76,7 @@ const normalizeNotification = (state, notification, usePendingItems) => {
   }
 
   if (usePendingItems || !state.get('pendingItems').isEmpty()) {
-    return state.update('pendingItems', list => list.unshift(notificationToMap(notification, markNewForDelete))).update('unread', unread => unread + 1);
+    return state.update('pendingItems', list => list.unshift(notificationToMap(notification).set('markForDelete', markNewForDelete))).update('unread', unread => unread + 1);
   }
 
   if (shouldCountUnreadNotifications(state)) {
@@ -90,7 +90,7 @@ const normalizeNotification = (state, notification, usePendingItems) => {
       list = list.take(20);
     }
 
-    return list.unshift(notificationToMap(notification, markNewForDelete));
+    return list.unshift(notificationToMap(notification).set('markForDelete', markNewForDelete));
   });
 };
 
@@ -104,7 +104,7 @@ const expandNormalizedNotifications = (state, notifications, next, isLoadingMore
 
   const markNewForDelete = state.get('markNewForDelete');
   const lastReadId = state.get('lastReadId');
-  const newItems = ImmutableList(notifications.map((notification) => notificationToMap(notification, markNewForDelete)));
+  const newItems = ImmutableList(notifications.map((notification) => notificationToMap(notification).set('markForDelete', markNewForDelete)));
 
   return state.withMutations(mutable => {
     if (!newItems.isEmpty()) {

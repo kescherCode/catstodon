@@ -12,7 +12,7 @@ import DeleteIcon from '@/material-icons/400-24px/delete.svg?react';
 import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import { initBlockModal } from 'flavours/glitch/actions/blocks';
 import { initMuteModal } from 'flavours/glitch/actions/mutes';
-import { acceptNotificationRequest, dismissNotificationRequest } from 'flavours/glitch/actions/notifications';
+import { acceptNotificationRequest, dismissNotificationRequest } from 'flavours/glitch/actions/notification_requests';
 import { initReport } from 'flavours/glitch/actions/reports';
 import { Avatar } from 'flavours/glitch/components/avatar';
 import { CheckBox } from 'flavours/glitch/components/check_box';
@@ -40,11 +40,11 @@ export const NotificationRequest = ({ id, accountId, notificationsCount, checked
   const { push: historyPush } = useHistory();
 
   const handleDismiss = useCallback(() => {
-    dispatch(dismissNotificationRequest(id));
+    dispatch(dismissNotificationRequest({ id }));
   }, [dispatch, id]);
 
   const handleAccept = useCallback(() => {
-    dispatch(acceptNotificationRequest(id));
+    dispatch(acceptNotificationRequest({ id }));
   }, [dispatch, id]);
 
   const handleMute = useCallback(() => {
