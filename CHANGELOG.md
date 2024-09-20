@@ -4,6 +4,11 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.0-beta.2+cat.1.0.1] - 2024-09-20
+
+- Fix clicking posts navigating to an invalid ("undefined") page
+  - This has been entirely a Catstodon issue introduced in the merge of the prior version.
+
 ## [v4.3.0-beta.2+cat.1.0.0] - 2024-09-20
 
 - Upstream changes
