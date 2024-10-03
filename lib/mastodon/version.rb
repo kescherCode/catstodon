@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def default_prerelease
-      'beta.2'
+      'rc.1'
     end
 
     def prerelease
@@ -25,7 +25,7 @@ module Mastodon
     end
 
     def catstodon_revision
-      '1.0.1+nightly'
+      '1.0.0'
     end
 
     def build_metadata

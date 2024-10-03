@@ -1174,7 +1174,6 @@ pt-PT:
   crypto:
     errors:
       invalid_key: não é uma chave Ed25519 ou Curve25519 válida
-      invalid_signature: não é uma assinatura Ed25519 válida
   date:
     formats:
       default: "%d %b %Y"
@@ -1680,7 +1679,6 @@ pt-PT:
     delete: Eliminação da conta
     development: Desenvolvimento
     edit_profile: Editar perfil
-    export: Exportar dados
     featured_tags: Etiquetas destacadas
     import: Importar
     import_and_export: Importar e exportar

@@ -23,6 +23,8 @@ RSpec.describe 'Tag' do
 
         expect(response)
           .to have_http_status(200)
+        expect(response.content_type)
+          .to start_with('application/json')
         expect(response.parsed_body.pluck(:id))
           .to match_array(expected_statuses.map { |status| status.id.to_s })
           .and not_include(private_status.id)
@@ -85,6 +87,8 @@ RSpec.describe 'Tag' do
             prev: api_v1_timelines_tag_url(limit: params[:limit], min_id: love_status.id),
             next: api_v1_timelines_tag_url(limit: params[:limit], max_id: love_status.id)
           )
+        expect(response.content_type)
+          .to start_with('application/json')
       end
     end
 
@@ -111,6 +115,8 @@ RSpec.describe 'Tag' do
           subject
 
           expect(response).to have_http_status(422)
+          expect(response.content_type)
+            .to start_with('application/json')
         end
       end
 

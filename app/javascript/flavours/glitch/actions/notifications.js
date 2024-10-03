@@ -10,7 +10,7 @@ import api, { getLinks } from '../api';
 import { unescapeHTML } from '../utils/html';
 import { requestNotificationPermission } from '../utils/notifications';
 
-import { fetchFollowRequests, fetchRelationships } from './accounts';
+import { fetchFollowRequests } from './accounts';
 import {
   importFetchedAccount,
   importFetchedAccounts,
@@ -68,14 +68,6 @@ defineMessages({
   mention: { id: 'notification.mention', defaultMessage: '{name} mentioned you' },
 });
 
-const fetchRelatedRelationships = (dispatch, notifications) => {
-  const accountIds = notifications.filter(item => ['follow', 'follow_request', 'admin.sign_up'].indexOf(item.type) !== -1).map(item => item.account.id);
-
-  if (accountIds.length > 0) {
-    dispatch(fetchRelationships(accountIds));
-  }
-};
-
 export const loadPending = () => ({
   type: NOTIFICATIONS_LOAD_PENDING,
 });
@@ -118,8 +110,6 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
 
 
       dispatch(notificationsUpdate({ notification, preferPendingItems, playSound: playSound && !filtered}));
-
-      fetchRelatedRelationships(dispatch, [notification]);
     } else if (playSound && !filtered) {
       dispatch({
         type: NOTIFICATIONS_UPDATE_NOOP,
@@ -212,7 +202,6 @@ export function expandNotifications({ maxId = undefined, forceLoad = false }) {
       dispatch(importFetchedAccounts(response.data.filter(item => item.report).map(item => item.report.target_account)));
 
       dispatch(expandNotificationsSuccess(response.data, next ? next.uri : null, isLoadingMore, isLoadingRecent, isLoadingRecent && preferPendingItems));
-      fetchRelatedRelationships(dispatch, response.data);
       dispatch(submitMarkers());
     } catch(error) {
       dispatch(expandNotificationsFail(error, isLoadingMore));

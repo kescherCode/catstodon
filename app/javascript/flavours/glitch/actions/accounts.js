@@ -1,4 +1,5 @@
 import { browserHistory } from 'flavours/glitch/components/router';
+import { debounceWithDispatchAndArguments } from 'flavours/glitch/utils/debounce';
 
 import api, { getLinks } from '../api';
 
@@ -462,6 +463,20 @@ export function expandFollowingFail(id, error) {
   };
 }
 
+const debouncedFetchRelationships = debounceWithDispatchAndArguments((dispatch, ...newAccountIds) => {
+  if (newAccountIds.length === 0) {
+    return;
+  }
+
+  dispatch(fetchRelationshipsRequest(newAccountIds));
+
+  api().get(`/api/v1/accounts/relationships?with_suspended=true&${newAccountIds.map(id => `id[]=${id}`).join('&')}`).then(response => {
+    dispatch(fetchRelationshipsSuccess({ relationships: response.data }));
+  }).catch(error => {
+    dispatch(fetchRelationshipsFail(error));
+  });
+}, { delay: 500 });
+
 export function fetchRelationships(accountIds) {
   return (dispatch, getState) => {
     const state = getState();
@@ -473,13 +488,7 @@ export function fetchRelationships(accountIds) {
       return;
     }
 
-    dispatch(fetchRelationshipsRequest(newAccountIds));
-
-    api().get(`/api/v1/accounts/relationships?with_suspended=true&${newAccountIds.map(id => `id[]=${id}`).join('&')}`).then(response => {
-      dispatch(fetchRelationshipsSuccess({ relationships: response.data }));
-    }).catch(error => {
-      dispatch(fetchRelationshipsFail(error));
-    });
+    debouncedFetchRelationships(dispatch, ...newAccountIds);
   };
 }
 

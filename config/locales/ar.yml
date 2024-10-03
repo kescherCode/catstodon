@@ -1178,7 +1178,6 @@ ar:
   crypto:
     errors:
       invalid_key: ليس بمفتاح Ed25519 أو Curve25519 صالح
-      invalid_signature: ليس بتوقيع Ed25519 صالح
   date:
     formats:
       default: "%d %b %Y"
@@ -1720,7 +1719,6 @@ ar:
     delete: حذف الحسابات
     development: التطوير
     edit_profile: تعديل الصفحة التعريفية
-    export: تصدير البيانات
     featured_tags: الوسوم الشائعة
     import: استيراد
     import_and_export: استيراد وتصدير
