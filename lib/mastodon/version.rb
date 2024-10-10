@@ -9,7 +9,7 @@ module Mastodon
     end
 
     def minor
-      3
+      4
     end
 
     def patch
@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def default_prerelease
-      ''
+      'alpha.1'
     end
 
     def prerelease
@@ -25,7 +25,7 @@ module Mastodon
     end
 
     def catstodon_revision
-      '1.0.0'
+      'nightly'
     end
 
     def build_metadata

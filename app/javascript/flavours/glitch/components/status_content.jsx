@@ -41,13 +41,14 @@ const isLinkMisleading = (link) => {
     case Node.TEXT_NODE:
       linkTextParts.push(node.textContent);
       break;
-    case Node.ELEMENT_NODE:
+    case Node.ELEMENT_NODE: {
       if (node.classList.contains('invisible')) return;
       const children = node.childNodes;
       for (let i = 0; i < children.length; i++) {
         walk(children[i]);
       }
       break;
+    }
     }
   };
 

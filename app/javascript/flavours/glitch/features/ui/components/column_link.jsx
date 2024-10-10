@@ -15,7 +15,7 @@ const ColumnLink = ({ icon, activeIcon, iconComponent, activeIconComponent, text
 
   if (href) {
     return (
-      <a href={href} className={className} data-method={method} title={text} {...other}>
+      <a href={href} className={className} data-method={method} {...other}>
         {active ? activeIconElement : iconElement}
         <span>{text}</span>
         {badgeElement}
@@ -23,7 +23,7 @@ const ColumnLink = ({ icon, activeIcon, iconComponent, activeIconComponent, text
     );
   } else if (to) {
     return (
-      <NavLink to={to} className={className} title={text} exact {...other}>
+      <NavLink to={to} className={className} exact {...other}>
         {active ? activeIconElement : iconElement}
         <span>{text}</span>
         {badgeElement}
@@ -37,7 +37,7 @@ const ColumnLink = ({ icon, activeIcon, iconComponent, activeIconComponent, text
     };
     return (
       // eslint-disable-next-line jsx-a11y/anchor-is-valid -- intentional to have the same look and feel as other menu items
-      <a href='#' onClick={onClick && handleOnClick} className={className} title={text} {...other} tabIndex={0}>
+      <a href='#' onClick={onClick && handleOnClick} className={className} {...other} tabIndex={0}>
         {iconElement}
         <span>{text}</span>
         {badgeElement}

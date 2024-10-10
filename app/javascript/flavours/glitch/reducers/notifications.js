@@ -369,9 +369,10 @@ export default function notifications(state = initialState, action) {
     }
     return markAllForDelete(st, action.yes);
 
-  case NOTIFICATIONS_MARK_AS_READ:
+  case NOTIFICATIONS_MARK_AS_READ: {
     const lastNotification = state.get('items').find(item => item !== null);
     return lastNotification ? recountUnread(state, lastNotification.get('id')) : state;
+  }
 
   default:
     return state;
