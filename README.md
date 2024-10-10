@@ -2,30 +2,33 @@
 
 ## Introduction
 
-This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.com/glitch-soc/mastodon), with changes
-made to suit [CatCatNya~](https://catcatnya.com).
-I intend to contribute some useful differences back to [glitch-soc](https://github.com/glitch-soc/mastodon)
-and [vanilla Mastodon](https://github.com/mastodon/mastodon).
+This Mastodon fork is based on the [glitch-soc Fork of Mastodon](https://github.com/glitch-soc/mastodon), historically
+with changes made to suit [CatCatNya~](https://catcatnya.com).
+Some changes may be contributed back to [glitch-soc](https://github.com/glitch-soc/mastodon). Non-security contributions
+to Vanilla Mastodon have ceased for Fediverse-political reasons.
 
 To install, take a look at [glitch-soc.github.io/docs/](https://glitch-soc.github.io/docs/). The instructions and
 features are the same, except for the differences outlined below.
 
 Contributing guidelines are available [here](CONTRIBUTING.md).
 
-Note: Use the main branch only for forks. `develop` branch may, at times,
-be force-pushed to (mostly for undoing cherry-picking of vanilla commits when upstream adopts them).
-I highly suggest only ever running the `main` branch in production, as is done for [CatCatNya~](https://catcatnya.com)!
-I also highly suggest not rebasing on this if you are maintaining a fork,
-instead, use merge (fast-forward, if possible, with merge commit otherwise).
+Note: **Use the `main` branch only for forks.** The `develop` branch is experimental, has no stable state, and is only
+used for testing changes on [the staging instance](https://cts.kescher.at).
+For production, it is suggested you run:
+
+- any of the `stable/*` branches or stable tags
+  - do note, however, that these branches/tags have a similar support cycle to upstream, and therefore also to vanilla
+    Mastodon!
+- the `main` branch, which is comparable to "nightly" versions in vanilla Mastodon.
 
 ## Differences
 
-- Some files are adjusted specifically for the CatCatNya~ instance. Specifically, these:
+- Some files are adjusted specifically for the CatCatNya~ instance, and you may want revert/change them. Specifically,
+  these:
   - sounds/boop.mp3
   - sounds/boop.ogg
-    <br>You might want to revert these to the upstream files (or your own versions!) if you decide to use this fork for
-    your own instance.
-- The rate limits for authenticated users have been relaxed a bit.
+- The rate limits for authenticated users have been relaxed a bit. Vanilla Mastodon, and by extension glitch-soc, sadly
+  has rate-limits that make it possible to run into these rate-limits during normal usage.
 - The API endpoint `/api/v1/custom_emojis` is no longer affected by AUTHORIZED_FETCH, allowing anyone to copy custom
   emojis.
 - Allow higher resolution images. (4096x4096 instead of the previous limit of 3840x2160)
@@ -49,13 +52,13 @@ instead, use merge (fast-forward, if possible, with merge commit otherwise).
   - This is simply to allow custom emoji compat with other fedi software.
   - Original patch by hazycora: https://github.com/TheEssem/mastodon/commit/2dde7a25a47a23f827e2fd2d07f55438f9985181
 
-## Previous differences now merged into glitch-soc
+## Contributions to glitch-soc Mastodon
 
 - Fixed incorrect upload size limit display when adding new a new custom
   emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763))
 - Everything merged into vanilla Mastodon
 
-## Previous differences now merged into vanilla Mastodon
+## Contributions to Vanilla Mastodon
 
 - The period of retention of IP addresses and sessions was made
   configurable. ([Pull request](https://github.com/mastodon/mastodon/pull/18757))
