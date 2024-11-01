@@ -12,13 +12,16 @@ features are the same, except for the differences outlined below.
 
 Contributing guidelines are available [here](CONTRIBUTING.md).
 
-Note: **Use the `main` branch only for forks.** The `develop` branch is experimental, has no stable state, and is only
-used for testing changes on [the staging instance](https://cts.kescher.at).
+Note: **Use the `main` branch only for forks.** The `develop` and `stable-develop/*` branches are experimental, have no
+stable state, and are only used for testing changes e.g. [the staging instance](https://cts.kescher.at) or temporary
+test instances.
 For production, it is suggested you run:
 
 - any of the `stable/*` branches or stable tags
   - do note, however, that these branches/tags have a similar support cycle to upstream, and therefore also to vanilla
     Mastodon!
+  - New Catstodon-exclusive features will only be introduced to the main branch. The `stable` branches will _not_ get
+    backports of new features.
 - the `main` branch, which is comparable to "nightly" versions in vanilla Mastodon.
 
 ## Differences
