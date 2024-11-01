@@ -159,7 +159,5 @@
   "status.local_only": "Only visible from your instance",
   "status.react": "React",
   "status.show_filter_reason": "Show anyway",
-  "status.show_less": "Show less",
-  "status.show_more": "Show more",
   "status.uncollapse": "Uncollapse"
 }

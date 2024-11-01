@@ -21,6 +21,7 @@ ca:
       one: Tut
       other: Tuts
     posts_tab_heading: Tuts
+    self_follow_error: No es permet seguir el compte propi
   admin:
     account_actions:
       action: Realitza l'acció
@@ -1165,7 +1166,6 @@ ca:
     use_security_key: Usa clau de seguretat
   author_attribution:
     example_title: Text d'exemple
-    hint_html: Controleu com se us acredita quan els enllaços es comparteixen a Mastodon.
     more_from_html: Més de %{name}
     s_blog: Blog de %{name}
     title: Atribució d'autor

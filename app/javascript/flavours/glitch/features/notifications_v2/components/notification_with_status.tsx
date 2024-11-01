@@ -16,6 +16,7 @@ import {
 import type { IconProp } from 'flavours/glitch/components/icon';
 import { Icon } from 'flavours/glitch/components/icon';
 import Status from 'flavours/glitch/containers/status_container';
+import { getStatusHidden } from 'flavours/glitch/selectors/filters';
 import { useAppSelector, useAppDispatch } from 'flavours/glitch/store';
 
 import { DisplayedName } from './displayed_name';
@@ -51,6 +52,12 @@ export const NotificationWithStatus: React.FC<{
     (state) => state.statuses.getIn([statusId, 'visibility']) === 'direct',
   );
 
+  const isFiltered = useAppSelector(
+    (state) =>
+      statusId &&
+      getStatusHidden(state, { id: statusId, contextType: 'notifications' }),
+  );
+
   const handlers = useMemo(
     () => ({
       open: () => {
@@ -77,7 +84,7 @@ export const NotificationWithStatus: React.FC<{
     [dispatch, statusId],
   );
 
-  if (!statusId) return null;
+  if (!statusId || isFiltered) return null;
 
   return (
     <HotKeys handlers={handlers}>
