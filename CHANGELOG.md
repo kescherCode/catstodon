@@ -4,6 +4,10 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.1+cat.1.0.0] - 2024-11-01
+
+- Upstream changes (see [upstream release](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.1)).
+
 ## [v4.3.0+cat.1.0.2] - 2024-10-12
 
 - Upstream changes
