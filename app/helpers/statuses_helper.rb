@@ -52,7 +52,7 @@ module StatusesHelper
   def status_description(status)
     components = [[media_summary(status), status_text_summary(status)].compact_blank.join(' · ')]
 
-    if status.spoiler_text.blank?
+    if status.spoiler_text.blank? || ActiveRecord::Type::Boolean.new.deserialize(params[:unrestricted_preview])
       components << status.text
       components << poll_summary(status)
     end

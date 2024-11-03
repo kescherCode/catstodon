@@ -54,6 +54,8 @@ For production, it is suggested you run:
 - Allow dashes in emoji shortcodes
   - This is simply to allow custom emoji compat with other fedi software.
   - Original patch by hazycora: https://github.com/TheEssem/mastodon/commit/2dde7a25a47a23f827e2fd2d07f55438f9985181
+- Allow appending "?unrestricted_preview=true" to post links to bypass CWs and sensitive-markings of media for link
+  previews.
 
 ## Contributions to glitch-soc Mastodon
 

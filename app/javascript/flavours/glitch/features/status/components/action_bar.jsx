@@ -57,6 +57,7 @@ const messages = defineMessages({
   admin_status: { id: 'status.admin_status', defaultMessage: 'Open this post in the moderation interface' },
   admin_domain: { id: 'status.admin_domain', defaultMessage: 'Open moderation interface for {domain}' },
   copy: { id: 'status.copy', defaultMessage: 'Copy link to post' },
+  copyUnrestricted: { id: 'status.copyUnrestricted', defaultMessage: 'Copy link to post (no CW preview)' },
   openOriginalPage: { id: 'account.open_original_page', defaultMessage: 'Open original page' },
 });
 
@@ -157,6 +158,11 @@ class ActionBar extends PureComponent {
     navigator.clipboard.writeText(url);
   };
 
+  handleCopyUnrestricted = () => {
+    const url = `${this.props.status.get('url')}?unrestricted_preview=true`;
+    navigator.clipboard.writeText(url);
+  };
+
   render () {
     const { status, intl } = this.props;
     const { signedIn, permissions } = this.props.identity;
@@ -174,6 +180,10 @@ class ActionBar extends PureComponent {
     }
 
     menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
+
+    if (publicStatus) {
+      menu.push({ text: intl.formatMessage(messages.copyUnrestricted), action: this.handleCopyUnrestricted });
+    }
 
     if (publicStatus && 'share' in navigator) {
       menu.push({ text: intl.formatMessage(messages.share), action: this.handleShare });

@@ -148,6 +148,7 @@
   "settings.wide_view": "Wide view (Desktop mode only)",
   "settings.wide_view_hint": "Stretches columns to better fill the available space.",
   "status.collapse": "Collapse",
+  "status.copyUnrestricted": "Copy link to post (no CW preview)",
   "status.filtered": "Filtered",
   "status.has_audio": "Features attached audio files",
   "status.has_pictures": "Features attached pictures",

@@ -64,6 +64,7 @@ const messages = defineMessages({
   admin_status: { id: 'status.admin_status', defaultMessage: 'Open this post in the moderation interface' },
   admin_domain: { id: 'status.admin_domain', defaultMessage: 'Open moderation interface for {domain}' },
   copy: { id: 'status.copy', defaultMessage: 'Copy link to post' },
+  copyUnrestricted: { id: 'status.copyUnrestricted', defaultMessage: 'Copy link to post (no CW preview)' },
   hide: { id: 'status.hide', defaultMessage: 'Hide post' },
   edited: { id: 'status.edited', defaultMessage: 'Edited {date}' },
   filter: { id: 'status.filter', defaultMessage: 'Filter this post' },
@@ -205,6 +206,11 @@ class StatusActionBar extends ImmutablePureComponent {
     navigator.clipboard.writeText(url);
   };
 
+  handleCopyUnrestricted = () => {
+    const url = `${this.props.status.get('url')}?unrestricted_preview=true`;
+    navigator.clipboard.writeText(url);
+  };
+
   handleHideClick = () => {
     this.props.onFilter();
   };
@@ -236,6 +242,10 @@ class StatusActionBar extends ImmutablePureComponent {
     }
 
     menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
+
+    if (publicStatus) {
+      menu.push({ text: intl.formatMessage(messages.copyUnrestricted), action: this.handleCopyUnrestricted });
+    }
 
     if (publicStatus && 'share' in navigator) {
       menu.push({ text: intl.formatMessage(messages.share), action: this.handleShareClick });
