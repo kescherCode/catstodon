@@ -181,7 +181,7 @@ class ActionBar extends PureComponent {
 
     menu.push({ text: intl.formatMessage(messages.copy), action: this.handleCopy });
 
-    if (publicStatus) {
+    if (publicStatus && !isRemote) {
       menu.push({ text: intl.formatMessage(messages.copyUnrestricted), action: this.handleCopyUnrestricted });
     }
 
