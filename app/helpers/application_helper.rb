@@ -244,12 +244,12 @@ module ApplicationHelper
     preload_pack_asset "locales/#{current_flavour}/#{I18n.locale}-json.js" if supported_locales.include?(I18n.locale.to_s)
   end
 
-  def flavoured_javascript_pack_tag(pack_name, **options)
-    javascript_pack_tag("flavours/#{current_flavour}/#{pack_name}", **options)
+  def flavoured_javascript_pack_tag(pack_name, **)
+    javascript_pack_tag("flavours/#{current_flavour}/#{pack_name}", **)
   end
 
-  def flavoured_stylesheet_pack_tag(pack_name, **options)
-    stylesheet_pack_tag("flavours/#{current_flavour}/#{pack_name}", **options)
+  def flavoured_stylesheet_pack_tag(pack_name, **)
+    stylesheet_pack_tag("flavours/#{current_flavour}/#{pack_name}", **)
   end
 
   def preload_signed_in_js_packs
