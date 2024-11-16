@@ -20,6 +20,7 @@ import {
   SubscribedLanguagesModal,
   ClosedRegistrationsModal,
   IgnoreNotificationsModal,
+  AnnualReportModal,
 } from 'flavours/glitch/features/ui/util/async-components';
 import { getScrollbarWidth } from 'flavours/glitch/utils/scrollbar';
 
@@ -82,6 +83,7 @@ export const MODAL_COMPONENTS = {
   'INTERACTION': InteractionModal,
   'CLOSED_REGISTRATIONS': ClosedRegistrationsModal,
   'IGNORE_NOTIFICATIONS': IgnoreNotificationsModal,
+  'ANNUAL_REPORT': AnnualReportModal,
 };
 
 export default class ModalRoot extends PureComponent {

@@ -350,16 +350,16 @@ RSpec.describe FeedManager do
   end
 
   describe '#push_to_list' do
-    let(:owner) { Fabricate(:account, username: 'owner') }
+    let(:list_owner) { Fabricate(:account, username: 'list_owner') }
     let(:alice) { Fabricate(:account, username: 'alice') }
     let(:bob)   { Fabricate(:account, username: 'bob') }
     let(:eve)   { Fabricate(:account, username: 'eve') }
-    let(:list)  { Fabricate(:list, account: owner) }
+    let(:list)  { Fabricate(:list, account: list_owner) }
 
     before do
-      owner.follow!(alice)
-      owner.follow!(bob)
-      owner.follow!(eve)
+      list_owner.follow!(alice)
+      list_owner.follow!(bob)
+      list_owner.follow!(eve)
 
       list.accounts << alice
       list.accounts << bob
@@ -384,7 +384,7 @@ RSpec.describe FeedManager do
       end
 
       it 'pushes statuses that are replies to list owner' do
-        status = Fabricate(:status, text: 'Hello world', account: owner)
+        status = Fabricate(:status, text: 'Hello world', account: list_owner)
         reply  = Fabricate(:status, text: 'Nay', thread: status, account: bob)
         expect(subject.push_to_list(list, reply)).to be true
       end
@@ -407,7 +407,7 @@ RSpec.describe FeedManager do
       end
 
       it 'pushes statuses that are replies to list owner' do
-        status = Fabricate(:status, text: 'Hello world', account: owner)
+        status = Fabricate(:status, text: 'Hello world', account: list_owner)
         reply  = Fabricate(:status, text: 'Nay', thread: status, account: bob)
         expect(subject.push_to_list(list, reply)).to be true
       end
@@ -436,7 +436,7 @@ RSpec.describe FeedManager do
       end
 
       it 'pushes statuses that are replies to list owner' do
-        status = Fabricate(:status, text: 'Hello world', account: owner)
+        status = Fabricate(:status, text: 'Hello world', account: list_owner)
         reply  = Fabricate(:status, text: 'Nay', thread: status, account: bob)
         expect(subject.push_to_list(list, reply)).to be true
       end

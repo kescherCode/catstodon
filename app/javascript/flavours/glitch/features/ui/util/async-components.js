@@ -229,3 +229,7 @@ export function NotificationRequest () {
 export function LinkTimeline () {
   return import(/*webpackChunkName: "features/glitch/link_timeline" */'../../link_timeline');
 }
+
+export function AnnualReportModal () {
+  return import(/*webpackChunkName: "flavours/glitch/async/modals/annual_report_modal" */'../components/annual_report_modal');
+}

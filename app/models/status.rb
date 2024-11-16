@@ -131,6 +131,7 @@ class Status < ApplicationRecord
   }
   scope :distributable_visibility, -> { where(visibility: %i(public unlisted)) }
   scope :list_eligible_visibility, -> { where(visibility: %i(public unlisted private)) }
+  scope :not_direct_visibility, -> { where.not(visibility: :direct) }
 
   scope :not_local_only, -> { where(local_only: [false, nil]) }
 
