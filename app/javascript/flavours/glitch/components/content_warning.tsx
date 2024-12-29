@@ -17,9 +17,15 @@ export const ContentWarning: React.FC<{
       aria-expanded={expanded}
     >
       {expanded ? (
-        <FormattedMessage id='status.show_less' defaultMessage='Show less' />
+        <FormattedMessage
+          id='content_warning.hide'
+          defaultMessage='Hide post'
+        />
       ) : (
-        <FormattedMessage id='status.show_more' defaultMessage='Show more' />
+        <FormattedMessage
+          id='content_warning.show_more'
+          defaultMessage='Show more'
+        />
       )}
       {icons}
     </button>

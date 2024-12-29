@@ -4,6 +4,11 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.2+cat+1.0.0] - 2024-12-30
+
+- Upstream changes, see [GitHub Release](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.2)
+  or [CHANGELOG_glitch.md](CHANGELOG_glitch.md)
+
 ## [v4.3.1+cat.1.0.2] - 2024-11-17
 
 - Bump Ruby version to 3.3.6

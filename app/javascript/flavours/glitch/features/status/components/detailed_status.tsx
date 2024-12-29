@@ -204,7 +204,7 @@ export const DetailedStatus: React.FC<{
     ) {
       media.push(<AttachmentList media={status.get('media_attachments')} />);
     } else if (
-      ['image', 'gifv'].includes(
+      ['image', 'gifv', 'unknown'].includes(
         status.getIn(['media_attachments', 0, 'type']) as string,
       ) ||
       status.get('media_attachments').size > 1
