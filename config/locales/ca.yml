@@ -21,6 +21,7 @@ ca:
       one: Tut
       other: Tuts
     posts_tab_heading: Tuts
+    self_follow_error: No es permet seguir el compte propi
   admin:
     account_actions:
       action: Realitza l'acció
@@ -186,6 +187,7 @@ ca:
         create_domain_block: Crea un bloqueig de domini
         create_email_domain_block: Crea un blocatge del domini del correu electrònic
         create_ip_block: Crear regla IP
+        create_relay: Crea un repetidor
         create_unavailable_domain: Crea un domini no disponible
         create_user_role: Crea Rol
         demote_user: Degrada l'usuari
@@ -197,14 +199,17 @@ ca:
         destroy_email_domain_block: Elimina el blocatge del domini del correu electrònic
         destroy_instance: Purga Domini
         destroy_ip_block: Eliminar regla IP
+        destroy_relay: Esborra el repetidor
         destroy_status: Elimina la publicació
         destroy_unavailable_domain: Esborra domini no disponible
         destroy_user_role: Destrueix Rol
         disable_2fa_user: Desactiva 2FA
         disable_custom_emoji: Desactiva l'emoji personalitzat
+        disable_relay: Desactiva el repetidor
         disable_sign_in_token_auth_user: Desactivar l'autenticació de token per correu-e per a l'usuari
         disable_user: Deshabilita l'usuari
         enable_custom_emoji: Activa l'emoji personalitzat
+        enable_relay: Activa el repetidor
         enable_sign_in_token_auth_user: Activar l'autenticació de token per correu-e per a l'usuari
         enable_user: Activa l'usuari
         memorialize_account: Memoritza el compte
@@ -246,6 +251,7 @@ ca:
         create_domain_block_html: "%{name} ha bloquejat el domini %{target}"
         create_email_domain_block_html: "%{name} ha blocat el domini de correu electrònic %{target}"
         create_ip_block_html: "%{name} ha creat una regla per a l'IP %{target}"
+        create_relay_html: "%{name} ha creat un repetidor %{target}"
         create_unavailable_domain_html: "%{name} ha aturat el lliurament al domini %{target}"
         create_user_role_html: "%{name} ha creat el rol %{target}"
         demote_user_html: "%{name} ha degradat l'usuari %{target}"
@@ -257,14 +263,17 @@ ca:
         destroy_email_domain_block_html: "%{name} ha desblocat el domini de correu electrònic %{target}"
         destroy_instance_html: "%{name} ha purgat el domini %{target}"
         destroy_ip_block_html: "%{name} ha esborrat la regla per a l'IP %{target}"
+        destroy_relay_html: "%{name} ha esborrat el repetidor %{target}"
         destroy_status_html: "%{name} ha eliminat el tut de %{target}"
         destroy_unavailable_domain_html: "%{name} ha représ el lliurament delivery al domini %{target}"
         destroy_user_role_html: "%{name} ha esborrat el rol %{target}"
         disable_2fa_user_html: "%{name} ha desactivat el requisit de dos factors per a l'usuari %{target}"
         disable_custom_emoji_html: "%{name} ha desactivat l'emoji %{target}"
+        disable_relay_html: "%{name} ha desactivat el repetidor %{target}"
         disable_sign_in_token_auth_user_html: "%{name} ha desactivat l'autenticació de token per correu-e per a %{target}"
         disable_user_html: "%{name} ha desactivat l'accés del usuari %{target}"
         enable_custom_emoji_html: "%{name} ha activat l'emoji %{target}"
+        enable_relay_html: "%{name} ha activat el repetidor %{target}"
         enable_sign_in_token_auth_user_html: "%{name} ha activat l'autenticació de token per correu-e per a %{target}"
         enable_user_html: "%{name} ha activat l'accés del usuari %{target}"
         memorialize_account_html: "%{name} ha convertit el compte %{target} en una pàgina de memorial"
@@ -817,8 +826,10 @@ ca:
       back_to_account: Torna a la pàgina del compte
       back_to_report: Torna a la pàgina de l'informe
       batch:
+        add_to_report: 'Afegiu a l''informe #%{id}'
         remove_from_report: Treu de l'informe
         report: Denuncia
+      contents: Continguts
       deleted: Eliminada
       favourites: Favorits
       history: Històric de versions
@@ -827,13 +838,17 @@ ca:
       media:
         title: Contingut multimèdia
       metadata: Metadada
+      no_history: Aquesta publicació no s'ha editat
       no_status_selected: No s’han canviat els estatus perquè cap no ha estat seleccionat
       open: Obre la publicació
       original_status: Publicació original
       reblogs: Impulsos
+      replied_to_html: En resposta a %{acct_link}
       status_changed: Publicació canviada
-      title: Estats del compte
+      status_title: Publicació de @%{name}
+      title: Publicacions del compte - @%{name}
       trending: Tendència
+      view_publicly: Vegeu en públic
       visibility: Visibilitat
       with_media: Amb contingut multimèdia
     strikes:
@@ -1165,9 +1180,11 @@ ca:
     use_security_key: Usa clau de seguretat
   author_attribution:
     example_title: Text d'exemple
-    hint_html: Controleu com se us acredita quan els enllaços es comparteixen a Mastodon.
+    hint_html: Escriviu notícies o un blog fora de Mastodon? Controleu quin crèdit rebeu quan es comparteixen aquí.
+    instructions: 'Assegureu-vos que aquest codi és a l''HTML de l''article:'
     more_from_html: Més de %{name}
     s_blog: Blog de %{name}
+    then_instructions: Després, afegiu el nom del domini de la publicació aquí sota.
     title: Atribució d'autor
   challenge:
     confirm: Continua
@@ -1365,20 +1382,6 @@ ca:
       merge_long: Mantenir els registres existents i afegir-ne de nous
       overwrite: Sobreescriu
       overwrite_long: Reemplaça els registres actuals amb els nous
-    overwrite_preambles:
-      blocking_html: Ets a punt per a <strong>reemplaçar la teva llista de bloquejos</strong> de fins a <strong>%{total_items} comptes</strong> des de <strong>%{filename}</strong>.
-      bookmarks_html: Ets a punt de <strong>reemplaçar els teus marcadors</strong> de fins a <strong>%{total_items} tuts</strong> des de <strong>%{filename}</strong>.
-      domain_blocking_html: Ets a punt de <strong>reemplaçar la teva llista de dominis bloquejats</strong> de fins a <strong>%{total_items} dominis</strong> des de <strong>%{filename}</strong>.
-      following_html: Ets a punt de <strong>seguir</strong> fins a <strong>%{total_items} comptes</strong> des de <strong>%{filename}</strong> i <strong>deixar de seguir a la resta</strong>.
-      lists_html: Estàs a punt de <strong>reemplaçar les teves llistes</strong> amb contactes de <strong>%{filename}</strong>. S'afegiran fins a <strong>%{total_items} comptes</strong> a les noves llistes.
-      muting_html: Ets a punt de <strong>reemplaçar la teva llista de comptes silenciats</strong> de fins a <strong>%{total_items} comptes</strong> des de <strong>%{filename}</strong>.
-    preambles:
-      blocking_html: Ets a punt de <strong>bloquejar</strong> fins a <strong>%{total_items} comptes</strong> des de <strong>%{filename}</strong>.
-      bookmarks_html: Ets a punt d'afegir fins a <strong>%{total_items} tuts</strong> des de <strong>%{filename}</strong> als teus <strong>marcadors</strong>.
-      domain_blocking_html: Ets a punt de <strong>bloquejar</strong> fins a <strong>%{total_items} dominis</strong> des de <strong>%{filename}</strong>.
-      following_html: Ets a punt de <strong>seguir</strong> fins a <strong>%{total_items} comptes</strong> des de <strong>%{filename}</strong>.
-      lists_html: Estàs a punt d'afegir <strong>%{total_items} comptes</strong> de <strong>%{filename}</strong> a les teves <strong>llistes</strong>. Es crearan noves llistes si no hi ha cap llista on afegir-los.
-      muting_html: Ets a punt de <strong>silenciar</strong> fins a <strong>%{total_items} comptes</strong> des de <strong>%{filename}</strong>.
     preface: Pots importar algunes les dades que has exportat des d'un altre servidor, com ara el llistat de les persones que estàs seguint o bloquejant.
     recent_imports: Importacions recents
     states:

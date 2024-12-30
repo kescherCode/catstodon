@@ -61,6 +61,38 @@ RSpec.describe Sanitize::Config do
     end
   end
 
+  describe '::MASTODON_STRICT' do
+    subject { described_class::MASTODON_STRICT }
+
+    around do |example|
+      original_web_domain = Rails.configuration.x.web_domain
+      example.run
+      Rails.configuration.x.web_domain = original_web_domain
+    end
+
+    it_behaves_like 'common HTML sanitization'
+
+    it 'sanitizes math to LaTeX' do
+      mathml = '<math><semantics><mrow><msup><mi>x</mi><mi>n</mi></msup><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x^n+y</annotation></semantics></math>'
+      expect(Sanitize.fragment(mathml, subject)).to eq '$x^n+y$'
+    end
+
+    it 'sanitizes math blocks to LaTeX' do
+      mathml = '<math display="block"><semantics><mrow><msup><mi>x</mi><mi>n</mi></msup><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x^n+y</annotation></semantics></math>'
+      expect(Sanitize.fragment(mathml, subject)).to eq '$$x^n+y$$'
+    end
+
+    it 'math sanitizer falls back to plaintext' do
+      mathml = '<math><semantics><msqrt><mi>x</mi></msqrt><annotation encoding="text/plain">sqrt(x)</annotation></semantics></math>'
+      expect(Sanitize.fragment(mathml, subject)).to eq 'sqrt(x)'
+    end
+
+    it 'prefers latex' do
+      mathml = '<math><semantics><msqrt><mi>x</mi></msqrt><annotation encoding="text/plain">sqrt(x)</annotation><annotation encoding="application/x-tex">\\sqrt x</annotation></semantics></math>'
+      expect(Sanitize.fragment(mathml, subject)).to eq '$\sqrt x$'
+    end
+  end
+
   describe '::MASTODON_OUTGOING' do
     subject { described_class::MASTODON_OUTGOING }
 

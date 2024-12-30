@@ -26,6 +26,7 @@ jobs:
       - name: crowdin action
         uses: crowdin/github-action@v2
         with:
+          config: crowdin-glitch.yml
           upload_sources: false
           upload_translations: false
           download_translations: true
@@ -46,7 +47,7 @@ jobs:
         uses: ./.github/actions/setup-ruby
 
       - name: Run i18n normalize task
-        run: bundle exec i18n-tasks normalize
+        run: bin/i18n-tasks normalize
 
       # Create or update the pull request
       - name: Create Pull Request
