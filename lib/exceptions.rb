@@ -9,7 +9,6 @@ module Mastodon
   class DimensionsValidationError < ValidationError; end
   class StreamValidationError < ValidationError; end
   class RejectPayloadError < ValidationError; end
-  class FilterValidationError < ValidationError; end
   class RaceConditionError < Error; end
   class RateLimitExceededError < Error; end
   class SyntaxError < Error; end

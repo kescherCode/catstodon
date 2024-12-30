@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
   helper_method :use_seamless_external_login?
   helper_method :sso_account_settings
   helper_method :limited_federation_mode?
-  helper_method :body_class_string
   helper_method :skip_csrf_meta_tags?
 
   rescue_from ActionController::ParameterMissing, Paperclip::AdapterRegistry::NoHandlerError, with: :bad_request
@@ -153,10 +152,6 @@ class ApplicationController < ActionController::Base
     return @current_session if defined?(@current_session)
 
     @current_session = SessionActivation.find_by(session_id: cookies.signed['_session_id']) if cookies.signed['_session_id'].present?
-  end
-
-  def body_class_string
-    @body_classes || ''
   end
 
   def respond_with_error(code)

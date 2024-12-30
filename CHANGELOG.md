@@ -8,7 +8,29 @@ All release dates, as well as most other dates, are intended to be read as "with
 
 - Upstream changes
 
-## [v4.3.0+cat.1.0.1]
+## [v4.3.2+cat+1.0.0] - 2024-12-30
+
+- Upstream changes, see [GitHub Release](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.2)
+  or [CHANGELOG_glitch.md](CHANGELOG_glitch.md)
+- Cherry-picked emoji reactions patch changes
+
+## [v4.3.1+cat.1.0.2] - 2024-11-17
+
+- Bump Ruby version to 3.3.6
+
+## [v4.3.1+cat.1.0.1] - 2024-11-08
+
+- Fix invisible reactions on detailed statuses when logged out (by Essem)
+
+## [v4.3.1+cat.1.0.0] - 2024-11-01
+
+- Upstream changes (see [upstream release](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.1)).
+
+## [v4.3.0+cat.1.0.2] - 2024-10-12
+
+- Upstream changes
+
+## [v4.3.0+cat.1.0.1] - 2024-10-10
 
 - Upstream changes
 - First stable Catstodon release, similar to [glitch-soc](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.0).
