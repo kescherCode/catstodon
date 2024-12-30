@@ -8,6 +8,7 @@ All release dates, as well as most other dates, are intended to be read as "with
 
 - Upstream changes, see [GitHub Release](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.2)
   or [CHANGELOG_glitch.md](CHANGELOG_glitch.md)
+- Cherry-picked emoji reactions patch changes
 
 ## [v4.3.1+cat.1.0.2] - 2024-11-17
 
