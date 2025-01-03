@@ -14,7 +14,7 @@ import { fetchList } from 'flavours/glitch/actions/lists';
 import { createList, updateList } from 'flavours/glitch/actions/lists_typed';
 import { apiGetAccounts } from 'flavours/glitch/api/lists';
 import type { RepliesPolicyType } from 'flavours/glitch/api_types/lists';
-import Column from 'flavours/glitch/components/column';
+import { Column } from 'flavours/glitch/components/column';
 import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import { LoadingIndicator } from 'flavours/glitch/components/loading_indicator';
 import { useAppDispatch, useAppSelector } from 'flavours/glitch/store';

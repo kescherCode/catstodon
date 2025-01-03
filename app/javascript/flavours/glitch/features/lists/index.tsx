@@ -11,7 +11,7 @@ import MoreHorizIcon from '@/material-icons/400-24px/more_horiz.svg?react';
 import SquigglyArrow from '@/svg-icons/squiggly_arrow.svg?react';
 import { fetchLists } from 'flavours/glitch/actions/lists';
 import { openModal } from 'flavours/glitch/actions/modal';
-import Column from 'flavours/glitch/components/column';
+import { Column } from 'flavours/glitch/components/column';
 import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import { Icon } from 'flavours/glitch/components/icon';
 import ScrollableList from 'flavours/glitch/components/scrollable_list';
