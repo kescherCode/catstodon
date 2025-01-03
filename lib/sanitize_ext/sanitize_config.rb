@@ -126,7 +126,7 @@ class Sanitize
 
       add_attributes: {
         'a' => {
-          'rel' => 'nofollow noopener noreferrer',
+          'rel' => 'nofollow noopener',
           'target' => '_blank',
         },
       },
@@ -173,7 +173,7 @@ class Sanitize
       node = env[:node]
 
       rel = (node['rel'] || '').split & ['tag']
-      rel += %w(nofollow noopener noreferrer) unless TagManager.instance.local_url?(node['href'])
+      rel += %w(nofollow noopener) unless TagManager.instance.local_url?(node['href'])
 
       if rel.empty?
         node.remove_attribute('rel')

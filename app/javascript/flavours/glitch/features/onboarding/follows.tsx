@@ -14,11 +14,11 @@ import { fetchSuggestions } from 'flavours/glitch/actions/suggestions';
 import { markAsPartial } from 'flavours/glitch/actions/timelines';
 import { apiRequest } from 'flavours/glitch/api';
 import type { ApiAccountJSON } from 'flavours/glitch/api_types/accounts';
-import Column from 'flavours/glitch/components/column';
+import { Account } from 'flavours/glitch/components/account';
+import { Column } from 'flavours/glitch/components/column';
 import { ColumnHeader } from 'flavours/glitch/components/column_header';
 import { ColumnSearchHeader } from 'flavours/glitch/components/column_search_header';
 import ScrollableList from 'flavours/glitch/components/scrollable_list';
-import Account from 'flavours/glitch/containers/account_container';
 import { useAppSelector, useAppDispatch } from 'flavours/glitch/store';
 
 const messages = defineMessages({
@@ -170,12 +170,7 @@ export const Follows: React.FC<{
         }
       >
         {displayedAccountIds.map((accountId) => (
-          <Account
-            /* @ts-expect-error inferred props are wrong */
-            id={accountId}
-            key={accountId}
-            withBio={false}
-          />
+          <Account id={accountId} key={accountId} withBio />
         ))}
       </ScrollableList>
 
