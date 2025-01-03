@@ -7,6 +7,7 @@ All release dates, as well as most other dates, are intended to be read as "with
 ## [Unreleased] - UNRELEASED
 
 - Upstream changes
+- Emoji reaction patch changes
 
 ## [v4.3.2+cat.1.0.0] - 2024-12-30
 
