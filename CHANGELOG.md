@@ -13,6 +13,7 @@ All release dates, as well as most other dates, are intended to be read as "with
 
 - The character counter is now always below the text field, not somewhere among the action buttons
 - The standalone share page now has the correct amount of remaining characters. Previously, it would assume a maximum character count of 500.
+- Emoji reaction patch changes (removal of old, obsolete migration)
 
 ## [v4.3.2+cat.1.0.0] - 2024-12-30
 
