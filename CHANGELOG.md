@@ -4,6 +4,11 @@ All changes to Catstodon that aren't Mastodon or glitch-soc Mastodon changes wil
 
 All release dates, as well as most other dates, are intended to be read as "within the day, in UTC time."
 
+## [v4.3.2+cat.1.0.1] - 2025-01-04
+
+- The character counter is now always below the text field, not somewhere among the action buttons
+- The standalone share page now has the correct amount of remaining characters. Previously, it would assume a maximum character count of 500.
+
 ## [v4.3.2+cat.1.0.0] - 2024-12-30
 
 - Upstream changes, see [GitHub Release](https://github.com/glitch-soc/mastodon/releases/tag/v4.3.2)
