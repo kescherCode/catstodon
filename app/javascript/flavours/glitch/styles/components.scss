@@ -560,6 +560,10 @@ body > [data-popper-placement] {
       transition: none;
       border-color: $ui-highlight-color;
     }
+
+    .character-counter {
+      margin-inline-end: 0.5rem;
+    }
   }
 
   &__warning {

@@ -49,13 +49,14 @@ For production, it is suggested you run:
   - Useful for situations where the instance may not have up-to-date IP information, such as when the period of IP
     address retention is set to a low value (see _Previous differences now merged into vanilla Mastodon_)
 - Environment variable `MASTODON_USE_LIBVIPS` is true by default.
-  - This is a minor change, but it _requires_ all systems running Catstodon to run a recent libvips version (8.13+).
+  - This is a minor change, but it _requires_ all systems running Catstodon to run a recent libvips version (8.13+), except if this variable is explicitly set to false.
   - Vanilla Mastodon intends to deprecate ImageMagick anyway, so sooner or later, this change will cease being one.
 - Allow dashes in emoji shortcodes
   - This is simply to allow custom emoji compat with other fedi software.
   - Original patch by hazycora: https://github.com/TheEssem/mastodon/commit/2dde7a25a47a23f827e2fd2d07f55438f9985181
-- Allow appending "?unrestricted_preview=true" to post links to bypass CWs and sensitive-markings of media for link
+- Allow appending `?unrestricted_preview=true` to post links to bypass CWs and sensitive-markings of media for link
   previews.
+- In the compose form, the character counter is now always below the text field.
 
 ## Contributions to glitch-soc Mastodon
 
