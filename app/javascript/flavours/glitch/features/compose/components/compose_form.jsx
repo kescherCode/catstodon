@@ -304,6 +304,7 @@ class ComposeForm extends ImmutablePureComponent {
               lang={this.props.lang}
             />
           </div>
+          <CharacterCounter max={maxChars} text={this.getFulltextForCharacterCounting()} />
 
           <UploadForm />
           <PollForm />
@@ -323,7 +324,6 @@ class ComposeForm extends ImmutablePureComponent {
                 <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
                 <FederationButton />
                 <ThreadModeButton />
-                <CharacterCounter max={maxChars} text={this.getFulltextForCharacterCounting()} />
               </div>
 
               <div className='compose-form__submit'>
