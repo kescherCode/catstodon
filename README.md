@@ -61,6 +61,8 @@ For production, it is suggested you run:
 
 - Fixed incorrect upload size limit display when adding new a new custom
   emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763))
+- Standalone share page: Dispatch fetchServer for maxChars. Fixes the bug where the standalone share page did not
+  display the correct maximum character amount. ([Pull request](https://github.com/glitch-soc/mastodon/pull/2929))
 - Everything merged into vanilla Mastodon
 
 ## Contributions to Vanilla Mastodon
