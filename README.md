@@ -49,7 +49,8 @@ For production, it is suggested you run:
   - Useful for situations where the instance may not have up-to-date IP information, such as when the period of IP
     address retention is set to a low value (see _Previous differences now merged into vanilla Mastodon_)
 - Environment variable `MASTODON_USE_LIBVIPS` is true by default.
-  - This is a minor change, but it _requires_ all systems running Catstodon to run a recent libvips version (8.13+), except if this variable is explicitly set to false.
+  - This is a minor change, but it _requires_ all systems running Catstodon to run a recent libvips version (8.13+),
+    except if this variable is explicitly set to false.
   - Vanilla Mastodon intends to deprecate ImageMagick anyway, so sooner or later, this change will cease being one.
 - Allow dashes in emoji shortcodes
   - This is simply to allow custom emoji compat with other fedi software.
@@ -62,6 +63,8 @@ For production, it is suggested you run:
 
 - Fixed incorrect upload size limit display when adding new a new custom
   emoji. ([Pull request](https://github.com/glitch-soc/mastodon/pull/1763))
+- Standalone share page: Dispatch fetchServer for maxChars. Fixes the bug where the standalone share page did not
+  display the correct maximum character amount. ([Pull request](https://github.com/glitch-soc/mastodon/pull/2929))
 - Everything merged into vanilla Mastodon
 
 ## Contributions to Vanilla Mastodon
